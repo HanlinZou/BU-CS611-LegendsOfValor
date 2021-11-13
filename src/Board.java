@@ -10,36 +10,38 @@ public class Board {
     /**
      * No-arg constructor
      */
-    Board(){
+    Board() {
         board = null;
         size = 0;
     }
 
     /**
      * Constructor of Board
+     *
      * @param size size of the board
      */
-    Board(int size){
+    Board(int size) {
         this.size = size;
         board = new Cell[this.size][this.size];
     }
 
     /**
      * Get the Cell object at specified location
+     *
      * @param x one of the coordinates
      * @param y one of the coordinates
      * @return The Cell object at specified location
      */
-    public Cell getCell(int x, int y){
+    public Cell getCell(int x, int y) {
         return board[x][y];
     }
 
     /**
      * Display the board
      */
-    public void displayBoard(){
-        for(int i = 0; i < size; i++){
-            for(int j = 0; j < size; j++){
+    public void displayBoard() {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
                 System.out.printf("[%s]", board[i][j]);
             }
             System.out.print("\n");
@@ -49,9 +51,9 @@ public class Board {
     /**
      * Set an empty board
      */
-    public void setBoard(){
-        for(int i = 0; i < size; i++){
-            for(int j = 0; j < size; j++){
+    public void setBoard() {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
                 this.board[i][j] = new Cell();
                 this.board[i][j].setMark(" ");
             }

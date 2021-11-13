@@ -2,7 +2,7 @@
  * Monster class maintains information about the contents of a Monster.
  * Monster class has a more specified schema extended from Character object.
  */
-public class Monster extends Character{
+public class Monster extends Character {
     public static String ANSI_RESET = "\u001b[0m";
     public static String ANSI_INFO = "\u001b[38;5;127m";
 
@@ -13,18 +13,20 @@ public class Monster extends Character{
     /**
      * No-arg constructor
      */
-    Monster(){}
+    Monster() {
+    }
 
     /**
      * Constructor of Monster object
-     * @param name name of the monster
-     * @param LV level of the monster
-     * @param HP health of the monster
-     * @param damage damage from the monster
+     *
+     * @param name    name of the monster
+     * @param LV      level of the monster
+     * @param HP      health of the monster
+     * @param damage  damage from the monster
      * @param defense defense of the monster
-     * @param dodge dodge of the monster
+     * @param dodge   dodge of the monster
      */
-    Monster(String name, int LV, int HP, int damage, int defense, int dodge){
+    Monster(String name, int LV, int HP, int damage, int defense, int dodge) {
         setName(name);
         setLevel(LV);
         setHP();
@@ -34,34 +36,34 @@ public class Monster extends Character{
         setDodge(dodge);
     }
 
-    public void setDamage(int damage){
+    public void setDamage(int damage) {
         this.damage = damage;
     }
 
-    public void setDefense(int defense){
+    public void setDefense(int defense) {
         this.defense = defense;
     }
 
-    public void setDodge(int dodge){
+    public void setDodge(int dodge) {
         this.dodge = dodge;
     }
 
-    public int getDamage(){
+    public int getDamage() {
         return damage;
     }
 
-    public int getDefense(){
+    public int getDefense() {
         return defense;
     }
 
-    public int getDodge(){
+    public int getDodge() {
         return dodge;
     }
 
     /**
      * Display all monsters' info when in fight
      */
-    public void displayInfo(){
+    public void displayInfo() {
         System.out.println(ANSI_INFO + "Name: " + name);
         System.out.println("Level: " + level);
         System.out.println("HP: " + currentHP + "/" + HP);
@@ -70,13 +72,13 @@ public class Monster extends Character{
     }
 
     @Override
-    public int attackDamage(){
-        return (int)(damage * 0.25);
+    public int attackDamage() {
+        return (int) (damage * 0.25);
     }
 
     @Override
-    public int calDefense(){
-        return (int)(defense * 0.01);
+    public int calDefense() {
+        return (int) (defense * 0.01);
     }
 
     @Override

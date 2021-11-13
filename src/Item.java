@@ -11,33 +11,33 @@ public class Item {
     /**
      * No-arg Constructor
      */
-    Item(){
+    Item() {
         name = "";
         cost = 0;
         minLv = 0;
     }
 
-    public void setName(String name){
+    public void setName(String name) {
         this.name = name;
     }
 
-    public void setCost(int cost){
+    public void setCost(int cost) {
         this.cost = cost;
     }
 
-    public void setMinLv(int minLv){
-        this.minLv =  minLv;
+    public void setMinLv(int minLv) {
+        this.minLv = minLv;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public int getCost(){
+    public int getCost() {
         return cost;
     }
 
-    public int getMinLv(){
+    public int getMinLv() {
         return minLv;
     }
 }

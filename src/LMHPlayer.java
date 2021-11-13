@@ -1,20 +1,22 @@
 import java.util.ArrayList;
+
 /**
  * LMHPlayer class maintains information about the contents of a Player class in LMH games.
  * LMHPlayer class has a more specified schema extended from Player object.
  */
-public class LMHPlayer extends Player{
+public class LMHPlayer extends Player {
     public static String ANSI_RESET = "\u001b[0m";
     public static String ANSI_INFO = "\u001b[38;5;106m";
 
-    //one player has at most three heroes
+    // one player has at most three heroes
     public ArrayList<Hero> heroArrayList = new ArrayList<>(3);
 
     /**
      * Multiple players constructor
+     *
      * @param pName player's name
      * @param tName team name
-     * @param tId team id
+     * @param tId   team id
      */
     LMHPlayer(String pName, String tName, int tId) {
         super(pName, tName, tId);
@@ -22,6 +24,7 @@ public class LMHPlayer extends Player{
 
     /**
      * single player constructor
+     *
      * @param pName single player's name
      */
     LMHPlayer(String pName) {
@@ -38,8 +41,8 @@ public class LMHPlayer extends Player{
     /**
      * Display all heroes' info when not in fight
      */
-    public void displayInfoInFight(){
-        for(int i = 0; i < heroArrayList.size(); i++) {
+    public void displayInfoInFight() {
+        for (int i = 0; i < heroArrayList.size(); i++) {
             System.out.println(ANSI_INFO + "Hero " + (i + 1));
             System.out.println("Name: " + heroArrayList.get(i).getName());
             System.out.println("Level: " + heroArrayList.get(i).getLevel());
@@ -53,9 +56,9 @@ public class LMHPlayer extends Player{
     /**
      * Display all heroes' info when in fight
      */
-    public void displayInfoNotInFight(){
-        for(int i = 0; i < heroArrayList.size(); i++){
-            System.out.println(ANSI_INFO + "Hero " + (i+1));
+    public void displayInfoNotInFight() {
+        for (int i = 0; i < heroArrayList.size(); i++) {
+            System.out.println(ANSI_INFO + "Hero " + (i + 1));
             System.out.println("Name: " + heroArrayList.get(i).getName());
             System.out.println("Level: " + heroArrayList.get(i).getLevel());
             System.out.println("HP: " + heroArrayList.get(i).getCurrentHP() + "/" + heroArrayList.get(i).getHP());

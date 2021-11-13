@@ -5,7 +5,7 @@
  * 		functional.
  */
 
-public class Player implements Player_Interface{
+public class Player implements Player_Interface {
     protected String playerName;
     protected int teamId;
     protected String teamName;
@@ -46,10 +46,9 @@ public class Player implements Player_Interface{
 
     public String toString() {
         String res = "\nPlayer Name: " + playerName;
-        if(teamId != 0) {
+        if (teamId != 0) {
             res += "\nPlayer's Team: " + teamName + "\nTeam ID: " + teamId;
         }
         return res;
     }
-
 }

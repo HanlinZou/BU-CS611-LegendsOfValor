@@ -1,9 +1,10 @@
 import java.util.Random;
+
 /**
  * LMHBoard class maintains information about the contents of a Board class in LMH games.
  * LMHBoard class has a more specified schema extended from Board object.
  */
-public class LMHBoard extends Board{
+public class LMHBoard extends Board {
     public static String ANSI_RESET = "\u001b[0m";
     public static String ANSI_BUSH = "\u001b[38;5;77m";
     public static String ANSI_HERO = "\u001b[38;5;87m";
@@ -14,24 +15,25 @@ public class LMHBoard extends Board{
     /**
      * No-arg constructor
      */
-    LMHBoard(){
+    LMHBoard() {
         super();
     }
 
     /**
      * Constructor of a Board with specified size
+     *
      * @param size size of the board
      */
-    LMHBoard(int size){
+    LMHBoard(int size) {
         super(size);
     }
 
     @Override
-    public void displayBoard(){
+    public void displayBoard() {
         System.out.println(ANSI_PROMPT + "H: You\n.: Bush(might be dangerous)\nM: Market\nX: Inaccessible");
-        for(int i = 0; i < size; i++){
-            for(int j = 0; j < size; j++){
-                switch (board[i][j].toString()){
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                switch (board[i][j].toString()) {
                     case "H":
                         System.out.printf(ANSI_HERO + "[%s]" + ANSI_RESET, board[i][j]);
                         break;
@@ -53,23 +55,23 @@ public class LMHBoard extends Board{
     }
 
     @Override
-    public void setBoard(){
+    public void setBoard() {
         Random random = new Random();
         int category;
-        for(int i = 0; i < this.size; i++){
-            for(int j = 0; j < this.size; j++){
+        for (int i = 0; i < this.size; i++) {
+            for (int j = 0; j < this.size; j++) {
                 this.board[i][j] = new Cell();
                 category = random.nextInt(10);
-                if(category < 2)
+                if (category < 2)
                     this.board[i][j].setMark("X");
-                else if(category < 5)
+                else if (category < 5)
                     this.board[i][j].setMark("M");
                 else
                     this.board[i][j].setMark(".");
             }
         }
-        //To avoid the case that player get stuck by two "X" at the beginning
-        //We set first two cells be bushes and third one to be market
+        // To avoid the case that player get stuck by two "X" at the beginning
+        // We set first two cells be bushes and third one to be market
         this.board[0][0].setMark(".");
         this.board[0][0].setHeroOn(true);
         this.board[0][1].setMark(".");
