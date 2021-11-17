@@ -71,12 +71,15 @@ public class LMH_Logic {
         this.player = new LMHPlayer(pName);
         this.chl = new CharacterLibrary();
         this.market = new Market();
-        this.board = new LMHBoard(8);
+        this.board = new LMHBoard();
         this.board.setBoard();
 
         // create heroes
         HeroCreation hc = new HeroCreation();
         hc.prep(player);
+
+        // init hero positions on map
+        for (Hero h : player.heroArrayList) this.board.getCell(h.getX(), h.getY()).setMark(String.valueOf(h.getID()));
 
         // after all components are ready, start the game.
         start();
@@ -89,76 +92,31 @@ public class LMH_Logic {
      * wants to leave
      */
     public void start() {
-        Scanner sc = new Scanner(System.in);
-        String playerChoice;
+        boolean isQuit = false;
 
         do {
-            board.displayBoard();
-            playerChoice = sc.next();
-
-            // whether player wants to move
-            if (playerChoice.equalsIgnoreCase("W") || playerChoice.equalsIgnoreCase("S") ||
-            playerChoice.equalsIgnoreCase("A") || playerChoice.equalsIgnoreCase("D"))
-                playerMove(playerChoice);
-            // or wants to see information and inventory
-            else if (playerChoice.equalsIgnoreCase("I")) {
-                player.displayInfoNotInFight();
-                System.out.print(Color.YELLOW + "Do you want to switch your weapon/armor, " +
-                        "use potions, or learn a spell? Input \"Y\" to operate: ");
-                String ans = sc.next();
-                if (ans.equalsIgnoreCase("Y")) {
-                    for (int i = 0; i < player.heroArrayList.size(); i++)
-                        player.heroArrayList.get(i).itemOp(false);
-                }
+            for (int i = 0; i < player.heroArrayList.size(); i++) {
+                Hero hero = player.heroArrayList.get(i);
+                String heroAction = hero.takeAction(board);
+                if (heroAction.equalsIgnoreCase("Q")) isQuit = true;
+                else if (!heroAction.equalsIgnoreCase("I")) playerMove(hero, heroAction);
             }
-        } while(!playerChoice.equalsIgnoreCase("Q"));
+        } while(!isQuit);
+
         System.out.println(Color.RESET + "Goodbye. " + player.getPlayerName());
     }
 
     /**
-     * This function let player move to a certain direction based on player's input
-     * @param direction W: UP  S: DOWN  A: LEFT  D: RIGHT
+     * This function let player handle event after moving to a certain direction.
+     *
+     * @param hero The hero who will hanle an event.
      */
-    public void playerMove(String direction) {
-        if (direction.equalsIgnoreCase("W")) {
-            //if player isn't at the edge of the map AND the cell is accessible
-            if (location[0] != 0 && !board.getCell(location[0] - 1, location[1]).getMark().equals("X")) {
-                //we left the current cell, and move to the desired cell
-                board.getCell(location[0], location[1]).setHeroOn(false);
-                location[0]--;
-                board.getCell(location[0], location[1]).setHeroOn(true);
-            }
-        }
-        else if (direction.equalsIgnoreCase("S")) {
-            if (location[0] != board.size - 1 && !board.getCell(location[0] + 1, location[1]).getMark().equals("X")) {
-                board.getCell(location[0], location[1]).setHeroOn(false);
-                location[0]++;
-                board.getCell(location[0], location[1]).setHeroOn(true);
-            }
-        }
-        else if (direction.equalsIgnoreCase("A")) {
-            if (location[1] != 0 && !board.getCell(location[0], location[1] - 1).getMark().equals("X")) {
-                board.getCell(location[0], location[1]).setHeroOn(false);
-                location[1]--;
-                board.getCell(location[0], location[1]).setHeroOn(true);
-            }
-        }
-        else if (direction.equalsIgnoreCase("D")) {
-            if (location[1] != board.size - 1 &&
-                    !board.getCell(location[0], location[1] + 1).getMark().equals("X")) {
-                board.getCell(location[0], location[1]).setHeroOn(false);
-                location[1]++;
-                board.getCell(location[0], location[1]).setHeroOn(true);
-            }
-        }
-
-        // No matter if player successfully move or stayed
-        // player still might encounter monsters if that cell is not market
-        if (board.getCell(location[0], location[1]).getMark().equals(".")) {
+    public void playerMove(Hero hero, String fromMark) {
+        // player encounter monsters if that cell is not market
+        if (fromMark.equals(".")) {
             double luck = Math.random();
             // in this game, player has 30% chance encounter monsters
-            if(luck < 0.3)
-                fight();
+            if (luck < 0.3) fight();
         }
         // or player will be asked whether he/she goes shopping
         else {
@@ -167,27 +125,12 @@ public class LMH_Logic {
             System.out.print(Color.YELLOW + "You've arrived a market, input \"Y\" to buy/sell: ");
             decision = sc.next();
 
-            if(decision.equalsIgnoreCase("Y")) {
-                boolean leave = false;
-                while (!leave){
-                    System.out.println(Color.YELLOW + "Which hero you want to operate, any other keys to leave:");
+            if (decision.equalsIgnoreCase("Y")) {
+                // display the hero's name, level, and money
+                hero.displayInfoInMarket();
 
-                    // display all heroes' names, levels, and money
-                    player.displayInfoInMarket();
-
-                    String heroNo = sc.next();
-
-                    // if input is invalid, leave the store
-                    if(!heroNo.matches("[0-9]*") || Integer.parseInt(heroNo) < 1 ||
-                            Integer.parseInt(heroNo) > player.heroArrayList.size())
-                        break;
-                    market.shopping(player.heroArrayList.get(Integer.parseInt(heroNo) - 1));
-                    // make sure player wants to leave
-                    System.out.print(Color.YELLOW + "Are you done shopping? 'N' = stay, any other keys = leave ");
-                    decision = sc.next();
-                    if(!decision.equalsIgnoreCase("N"))
-                        leave = true;
-                }
+                // shopping!
+                market.shopping(hero);
             }
         }
     }
@@ -273,7 +216,7 @@ public class LMH_Logic {
             }
         }
 
-        //fight begins here
+        // fight begins here
         int aliveHero = player.heroArrayList.size();
         int round = 0;
         int targetNo;
@@ -346,7 +289,7 @@ public class LMH_Logic {
                     }
                 }
             }
-            //monsters' turn
+            // monsters' turn
             else {
                 for (int i = 0; i < monsterArrayList.size(); i++) {
                     targetNo = i;
@@ -374,16 +317,16 @@ public class LMH_Logic {
         }
 
         // all heroes died
-        if(aliveHero == 0){
+        if(aliveHero == 0) {
             System.out.println(Color.RED + "You lost the fight, all heroes lost half their money.");
             for(int i = 0; i < player.heroArrayList.size(); i++)
                 player.heroArrayList.get(i).lose();
         }
         // heroes win
-        else{
-            for(int i = 0; i < player.heroArrayList.size(); i++){
+        else {
+            for(int i = 0; i < player.heroArrayList.size(); i++) {
                 //reward each hero based on if it's alive
-                if(player.heroArrayList.get(i).currentHP > 0){
+                if(player.heroArrayList.get(i).currentHP > 0) {
                     System.out.println(Color.GREEN + player.heroArrayList.get(i).getName() +
                             ", your survival will be rewarded!");
                     player.heroArrayList.get(i).win();
@@ -392,7 +335,7 @@ public class LMH_Logic {
                     if(player.heroArrayList.get(i).getCurrentXP() >= player.heroArrayList.get(i).getXP())
                         player.heroArrayList.get(i).LVUP();
                 }
-                else{
+                else {
                     System.out.println(Color.GREEN + player.heroArrayList.get(i).getName() +
                             ", you're revived by your friends");
                     player.heroArrayList.get(i).revive();
@@ -453,11 +396,11 @@ public class LMH_Logic {
                 //inventory operation so -3
                 itemNo -= 3;
                 // equip weapon/armor
-                if(player.heroArrayList.get(heroNo).getStorage().get(itemNo) instanceof Weapon ||
+                if (player.heroArrayList.get(heroNo).getStorage().get(itemNo) instanceof Weapon ||
                         player.heroArrayList.get(heroNo).getStorage().get(itemNo) instanceof Armor)
                     player.heroArrayList.get(heroNo).takeOn(itemNo);
                 // drink potion
-                else if(player.heroArrayList.get(heroNo).getStorage().get(itemNo) instanceof Potion) {
+                else if (player.heroArrayList.get(heroNo).getStorage().get(itemNo) instanceof Potion) {
                     player.heroArrayList.get(heroNo).drinkPotion(
                             (Potion) player.heroArrayList.get(heroNo).getStorage().get(itemNo));
                     player.heroArrayList.get(heroNo).getStorage().remove(itemNo);

@@ -3,7 +3,7 @@
  * purpose. Convenient to build features such as playerId, teams, etc.
  */
 
-public interface Player_Interface {
+public interface PlayerInterface {
 
     void setPlayerName(String name);
 

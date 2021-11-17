@@ -178,6 +178,100 @@ public abstract class Hero extends Character {
     }
 
     /**
+     * Get the input action for this hero.
+     *
+     * @param board A game map, for checking if the move is valid.
+     */
+    private String enterAction(LMHBoard board) {
+        Scanner sc = new Scanner(System.in);
+        String action;
+
+        board.displayBoard();
+        System.out.print(Color.YELLOW + "Enter " + "No." + ID + " Hero's move: " + Color.RESET);
+
+        while (true) {
+            action = sc.next();
+
+            if (
+                !action.equalsIgnoreCase("W") && !action.equalsIgnoreCase("A") &&
+                !action.equalsIgnoreCase("S") && !action.equalsIgnoreCase("D") &&
+                !action.equalsIgnoreCase("Q") && !action.equalsIgnoreCase("I")
+            ) {
+                System.out.print(Color.RED + "Invalid move, please re-inter it: " + Color.RESET);
+                continue;
+            }
+
+            else if (
+                (action.equalsIgnoreCase("A") && (y - 1 < 0)) ||
+                (action.equalsIgnoreCase("D") && (y + 1 >= board.size)) ||
+                (action.equalsIgnoreCase("W") && (x - 1 < 0)) ||
+                (action.equalsIgnoreCase("S") && (x + 1 >= board.size))
+            ) {
+                // Go outside the map
+                System.out.print(Color.RED + "You can't go outside the map, please re-inter your move: " + Color.RESET);
+                continue;
+            }
+
+            else if (
+                (action.equalsIgnoreCase("A") && board.getCell(x, y - 1).getMark().equals("X")) ||
+                (action.equalsIgnoreCase("D") && board.getCell(x, y + 1).getMark().equals("X")) ||
+                (action.equalsIgnoreCase("W") && board.getCell(x - 1, y).getMark().equals("X")) ||
+                (action.equalsIgnoreCase("S") && board.getCell(x + 1, y).getMark().equals("X"))
+            ) {
+                // Move to Inaccessible Cell
+                System.out.print(Color.RED + "The cell is inaccessable, please re-inter your move: " + Color.RESET);
+            }
+
+            else return action;
+        }
+    }
+
+    /**
+     * The hero takes an action.
+     *
+     * @param board A game map, for checking if the move is valid.
+     */
+    public String takeAction(LMHBoard board) {
+        Scanner sc = new Scanner(System.in);
+        String action = enterAction(board);
+
+        if (
+            action.equalsIgnoreCase("W") || action.equalsIgnoreCase("A") ||
+            action.equalsIgnoreCase("S") || action.equalsIgnoreCase("D")
+        ) {
+            return move(action, board);
+        } else {
+            displayInfoNotInFight();
+            System.out.print(Color.YELLOW + "Do you want to switch your weapon/armor, " +
+                        "use potions, or learn a spell? Input \"Y\" to operate: ");
+            String ans = sc.next();
+            if (ans.equalsIgnoreCase("Y")) itemOp(false);
+
+            return action;
+        }
+    }
+
+    /**
+     * The hero moves on the map.
+     *
+     * @param direction Move direction
+     */
+    public String move(String direction, LMHBoard board) {
+        board.getCell(x, y).setMark(".");
+
+        if (direction.equalsIgnoreCase("A")) y--;
+        else if (direction.equalsIgnoreCase("D")) y++;
+        else if (direction.equalsIgnoreCase("W")) x--;
+        else if (direction.equalsIgnoreCase("S")) x++;
+
+        String fromMark = board.getCell(x, y).getMark().toString();
+        board.getCell(x, y).setMark(String.valueOf(ID));
+
+        // TO DO: maybe we'll handle events here?
+        return fromMark;
+    }
+
+    /**
      * Calculate a hero's regular attack damage
      *
      * @return damage a hero's regular attack makes
@@ -518,6 +612,53 @@ public abstract class Hero extends Character {
             } else
                 done = true;
         }
+    }
+
+    /**
+     * Display the hero's info when in fight
+     */
+    public void displayInfoNotInFight() {
+        String border =
+            Color.ORANGE +
+            "----------------------------------------------------------------------------------------------------------------" +
+            Color.RESET + "\n";
+
+        String title =
+            "Name                       Type        Level    HP      MP      Strength    Dexterity    Agility    Money    Exp";
+
+        System.out.print(border);
+        System.out.println(title);
+        System.out.print(border);
+
+        System.out.printf(
+            "%-26s %-11s %-8d %-7d %-9d %-12d %-11d %-8d %-8d %-5d",
+            name, type, level, HP, MP, strength, dexterity, agility , money, XP
+        );
+        System.out.println();
+
+        System.out.println(border);
+    }
+
+    /**
+     * Display the hero's info when in market
+     */
+    public void displayInfoInMarket() {
+        String border =
+            Color.ORANGE +
+            "-----------------------------------------------------" +
+            Color.RESET + "\n";
+
+        String title =
+            "Name                       Type        Level    Money";
+
+        System.out.print(border);
+        System.out.println(title);
+        System.out.print(border);
+
+        System.out.printf("%-26s %-11s %-8d %-8d", name, type, level, money);
+        System.out.println();
+
+        System.out.println(border);
     }
 
     @Override

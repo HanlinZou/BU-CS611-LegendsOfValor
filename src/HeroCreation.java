@@ -12,7 +12,7 @@ public class HeroCreation {
 
         for (int i = 1; i <= numHeros; i++) {
             // prompt user the position and specific hero to generate
-            System.out.println("Select your No." + Color.RED + i + Color.RESET + " hero:");
+            System.out.println(Color.YELLOW + "Select your No." + i + " hero:" + Color.RESET);
             System.out.println(Color.GREEN + "1. Warriors  2. Sorcerers  3. Paladins" + Color.RESET);
             System.out.print(Color.YELLOW + "What position will your No." + i + " hero to be: " + Color.RESET);
             String posChoice = sc.next();
@@ -23,7 +23,7 @@ public class HeroCreation {
             }
 
             int heroChoice = heroSelection(posChoice);
-            createHero(player, Integer.parseInt(posChoice), heroChoice - 1);
+            createHero(i, player, Integer.parseInt(posChoice), heroChoice - 1);
         }
     }
 
@@ -83,21 +83,32 @@ public class HeroCreation {
      * In this function, we generate the required hero and add it to player's hero
      * list after we acquired player's requirements
      *
+     * @param id     id for indentifying the hero
      * @param player player
      * @param pos    position of heroes
      * @param rank   the index in that specified hero list
      */
-    public void createHero(LMHPlayer player, int pos, int rank) {
+    public void createHero(int id, LMHPlayer player, int pos, int rank) {
+        Hero hero;
+
         switch (pos) {
-            case (1):
-                player.heroArrayList.add(chl.warriorArrayList.get(rank));
+            case 1:
+                hero = chl.warriorArrayList.get(rank);
                 break;
-            case (2):
-                player.heroArrayList.add(chl.sorcererArrayList.get(rank));
+            case 2:
+                hero = chl.sorcererArrayList.get(rank);
                 break;
-            case (3):
-                player.heroArrayList.add(chl.paladinArrayList.get(rank));
+            default:  // 3
+                hero = chl.paladinArrayList.get(rank);
                 break;
-            }
+        }
+
+        hero.setID(id);
+
+        // -------- JUST FOR TEST --------
+        hero.setPos(id - 1, 0);
+        // -------- TEST CODE END --------
+
+        player.heroArrayList.add(hero);
     }
 }
