@@ -10,14 +10,14 @@ import java.util.ArrayList;
  * for all monsters that heroes might encounter.
  */
 public class CharacterLibrary {
-    public static String ANSI_RESET = "\u001b[0m";
-    public static String ANSI_INFO = "\u001b[38;5;136m";
-    public static String ANSI_ERROR = "\u001b[38;5;196m";
     final String filePath = System.getProperty("user.dir") + "/src/ConfigFiles/";
 
-    ArrayList<Warrior> warriorArrayList = new ArrayList<>();
-    ArrayList<Sorcerer> sorcererArrayList = new ArrayList<>();
-    ArrayList<Paladin> paladinArrayList = new ArrayList<>();
+    // Heros
+    ArrayList<Hero> warriorArrayList = new ArrayList<>();
+    ArrayList<Hero> sorcererArrayList = new ArrayList<>();
+    ArrayList<Hero> paladinArrayList = new ArrayList<>();
+
+    // Monsters
     ArrayList<Dragon> dragonArrayList = new ArrayList<>();
     ArrayList<Exoskeleton> exoArrayList = new ArrayList<>();
     ArrayList<Spirit> spiritArrayList = new ArrayList<>();
@@ -52,14 +52,18 @@ public class CharacterLibrary {
                 if (str.equals(""))
                     break;
                 String[] stat = str.split("\\s+");
-                warriorArrayList.add(new Warrior(stat[0], Integer.parseInt(stat[1]),
+                warriorArrayList.add(
+                    new Warrior(
+                        stat[0], Integer.parseInt(stat[1]),
                         Integer.parseInt(stat[2]), Integer.parseInt(stat[3]),
                         Integer.parseInt(stat[4]), Integer.parseInt(stat[5]),
-                        Integer.parseInt(stat[6])));
+                        Integer.parseInt(stat[6])
+                    )
+                );
             }
             br.close();
         } catch (IOException e) {
-            System.out.println(ANSI_ERROR + "Please enter the correct filepath");
+            System.out.println(Color.RED + "Please enter the correct filepath");
             e.printStackTrace();
         }
     }
@@ -83,7 +87,7 @@ public class CharacterLibrary {
             }
             br.close();
         } catch (IOException e) {
-            System.out.println(ANSI_ERROR + "Please enter the correct filepath");
+            System.out.println(Color.RED + "Please enter the correct filepath");
             e.printStackTrace();
         }
     }
@@ -107,7 +111,7 @@ public class CharacterLibrary {
             }
             br.close();
         } catch (IOException e) {
-            System.out.println(ANSI_ERROR + "Please enter the correct filepath");
+            System.out.println(Color.RED + "Please enter the correct filepath");
             e.printStackTrace();
         }
     }
@@ -151,35 +155,71 @@ public class CharacterLibrary {
             br2.close();
             br3.close();
         } catch (IOException e) {
-            System.out.println(ANSI_ERROR + "Please enter the correct filepath");
+            System.out.println(Color.RED + "Please enter the correct filepath");
             e.printStackTrace();
         }
+    }
+
+    /**
+     * display heros in the given list.
+     *
+     * @param list A list of heros.
+     */
+    private void displayHero(ArrayList<Hero> list) {
+        String border =
+            Color.PURPLE +
+            "-------------------------------------------------------------------------------------------" +
+            Color.RESET + "\n";
+
+        String title =
+            "Name                       HP    Level    Mana    Strength    Dexterity    Agility    Money";
+
+        System.out.print(border);
+        System.out.println(title);
+        System.out.print(border);
+
+        for (int i = 0; i < list.size(); i++) {
+            Hero hero = list.get(i);
+
+            String name = (i + 1) + ". " + hero.getName();
+            int level = hero.getLevel();
+            int money = hero.getMoney();
+
+            int hp = hero.getHP();
+            int mana = hero.getMP();
+
+            int strength = hero.getStrength();
+            int dexterity = hero.getDexterity();
+            int agility = hero.getAgility();
+
+            System.out.printf(
+                "%-25s %-8d %-6d %-9d %-12d %-11d %-8d %-8d",
+                name, hp, level, mana, strength, dexterity, agility, money
+            );
+            System.out.println();
+        }
+
+        System.out.println(border);
     }
 
     /**
      * display all warriors in hero selection process
      */
     public void displayWarrior() {
-        for (int i = 0; i < warriorArrayList.size(); i++) {
-            System.out.println(ANSI_INFO + (i + 1) + ". " + warriorArrayList.get(i) + ANSI_RESET);
-        }
+        displayHero(warriorArrayList);
     }
 
     /**
      * display all sorcerers in hero selection process
      */
     public void displaySorcerer() {
-        for (int i = 0; i < sorcererArrayList.size(); i++) {
-            System.out.println(ANSI_INFO + (i + 1) + ". " + sorcererArrayList.get(i) + ANSI_RESET);
-        }
+        displayHero(sorcererArrayList);
     }
 
     /**
      * display all paladins in hero selection process
      */
     public void displayPaladin() {
-        for (int i = 0; i < paladinArrayList.size(); i++) {
-            System.out.println(ANSI_INFO + (i + 1) + ". " + paladinArrayList.get(i) + ANSI_RESET);
-        }
+        displayHero(paladinArrayList);
     }
 }

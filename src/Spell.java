@@ -6,6 +6,7 @@
 public abstract class Spell extends Item {
     private int damage;
     private int manaCost;
+    private String type;
 
     /**
      * No-arg constructor
@@ -18,18 +19,24 @@ public abstract class Spell extends Item {
     /**
      * Constructor of Spell object
      *
+     * @param type     type of the spell
      * @param name     name of the spell
      * @param cost     money to purchase the spell
      * @param minLV    minimum level to purchase and learn the spell
      * @param damage   damage the spell can make
      * @param manaCost amount of mana the spell costs
      */
-    Spell(String name, int cost, int minLV, int damage, int manaCost) {
+    Spell(String type, String name, int cost, int minLV, int damage, int manaCost) {
+        setType(type);
         setName(name);
         setCost(cost);
         setMinLv(minLV);
         setDamage(damage);
         setManaCost(manaCost);
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public void setDamage(int damage) {
@@ -38,6 +45,10 @@ public abstract class Spell extends Item {
 
     public void setManaCost(int manaCost) {
         this.manaCost = manaCost;
+    }
+
+    public String getType() {
+        return type;
     }
 
     public int getDamage() {
@@ -53,5 +64,8 @@ public abstract class Spell extends Item {
     }
 
     @Override
-    public abstract String toString();
+    public String toString() {
+        return "Name: " + name + " Cost: " + cost + " Min LV: " + minLv + " Damage: " +
+                getDamage() + " Mana cost: " + getManaCost() + " Spell cate: " + getType();
+    }
 }

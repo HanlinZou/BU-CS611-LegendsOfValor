@@ -3,9 +3,6 @@
  * Monster class has a more specified schema extended from Character object.
  */
 public class Monster extends Character {
-    public static String ANSI_RESET = "\u001b[0m";
-    public static String ANSI_INFO = "\u001b[38;5;127m";
-
     private int damage;
     private int defense;
     private int dodge;
@@ -64,11 +61,11 @@ public class Monster extends Character {
      * Display all monsters' info when in fight
      */
     public void displayInfo() {
-        System.out.println(ANSI_INFO + "Name: " + name);
+        System.out.println(Color.PURPLE + "Name: " + name);
         System.out.println("Level: " + level);
         System.out.println("HP: " + currentHP + "/" + HP);
         System.out.println("Defense: " + defense);
-        System.out.println("Damage: " + damage + ANSI_RESET);
+        System.out.println("Damage: " + damage + Color.RESET);
     }
 
     @Override

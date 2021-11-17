@@ -4,9 +4,6 @@ import java.util.Scanner;
  * Game class is to initiate different kinds of sub-game class.
  */
 public class Game {
-    public static String ANSI_RESET = "\u001b[0m";
-    public static String ANSI_ERROR = "\u001b[38;5;196m";
-
     Game() {
     }
 
@@ -16,7 +13,7 @@ public class Game {
                 "What kind of game you want to play? (Pick 1 now that's all we got!) ");
         String gameChoice = sc.next();
         while (!gameChoice.matches("^[1-3]$")) {
-            System.out.print(ANSI_ERROR + "Your selection is invalid, try again: " + ANSI_RESET);
+            System.out.print(Color.RED + "Your selection is invalid, try again: " + Color.RESET);
             gameChoice = sc.next();
         }
 

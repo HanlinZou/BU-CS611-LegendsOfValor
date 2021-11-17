@@ -5,9 +5,6 @@ import java.util.ArrayList;
  * LMHPlayer class has a more specified schema extended from Player object.
  */
 public class LMHPlayer extends Player {
-    public static String ANSI_RESET = "\u001b[0m";
-    public static String ANSI_INFO = "\u001b[38;5;106m";
-
     // one player has at most three heroes
     public ArrayList<Hero> heroArrayList = new ArrayList<>(3);
 
@@ -42,32 +39,123 @@ public class LMHPlayer extends Player {
      * Display all heroes' info when not in fight
      */
     public void displayInfoInFight() {
+        if (heroArrayList.isEmpty()) return;
+
+        System.out.println(Color.ORANGE +"Heros: " + Color.RESET);
+
+        String border =
+            Color.ORANGE +
+            "-----------------------------------------------------------------------------------------------------" +
+            Color.RESET + "\n";
+
+        String title =
+            "Name                       Type        Level    HP        MP        Equipped Weapon    Equipped Armor";
+
+        System.out.print(border);
+        System.out.println(title);
+        System.out.print(border);
+
         for (int i = 0; i < heroArrayList.size(); i++) {
-            System.out.println(ANSI_INFO + "Hero " + (i + 1));
-            System.out.println("Name: " + heroArrayList.get(i).getName());
-            System.out.println("Level: " + heroArrayList.get(i).getLevel());
-            System.out.println("HP: " + heroArrayList.get(i).getCurrentHP() + "/" + heroArrayList.get(i).getHP());
-            System.out.println("MP: " + heroArrayList.get(i).getCurrentMP() + "/" + heroArrayList.get(i).getMP());
-            System.out.println("Equipped Weapon: " + heroArrayList.get(i).getEquippedWeapon());
-            System.out.println("Equipped Armor: " + heroArrayList.get(i).getEquippedArmor() + ANSI_RESET);
+            Hero hero = heroArrayList.get(i);
+
+            String name = (i + 1) + ". " + hero.getName();
+            String type = hero.getType();
+
+            int level = hero.getLevel();
+            String hp = hero.getCurrentHP() + "/" + hero.getHP();
+            String mp = hero.getCurrentMP() + "/" + hero.getMP();
+
+            Weapon weapon = hero.getEquippedWeapon();
+            Armor armor = hero.getEquippedArmor();
+            String weaponName = (weapon != null) ? weapon.getName() + "(" + weapon.getDamage() + ")" : "null";
+            String armorName = (armor != null) ? armor.getName() + "(" + armor.getDefense() + ")"  : "null";
+
+            System.out.printf(
+                "%-26s %-11s %-8d %-9s %-9s %-18s %-18s",
+                name, type, level, hp, mp, weaponName, armorName
+            );
+            System.out.println();
         }
+
+        System.out.println(border);
     }
 
     /**
      * Display all heroes' info when in fight
      */
     public void displayInfoNotInFight() {
+        if (heroArrayList.isEmpty()) return;
+
+        System.out.println(Color.ORANGE +"Heros: " + Color.RESET);
+
+        String border =
+            Color.ORANGE +
+            "----------------------------------------------------------------------------------------------------------------" +
+            Color.RESET + "\n";
+
+        String title =
+            "Name                       Type        Level    HP      MP      Strength    Dexterity    Agility    Money    Exp";
+
+        System.out.print(border);
+        System.out.println(title);
+        System.out.print(border);
+
         for (int i = 0; i < heroArrayList.size(); i++) {
-            System.out.println(ANSI_INFO + "Hero " + (i + 1));
-            System.out.println("Name: " + heroArrayList.get(i).getName());
-            System.out.println("Level: " + heroArrayList.get(i).getLevel());
-            System.out.println("HP: " + heroArrayList.get(i).getCurrentHP() + "/" + heroArrayList.get(i).getHP());
-            System.out.println("MP: " + heroArrayList.get(i).getCurrentMP() + "/" + heroArrayList.get(i).getMP());
-            System.out.println("XP: " + heroArrayList.get(i).getCurrentXP() + "/" + heroArrayList.get(i).getXP());
-            System.out.println("Strength: " + heroArrayList.get(i).getStrength());
-            System.out.println("Agility: " + heroArrayList.get(i).getAgility());
-            System.out.println("Dexterity: " + heroArrayList.get(i).getDexterity());
-            System.out.println("Money: " + heroArrayList.get(i).getMoney() + ANSI_RESET);
+            Hero hero = heroArrayList.get(i);
+
+            String name = (i + 1) + ". " + hero.getName();
+            String type = hero.getType();
+
+            int level = hero.getLevel();
+            int exp = hero.getXP();
+            int money = hero.getMoney();
+
+            int hp = hero.getHP();
+            int mp = hero.getMP();
+
+            int strength = hero.getStrength();
+            int dexterity = hero.getDexterity();
+            int agility = hero.getAgility();
+
+            System.out.printf(
+                "%-26s %-11s %-8d %-7d %-9d %-12d %-11d %-8d %-8d %-5d",
+                name, type, level, hp, mp, strength, dexterity, agility , money, exp
+            );
+            System.out.println();
         }
+
+        System.out.println(border);
+    }
+
+    /**
+     * Display all heroes' info when in market
+     */
+    public void displayInfoInMarket() {
+        String border =
+            Color.ORANGE +
+            "-----------------------------------------------------" +
+            Color.RESET + "\n";
+
+        String title =
+            "Name                       Type        Level    Money";
+
+        System.out.print(border);
+        System.out.println(title);
+        System.out.print(border);
+
+        for (int i = 0; i < heroArrayList.size(); i++) {
+            Hero hero = heroArrayList.get(i);
+
+            String name = (i + 1) + ". " + hero.getName();
+            String type = hero.getType();
+
+            int level = hero.getLevel();
+            int money = hero.getMoney();
+
+            System.out.printf("%-26s %-11s %-8d %-8d", name, type, level, money);
+            System.out.println();
+        }
+
+        System.out.println(border);
     }
 }

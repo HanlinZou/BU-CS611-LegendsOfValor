@@ -5,13 +5,6 @@ import java.util.Random;
  * LMHBoard class has a more specified schema extended from Board object.
  */
 public class LMHBoard extends Board {
-    public static String ANSI_RESET = "\u001b[0m";
-    public static String ANSI_BUSH = "\u001b[38;5;77m";
-    public static String ANSI_HERO = "\u001b[38;5;87m";
-    public static String ANSI_MARKET = "\u001b[38;5;143m";
-    public static String ANSI_BLOCK = "\u001b[38;5;196m";
-    public static String ANSI_PROMPT = "\u001b[38;5;230m";
-
     /**
      * No-arg constructor
      */
@@ -28,30 +21,67 @@ public class LMHBoard extends Board {
         super(size);
     }
 
+    /**
+     * Prints the meaning of icons on the board.
+     */
+    private void displayBoardInfo() {
+        String bannerBorder = Color.PURPLE + "-";
+        for (int i = 0; i < Math.max(10, this.size); i++) bannerBorder += "---";
+        bannerBorder += Color.RESET;
+
+        System.out.println(bannerBorder);
+        System.out.println(Color.BLUE   + " [H] " + Color.RESET + "You");
+        System.out.println(Color.GREEN  + " [.] " + Color.RESET + "Bush (might be dangerous)");
+        System.out.println(Color.ORANGE + " [M] " + Color.RESET + "Market");
+        System.out.println(Color.RED    + " [X] " + Color.RESET + "Inaccessable");
+        System.out.println(bannerBorder);
+    }
+
+    /**
+     * Prints instructions on movement operations.
+     */
+    private void displayOpetations() {
+        System.out.println(Color.PURPLE + "--------------------------------" + Color.RESET);
+        System.out.println(               "           Opetations           ");
+        System.out.println(Color.PURPLE + "--------------------------------" + Color.RESET);
+
+        System.out.println(Color.RED + "W/w" + Color.RESET + ": Up");
+        System.out.println(Color.RED + "A/a" + Color.RESET + ": Left");
+
+        System.out.println(Color.RED + "S/s" + Color.RESET + ": Down");
+        System.out.println(Color.RED + "D/d" + Color.RESET + ": Right");
+
+        System.out.println(Color.RED + "I/i" + Color.RESET + ": Show hero(es) info & Check inventory");
+        System.out.println(Color.RED + "Q/q" + Color.RESET + ": Quit");
+
+        System.out.println(Color.PURPLE + "--------------------------------" + Color.RESET);
+    }
+
     @Override
     public void displayBoard() {
-        System.out.println(ANSI_PROMPT + "H: You\n.: Bush(might be dangerous)\nM: Market\nX: Inaccessible");
+        displayBoardInfo();
+
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 switch (board[i][j].toString()) {
                     case "H":
-                        System.out.printf(ANSI_HERO + "[%s]" + ANSI_RESET, board[i][j]);
+                        System.out.printf(Color.BLUE + "[%s]" + Color.RESET, board[i][j]);
                         break;
                     case "X":
-                        System.out.printf(ANSI_BLOCK + "[%s]" + ANSI_RESET, board[i][j]);
+                        System.out.printf(Color.RED + "[%s]" + Color.RESET, board[i][j]);
                         break;
                     case "M":
-                        System.out.printf(ANSI_MARKET + "[%s]" + ANSI_RESET, board[i][j]);
+                        System.out.printf(Color.ORANGE + "[%s]" + Color.RESET, board[i][j]);
                         break;
                     case ".":
-                        System.out.printf(ANSI_BUSH + "[%s]" + ANSI_RESET, board[i][j]);
+                        System.out.printf(Color.GREEN + "[%s]" + Color.RESET, board[i][j]);
                         break;
                 }
             }
             System.out.print("\n");
         }
-        System.out.println(ANSI_PROMPT + "W: Up\nA: Left\nS: Down\nD: Right\n" +
-                "I: Show hero(es) info & Check inventory\nQ: Quit");
+
+        displayOpetations();
     }
 
     @Override

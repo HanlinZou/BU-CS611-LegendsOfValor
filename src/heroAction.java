@@ -1,5 +1,5 @@
-public class heroAction {
-    heroAction() {
-    }
+public class HeroAction {
+    HeroAction() {
 
+    }
 }

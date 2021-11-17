@@ -4,9 +4,6 @@ import java.util.Scanner;
  * RPGGame class is to initiate different kinds of sub-rpg game class.
  */
 public class RPGGame {
-    public static String ANSI_RESET = "\u001b[0m";
-    public static String ANSI_ERROR = "\u001b[38;5;196m";
-
     RPGGame() {
     }
 
@@ -21,7 +18,7 @@ public class RPGGame {
         );
         String gameChoice = sc.next();
         while (!gameChoice.matches("^[1-3]$")) {
-            System.out.print(ANSI_ERROR + "Your selection is invalid, try again: " + ANSI_RESET);
+            System.out.print(Color.RED + "Your selection is invalid, try again: " + Color.RESET);
             gameChoice = sc.next();
         }
 

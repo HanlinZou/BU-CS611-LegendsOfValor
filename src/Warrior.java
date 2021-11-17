@@ -12,7 +12,7 @@ public class Warrior extends Hero {
      * @param initXP    initial experience of the hero
      */
     Warrior(String name, int mana, int strength, int agility, int dexterity, int initMoney, int initXP) {
-        super(name, mana, strength, agility, dexterity, initMoney, initXP);
+        super("Warrior", name, mana, strength, agility, dexterity, initMoney, initXP);
     }
 
     @Override

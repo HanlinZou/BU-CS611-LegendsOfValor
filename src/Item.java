@@ -18,7 +18,7 @@ public class Item {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name.replace("_", " ");
     }
 
     public void setCost(int cost) {

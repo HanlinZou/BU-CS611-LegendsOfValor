@@ -1,40 +1,48 @@
 import java.util.Scanner;
 
-public class heroCreation {
-    public static String ANSI_RESET = "\u001b[0m";
-    public static String ANSI_PROMPT = "\u001b[38;5;230m";
-    public static String ANSI_SELECT = "\u001b[38;5;106m";
-    public static String ANSI_ERROR = "\u001b[38;5;196m";
-
+public class HeroCreation {
     CharacterLibrary chl = new CharacterLibrary();
 
-    heroCreation() {
+    HeroCreation() {
     }
 
     public void prep(LMHPlayer player) {
         Scanner sc = new Scanner(System.in);
+
         // prompt user the number of heroes
-        System.out.print(ANSI_PROMPT + "How many heroes would you like?(1-3) ");
+        System.out.print(Color.YELLOW + "How many heroes would you like? (1-3) " + Color.RESET);
         String heroNum = sc.next();
         while (!heroNum.matches("^[1-3]$")) {
-            System.out.print(ANSI_ERROR + "Your selection is invalid, try again: " + ANSI_RESET);
+            System.out.print(Color.RED + "Your selection is invalid, try again: " + Color.RESET);
             heroNum = sc.next();
         }
 
         for (int i = 0; i < Integer.parseInt(heroNum); i++) {
             // prompt user the position and specific hero to generate
-            System.out.println(ANSI_SELECT + "1. Warriors  2. Sorcerers  3. Paladins");
-            System.out.print(ANSI_PROMPT + "What position will your No." + (i + 1) + " hero to be: ");
+            System.out.println(Color.GREEN + "1. Warriors  2. Sorcerers  3. Paladins");
+            System.out.print(Color.YELLOW + "What position will your No." + (i + 1) + " hero to be: " + Color.RESET);
             String posChoice = sc.next();
 
             while (!posChoice.matches("^[1-3]$")) {
-                System.out.print(ANSI_ERROR + "Your selection is invalid, try again: " + ANSI_RESET);
+                System.out.print(Color.RED + "Your selection is invalid, try again: " + Color.RESET);
                 posChoice = sc.next();
             }
 
             int heroChoice = heroSelection(posChoice);
-            heroCreation(player, Integer.parseInt(posChoice), heroChoice - 1);
+            createHero(player, Integer.parseInt(posChoice), heroChoice - 1);
         }
+    }
+
+    /**
+     * Check if the input is an int and in the range of (min, max).
+     *
+     * @param input The input
+     * @param min   Low bounder
+     * @param max   High bounder
+     * @return The input is valid or not.
+     */
+    private boolean checkIntInput(String input, int min, int max) {
+        return input.matches("[0-9]*") && Integer.parseInt(input) >= min && Integer.parseInt(input) <= max;
     }
 
     /**
@@ -55,31 +63,22 @@ public class heroCreation {
         else
             chl.displayPaladin();
 
-        System.out.print(ANSI_PROMPT + "Pick your favorite one: ");
+        System.out.print(Color.YELLOW + "Pick your favorite one: " + Color.RESET);
         String heroChoice = sc.next();
 
         // after get the result, we verify if it's valid
-        while(posChoice.equals("1") &&
-                (!heroChoice.matches("[0-9]*")
-                        || Integer.parseInt(heroChoice) > chl.warriorArrayList.size()
-                        || Integer.parseInt(heroChoice) < 1)) {
-            System.out.print(ANSI_ERROR + "Your selection is invalid, try again: " + ANSI_RESET);
+        while(posChoice.equals("1") && !checkIntInput(heroChoice, 1, chl.warriorArrayList.size())) {
+            System.out.print(Color.RED + "Your selection is invalid, try again: " + Color.RESET);
             heroChoice = sc.next();
         }
 
-        while(posChoice.equals("2") &&
-                (!heroChoice.matches("[0-9]*") ||
-                        Integer.parseInt(heroChoice) > chl.sorcererArrayList.size() ||
-                        Integer.parseInt(heroChoice) < 1)) {
-            System.out.print(ANSI_ERROR + "Your selection is invalid, try again: " + ANSI_RESET);
+        while(posChoice.equals("2") && !checkIntInput(heroChoice, 1, chl.sorcererArrayList.size())) {
+            System.out.print(Color.RED + "Your selection is invalid, try again: " + Color.RESET);
             heroChoice = sc.next();
         }
 
-        while(posChoice.equals("3") &&
-                (!heroChoice.matches("[0-9]*") ||
-                        Integer.parseInt(heroChoice) > chl.paladinArrayList.size() ||
-                        Integer.parseInt(heroChoice) < 1)) {
-            System.out.print(ANSI_ERROR + "Your selection is invalid, try again: " + ANSI_RESET);
+        while(posChoice.equals("3") && !checkIntInput(heroChoice, 1, chl.paladinArrayList.size())) {
+            System.out.print(Color.RED + "Your selection is invalid, try again: " + Color.RESET);
             heroChoice = sc.next();
         }
 
@@ -94,7 +93,7 @@ public class heroCreation {
      * @param pos    position of heroes
      * @param rank   the index in that specified hero list
      */
-    public void heroCreation(LMHPlayer player, int pos, int rank) {
+    public void createHero(LMHPlayer player, int pos, int rank) {
         switch (pos) {
             case (1):
                 player.heroArrayList.add(chl.warriorArrayList.get(rank));

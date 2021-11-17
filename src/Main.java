@@ -6,6 +6,8 @@
 
 public class Main {
     public static void main(String[] args) {
+        System.out.print("Welcome to Legends: Monsters and Heroes\n" +
+                "I need your name first: ");
         Game game = new Game();
         game.start();
     }

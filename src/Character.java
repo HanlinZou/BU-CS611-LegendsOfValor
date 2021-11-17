@@ -4,10 +4,7 @@
  * groups of variables of a character.
  */
 public abstract class Character {
-    public static String ANSI_BADNEWS = "\u001b[38;5;124m";
-    public static String ANSI_HIT = "\u001b[38;5;87m";
-    public static String ANSI_MISS = "\u001b[38;5;246m";
-
+    protected String type;
     protected String name;
     protected int level;
     protected int HP;
@@ -25,12 +22,21 @@ public abstract class Character {
     }
 
     /**
+     * Set a character's type
+     *
+     * @param type type of the character
+     */
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    /**
      * Set a character's name
      *
      * @param name name of the character
      */
     public void setName(String name) {
-        this.name = name;
+        this.name = name.replace("_", " ");
     }
 
     /**
@@ -56,6 +62,15 @@ public abstract class Character {
      */
     public void setCurrentHP(int HP) {
         currentHP = HP;
+    }
+
+    /**
+     * Get a character's type
+     *
+     * @return type of the character
+     */
+    public String getType() {
+        return type;
     }
 
     /**
@@ -107,14 +122,14 @@ public abstract class Character {
         boolean ifHit = Math.random() > defence.probDodge();
         if (ifHit) {
             if (defence instanceof Hero)
-                System.out.println(ANSI_BADNEWS + getName() + " attacked and dealt " + damageRes
+                System.out.println(Color.RED + getName() + " attacked and dealt " + damageRes
                         + " points of damage to " + defence.getName());
             else
-                System.out.println(ANSI_HIT + getName() + " attacked and dealt " + damageRes
+                System.out.println(Color.BLUE + getName() + " attacked and dealt " + damageRes
                         + " points of damage to " + defence.getName());
             defence.setCurrentHP(defence.getCurrentHP() - damageRes);
         } else
-            System.out.println(ANSI_MISS + "Unfortunately " + getName() + " missed.");
+            System.out.println(Color.GREY + "Unfortunately " + getName() + " missed.");
     }
 
     public abstract int attackDamage();

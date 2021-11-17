@@ -17,12 +17,6 @@ public class IceSpell extends Spell {
      * @param manaCost amount of mana the spell costs
      */
     IceSpell(String name, int cost, int minLV, int damage, int manaCost) {
-        super(name, cost, minLV, damage, manaCost);
-    }
-
-    @Override
-    public String toString() {
-        return "Name: " + name + " Cost: " + cost + " Min LV: " + minLv + " Damage: " +
-                getDamage() + " Mana cost: " + getManaCost() + " Spell cate: Ice";
+        super("Ice", name, cost, minLV, damage, manaCost);
     }
 }
