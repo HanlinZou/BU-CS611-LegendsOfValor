@@ -17,16 +17,15 @@ public class Monster extends Character {
      * Constructor of Monster object
      *
      * @param name    name of the monster
-     * @param LV      level of the monster
+     * @param level   level of the monster
      * @param HP      health of the monster
      * @param damage  damage from the monster
      * @param defense defense of the monster
      * @param dodge   dodge of the monster
      */
-    Monster(String name, int LV, int HP, int damage, int defense, int dodge) {
-        setName(name);
-        setLevel(LV);
-        setHP();
+    Monster(String name, int level, int HP, int damage, int defense, int dodge) {
+        super(name, level);
+
         setCurrentHP(HP);
         setDamage(damage);
         setDefense(defense);

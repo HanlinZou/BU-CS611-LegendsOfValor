@@ -9,7 +9,7 @@ public abstract class Character {
     protected int level;
     protected int HP;
     protected int currentHP;
-    public int[] location = new int[2];
+    protected int x, y;
 
     /**
      * No-arg constructor
@@ -19,6 +19,12 @@ public abstract class Character {
         level = 0;
         HP = 0;
         currentHP = 0;
+    }
+
+    Character(String name, int level) {
+        setName(name);
+        setLevel(level);
+        setHP();
     }
 
     /**
@@ -62,6 +68,17 @@ public abstract class Character {
      */
     public void setCurrentHP(int HP) {
         currentHP = HP;
+    }
+
+    /**
+     * Set a character's position
+     *
+     * @param x X position
+     * @param y Y position
+     */
+    public void setPos(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
     /**
@@ -110,26 +127,42 @@ public abstract class Character {
     }
 
     /**
+     * Get a character's X position
+     *
+     * @return X position
+     */
+    public int getX() {
+        return x;
+    }
+
+    /**
+     * Get a character's Y position
+     *
+     * @return Y position
+     */
+    public int getY() {
+        return y;
+    }
+
+    /**
      * this method performs a basic attack process between two characters
      *
-     * @param defence Hero/Monster whoever is attacked
+     * @param opponent Hero/Monster whoever is attacked
      */
-    public void regularAttack(Character defence) {
+    public void regularAttack(Character opponent) {
         // calculate the damage based on damage and defense
-        int damageRes = attackDamage() - defence.calDefense();
+        int damageRes = attackDamage() - opponent.calDefense();
 
         // check whether the attack is dodged
-        boolean ifHit = Math.random() > defence.probDodge();
-        if (ifHit) {
-            if (defence instanceof Hero)
-                System.out.println(Color.RED + getName() + " attacked and dealt " + damageRes
-                        + " points of damage to " + defence.getName());
-            else
-                System.out.println(Color.BLUE + getName() + " attacked and dealt " + damageRes
-                        + " points of damage to " + defence.getName());
-            defence.setCurrentHP(defence.getCurrentHP() - damageRes);
-        } else
-            System.out.println(Color.GREY + "Unfortunately " + getName() + " missed.");
+        boolean isHit = Math.random() > opponent.probDodge();
+        if (isHit) {
+            String color = (opponent instanceof Hero) ? Color.RED : Color.BLUE;
+            System.out.println(color + getName() + " attacked and dealt " + damageRes
+                        + " points of damage to " + opponent.getName() + Color.RESET);
+            opponent.setCurrentHP(opponent.getCurrentHP() - damageRes);
+        } else {
+            System.out.println(Color.GREY + "Unfortunately " + getName() + " missed." + Color.RESET);
+        }
     }
 
     public abstract int attackDamage();

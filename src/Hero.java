@@ -40,11 +40,10 @@ public abstract class Hero extends Character {
      * @param initXP    initial experience of the hero
      */
     Hero(String type, String name, int mana, int strength, int agility, int dexterity, int initMoney, int initXP) {
+        super(name, 1);
+
         setType(type);
-        setName(name);
-        setLevel(1);
-        setHP();
-        setCurrentHP(HP);
+        setCurrentHP(getHP());
         setMP(mana);
         setCurrentMP(mana);
         setStrength(strength);
@@ -54,6 +53,7 @@ public abstract class Hero extends Character {
         setMoney(initMoney);
         setXP();
         setCurrentXP(initXP);
+
         equippedWeapon = null;
         equippedArmor = null;
         storage = new ArrayList<>();

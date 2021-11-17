@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class HeroCreation {
     CharacterLibrary chl = new CharacterLibrary();
+    private int numHeros = 3;
 
     HeroCreation() {
     }
@@ -9,21 +10,14 @@ public class HeroCreation {
     public void prep(LMHPlayer player) {
         Scanner sc = new Scanner(System.in);
 
-        // prompt user the number of heroes
-        System.out.print(Color.YELLOW + "How many heroes would you like? (1-3) " + Color.RESET);
-        String heroNum = sc.next();
-        while (!heroNum.matches("^[1-3]$")) {
-            System.out.print(Color.RED + "Your selection is invalid, try again: " + Color.RESET);
-            heroNum = sc.next();
-        }
-
-        for (int i = 0; i < Integer.parseInt(heroNum); i++) {
+        for (int i = 1; i <= numHeros; i++) {
             // prompt user the position and specific hero to generate
-            System.out.println(Color.GREEN + "1. Warriors  2. Sorcerers  3. Paladins");
-            System.out.print(Color.YELLOW + "What position will your No." + (i + 1) + " hero to be: " + Color.RESET);
+            System.out.println("Select your No." + Color.RED + i + Color.RESET + " hero:");
+            System.out.println(Color.GREEN + "1. Warriors  2. Sorcerers  3. Paladins" + Color.RESET);
+            System.out.print(Color.YELLOW + "What position will your No." + i + " hero to be: " + Color.RESET);
             String posChoice = sc.next();
 
-            while (!posChoice.matches("^[1-3]$")) {
+            while (!posChoice.matches("^[1-" + numHeros + "]$")) {
                 System.out.print(Color.RED + "Your selection is invalid, try again: " + Color.RESET);
                 posChoice = sc.next();
             }
