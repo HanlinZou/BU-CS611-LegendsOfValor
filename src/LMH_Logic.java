@@ -20,6 +20,7 @@ public class LMH_Logic {
     CharacterLibrary chl;
     Market market;
     LMHBoard board;
+    
     public int[] location = new int[]{0, 0};
 
     /**
@@ -71,7 +72,8 @@ public class LMH_Logic {
         this.player = new LMHPlayer(pName);
         this.chl = new CharacterLibrary();
         this.market = new Market();
-        this.board = new LMHBoard(8);
+        //!!!!!!note here is 3, indicate there will be only three heros
+        this.board = new LMHBoard(3);
         this.board.setBoard();
 
         // create heroes
