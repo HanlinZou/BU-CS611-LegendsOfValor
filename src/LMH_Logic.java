@@ -47,7 +47,7 @@ public class LMH_Logic {
             Color.RED +
             "            (O)                                            " + "\n" +
             "            <M                                             " + "\n" +
-            "o          <M  Wecome to Legends of Valor                  " + "\n" +
+            "o          <M  Welcome to Legends: Monsters and Heroes     " + "\n" +
             "/| ......  /:M\\---------------------------------,,,,,,    " + "\n" +
             "(O)[]XXXXXX[]I:K+}=====<{H}>===================-------->   " + "\n" +
             "\\| ^^^^^^  \\:W/---------------------------------''''''   " + "\n" +
@@ -197,7 +197,7 @@ public class LMH_Logic {
     /**
      * Prints monsters
      */
-    private void diaplayMonsters() {
+    private void displayMonsters() {
         if (monsterArrayList.isEmpty()) return;
 
         System.out.println(Color.PURPLE + "Monsters: " + Color.RESET);
@@ -288,7 +288,7 @@ public class LMH_Logic {
             if (round % 2 == 0) {
                 // first display in-fight info for both sides
                 player.displayInfoInFight();
-                diaplayMonsters();
+                displayMonsters();
 
                 for (int i = 0; i < player.heroArrayList.size(); ++i) {
                     if (player.heroArrayList.get(i).getCurrentHP() > 0) {
