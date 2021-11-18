@@ -10,7 +10,6 @@ public abstract class Character {
     protected int HP;
     protected int currentHP;
     protected int x, y;
-    protected int ID;  // index for identify the character
 
     /**
      * No-arg constructor
@@ -20,9 +19,6 @@ public abstract class Character {
         level = 0;
         HP = 0;
         currentHP = 0;
-        x = 0;
-        y = 0;
-        ID = 0;
     }
 
     Character(String name, int level) {
@@ -86,15 +82,6 @@ public abstract class Character {
     }
 
     /**
-     * Set a character's ID
-     *
-     * @param ID ID
-     */
-    public void setID(int ID) {
-        this.ID = ID;
-    }
-
-    /**
      * Get a character's type
      *
      * @return type of the character
@@ -155,15 +142,6 @@ public abstract class Character {
      */
     public int getY() {
         return y;
-    }
-
-    /**
-     * Get a character's ID
-     *
-     * @return ID
-     */
-    public int getID() {
-        return ID;
     }
 
     /**

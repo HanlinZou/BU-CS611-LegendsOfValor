@@ -5,7 +5,7 @@
  * 		functional.
  */
 
-public class Player implements PlayerInterface {
+public class Player implements Player_Interface {
     protected String playerName;
     protected int teamId;
     protected String teamName;

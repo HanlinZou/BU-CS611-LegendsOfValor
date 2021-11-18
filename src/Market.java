@@ -260,9 +260,11 @@ public class Market {
     }
 
     private String getBorder() {
-        return Color.CYAN +
+        String border =
+            Color.CYAN +
             "------------------------------------------------------------------------------------------" +
             Color.RESET + "\n";
+        return border;
     }
 
     /**

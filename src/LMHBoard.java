@@ -9,7 +9,16 @@ public class LMHBoard extends Board {
      * No-arg constructor
      */
     LMHBoard() {
-        super(8);
+        super();
+    }
+
+    /**
+     * Constructor of a Board with specified size
+     *
+     * @param size size of the board
+     */
+    LMHBoard(int size) {
+        super(size);
     }
 
     /**
@@ -55,6 +64,9 @@ public class LMHBoard extends Board {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 switch (board[i][j].toString()) {
+                    case "H":
+                        System.out.printf(Color.BLUE + "[%s]" + Color.RESET, board[i][j]);
+                        break;
                     case "X":
                         System.out.printf(Color.RED + "[%s]" + Color.RESET, board[i][j]);
                         break;
@@ -63,9 +75,6 @@ public class LMHBoard extends Board {
                         break;
                     case ".":
                         System.out.printf(Color.GREEN + "[%s]" + Color.RESET, board[i][j]);
-                        break;
-                    default:
-                        System.out.printf(Color.BLUE + "[%s]" + Color.RESET, board[i][j]);
                         break;
                 }
             }
@@ -82,7 +91,6 @@ public class LMHBoard extends Board {
         for (int i = 0; i < this.size; i++) {
             for (int j = 0; j < this.size; j++) {
                 this.board[i][j] = new Cell();
-
                 category = random.nextInt(10);
                 if (category < 2)
                     this.board[i][j].setMark("X");
@@ -92,18 +100,11 @@ public class LMHBoard extends Board {
                     this.board[i][j].setMark(".");
             }
         }
-
         // To avoid the case that player get stuck by two "X" at the beginning
         // We set first two cells be bushes and third one to be market
         this.board[0][0].setMark(".");
-        // this.board[0][0].setHeroOn(true);
+        this.board[0][0].setHeroOn(true);
         this.board[0][1].setMark(".");
         this.board[0][2].setMark("M");
-
-        // -------- JUST FOR TEST --------
-        this.board[0][0].setMark(".");
-        this.board[1][0].setMark(".");
-        this.board[2][0].setMark(".");
-        // -------- TEST CODE END --------
     }
 }
