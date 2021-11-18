@@ -198,7 +198,6 @@ public abstract class Hero extends Character {
                 !action.equalsIgnoreCase("Q") && !action.equalsIgnoreCase("I")
             ) {
                 System.out.print(Color.RED + "Invalid move, please re-inter it: " + Color.RESET);
-                continue;
             }
 
             else if (
@@ -209,7 +208,6 @@ public abstract class Hero extends Character {
             ) {
                 // Go outside the map
                 System.out.print(Color.RED + "You can't go outside the map, please re-inter your move: " + Color.RESET);
-                continue;
             }
 
             else if (
@@ -219,7 +217,7 @@ public abstract class Hero extends Character {
                 (action.equalsIgnoreCase("S") && board.getCell(x + 1, y).getMark().equals("X"))
             ) {
                 // Move to Inaccessible Cell
-                System.out.print(Color.RED + "The cell is inaccessable, please re-inter your move: " + Color.RESET);
+                System.out.print(Color.RED + "The cell is inaccessible, please re-inter your move: " + Color.RESET);
             }
 
             else return action;
@@ -265,7 +263,7 @@ public abstract class Hero extends Character {
         else if (direction.equalsIgnoreCase("S")) x++;
 
         String fromMark = board.getCell(x, y).getMark().toString();
-        board.getCell(x, y).setMark(String.valueOf(ID));
+        board.getCell(x, y).setHeroOn(true);
 
         // TO DO: maybe we'll handle events here?
         return fromMark;

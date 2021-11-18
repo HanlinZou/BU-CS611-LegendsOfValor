@@ -46,7 +46,7 @@ public class LMH_Logic {
             Color.RED +
             "            (O)                                            " + "\n" +
             "            <M                                             " + "\n" +
-            "o          <M  Wecome to Legends of Valor                  " + "\n" +
+            "o          <M  Wecome to Legends: Monsters and Heroes      " + "\n" +
             "/| ......  /:M\\---------------------------------,,,,,,    " + "\n" +
             "(O)[]XXXXXX[]I:K+}=====<{H}>===================-------->   " + "\n" +
             "\\| ^^^^^^  \\:W/---------------------------------''''''   " + "\n" +
@@ -79,7 +79,7 @@ public class LMH_Logic {
         hc.prep(player);
 
         // init hero positions on map
-        for (Hero h : player.heroArrayList) this.board.getCell(h.getX(), h.getY()).setMark(String.valueOf(h.getID()));
+        board.getCell(0, 0).setHeroOn(true);
 
         // after all components are ready, start the game.
         start();
