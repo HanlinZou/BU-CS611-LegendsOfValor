@@ -89,26 +89,23 @@ public class HeroCreation {
      * @param rank   the index in that specified hero list
      */
     public void createHero(int id, LMHPlayer player, int pos, int rank) {
-        Hero hero;
 
         switch (pos) {
             case 1:
-                hero = chl.warriorArrayList.get(rank);
+                player.heroArrayList.add(chl.warriorArrayList.remove(rank));
                 break;
             case 2:
-                hero = chl.sorcererArrayList.get(rank);
+                player.heroArrayList.add(chl.sorcererArrayList.remove(rank));
                 break;
             default:  // 3
-                hero = chl.paladinArrayList.get(rank);
+                player.heroArrayList.add(chl.paladinArrayList.remove(rank));
                 break;
         }
 
-        hero.setID(id);
+        player.heroArrayList.get(player.heroArrayList.size() - 1).setID(id);
 
         // -------- JUST FOR TEST --------
-        hero.setPos(id - 1, 0);
+        player.heroArrayList.get(player.heroArrayList.size() - 1).setPos(id - 1, 0);
         // -------- TEST CODE END --------
-
-        player.heroArrayList.add(hero);
     }
 }
