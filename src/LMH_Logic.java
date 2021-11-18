@@ -191,6 +191,7 @@ public class LMH_Logic {
                                 chl.dragonArrayList.get(j).getLevel(), chl.dragonArrayList.get(j).getHP(),
                                 chl.dragonArrayList.get(j).getDamage(), chl.dragonArrayList.get(j).getDefense(),
                                 chl.dragonArrayList.get(j).getDodge()));
+                        break;
                     }
                 }
             }
@@ -201,6 +202,7 @@ public class LMH_Logic {
                                 chl.exoArrayList.get(j).getLevel(), chl.exoArrayList.get(j).getHP(),
                                 chl.exoArrayList.get(j).getDamage(), chl.exoArrayList.get(j).getDefense(),
                                 chl.exoArrayList.get(j).getDodge()));
+                        break;
                     }
                 }
             }
@@ -211,6 +213,7 @@ public class LMH_Logic {
                                 chl.spiritArrayList.get(j).getLevel(), chl.spiritArrayList.get(j).getHP(),
                                 chl.spiritArrayList.get(j).getDamage(), chl.spiritArrayList.get(j).getDefense(),
                                 chl.spiritArrayList.get(j).getDodge()));
+                        break;
                     }
                 }
             }
@@ -229,7 +232,7 @@ public class LMH_Logic {
                 diaplayMonsters();
 
                 for (int i = 0; i < player.heroArrayList.size(); ++i) {
-                    if (player.heroArrayList.get(i).getCurrentHP() != 0) {
+                    if (player.heroArrayList.get(i).getCurrentHP() > 0) {
                         // if current hero hasn't died, ask player to pick an action
                         System.out.println(Color.GREEN + player.heroArrayList.get(i).getName() +
                                 ", your turn:\n1. Regular Attack\n2. Cast a spell\n3. Take a potion/Switch equipments");
@@ -304,8 +307,10 @@ public class LMH_Logic {
                         }
                     }
                     monsterArrayList.get(i).regularAttack(player.heroArrayList.get(targetNo));
-                    if(player.heroArrayList.get(targetNo).getCurrentHP() < 0)
+                    if(player.heroArrayList.get(targetNo).getCurrentHP() < 0){
                         aliveHero--;
+                        System.out.println(Color.RED + player.heroArrayList.get(targetNo).getName() + " got killed.");
+                    }
                 }
             }
             // after each round, heroes regain

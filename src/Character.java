@@ -88,7 +88,7 @@ public abstract class Character {
     /**
      * Set a character's ID
      *
-     * @param id ID
+     * @param ID ID
      */
     public void setID(int ID) {
         this.ID = ID;
