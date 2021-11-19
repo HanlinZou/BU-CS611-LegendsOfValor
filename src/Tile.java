@@ -2,7 +2,7 @@
  * Cell class maintains information about the contents of a Cell.
  * Cell class has a specified schema specified by a Cell object.
  */
-public abstract class Tile extends Cell implements Drawable{
+public abstract class Tile extends Cell implements Drawable {
 
     private boolean monsterOn;
     private CellType type;

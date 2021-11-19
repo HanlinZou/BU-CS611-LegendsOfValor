@@ -43,13 +43,13 @@ public class LoVBoard extends Board {
 
         System.out.println(bannerBorder);
         System.out.println(Color.BLUE   + " [H] " + Color.RESET + "You");
-        System.out.println(Color.CYAN  + " [N] " + Color.RESET + "Nexus");
-        System.out.println(Color.RED + " [I] " + Color.RESET + "Inaccessible");
-        System.out.println(Color.RESET    + " [P] " + "Plain");
-        System.out.println(Color.GREEN    + " [B] " + Color.RESET + "Bush");
-        System.out.println(Color.ORANGE    + " [C] " + Color.RESET + "Cave");
-        System.out.println(Color.PURPLE    + " [K] " + Color.RESET + "Koulou");
-        System.out.println(Color.WHITE    + " [M] " + Color.RESET + "Monster");
+        System.out.println(Color.CYAN   + " [N] " + Color.RESET + "Nexus");
+        System.out.println(Color.RED    + " [I] " + Color.RESET + "Inaccessible");
+        System.out.println(               " [P] " + "Plain");
+        System.out.println(Color.GREEN  + " [B] " + Color.RESET + "Bush");
+        System.out.println(Color.ORANGE + " [C] " + Color.RESET + "Cave");
+        System.out.println(Color.PURPLE + " [K] " + Color.RESET + "Koulou");
+        System.out.println(Color.WHITE  + " [M] " + Color.RESET + "Monster");
         System.out.println(bannerBorder);
     }
 
@@ -77,15 +77,12 @@ public class LoVBoard extends Board {
     }
 
     @Override
-    public void displayBoard()
-    {
+    public void displayBoard() {
         displayBoardInfo();
         String result = "";
-        for(int i = 0; i < this.board.length; i++)
-        {
+        for(int i = 0; i < this.board.length; i++) {
             ArrayList<String[]> this_line = new ArrayList<>();
-            for(int j = 0; j < this.board[i].length; j++)
-            {
+            for(int j = 0; j < this.board[i].length; j++) {
                 String[] this_draw = this.board[i][j].specialDraw().split("\\r?\\n");
                 this_line.add(this_draw);
             }
@@ -95,14 +92,11 @@ public class LoVBoard extends Board {
         displayOpetations();
     }
 
-    public String line_assembler(ArrayList<String[]> target)
-    {
+    public String line_assembler(ArrayList<String[]> target) {
         String result = "";
         int num_of_loop = target.get(0).length;
-        for(int i = 0; i < num_of_loop; i++)
-        {
-            for(String[] s:target)
-            {
+        for(int i = 0; i < num_of_loop; i++) {
+            for(String[] s:target) {
                 result += s[i] + " ";
             }
             result += "\n";
@@ -110,14 +104,21 @@ public class LoVBoard extends Board {
         return result;
     }
 
+    public int getNumRow() {
+        return this.board.length;
+    }
+
+    public int getNumColumn() {
+        return this.board[0].length;
+    }
+
     @Override
-    public void setBoard()
-    {
+    public void setBoard() {
         //20 special cell 40 plain, nexus and inaccessible fixed num
         this.cell_factory = new CellFactory();
         Random random = new Random();
-        int row = this.board.length;
-        int column = this.board[0].length;
+        int row = getNumRow();
+        int column = getNumColumn();
         int number_of_nexus = (column - this.size + 1) * 2;
         int number_of_inaccessible = (this.size - 1) * row;
         int number_of_plain = 17 * this.size;
@@ -125,48 +126,39 @@ public class LoVBoard extends Board {
         int index_count_for_inaccessible = 0;
         int category;
         CellType type = null;
-        for (int i = 0; i < this.board.length; i++)
-        {
-            for (int j = 0; j < this.board[i].length; j++)
-            {
-                //cell for inaccessible
-                if(index_count_for_inaccessible == 2)
-                {
+
+        for (int i = 0; i < this.board.length; i++) {
+            for (int j = 0; j < this.board[i].length; j++) {
+                if(index_count_for_inaccessible == 2) {
+                    // cell for inaccessible
                     index_count_for_inaccessible = 0;
                     type = CellType.INACCESSIBLE;
                     index_count_for_inaccessible -= 1;
-                }
-                //cell for nexus
-                else if(i == 0 || i == this.board.length - 1)
-                {
+                } else if(i == 0 || i == this.board.length - 1) {
+                    // cell for nexus
                     type = CellType.NEXUS;
                 }
-                else//cell for special and plain
-                {
+                else {
+                    // cell for special and plain
                     boolean match = false;
-                    while(!match)
-                    {
+                    while(!match) {
                         category = random.nextInt(5);
-                        if(category == 0 && number_of_special != 0)
-                        {
+                        if(category == 0 && number_of_special != 0) {
                             type = CellType.BUSH;
                             number_of_special -= 1;
                             match = true;
                         }
-                        else if(category == 1&& number_of_special != 0)
-                        {
+                        else if(category == 1&& number_of_special != 0) {
                             type = CellType.CAVE;
                             number_of_special -= 1;
                             match = true;
                         }
-                        else if(category == 2&& number_of_special != 0)
-                        {
+                        else if(category == 2&& number_of_special != 0) {
                             type = CellType.KOULOU;
                             number_of_special -= 1;
                             match = true;
                         }
-                        else if(number_of_plain != 0)
-                        {
+                        else if(number_of_plain != 0) {
                             type = CellType.PLAIN;
                             number_of_plain -= 1;
                             match = true;

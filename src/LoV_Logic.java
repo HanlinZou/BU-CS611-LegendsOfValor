@@ -75,18 +75,23 @@ public class LoV_Logic {
 
         do {
             for(int i = 0; i < player.heroArrayList.size(); i++) {
-                if(board.getTile(player.heroArrayList.get(i).x, player.heroArrayList.get(i).y) instanceof Nexus) {
+                Hero hero = player.heroArrayList.get(i);
+
+                if (board.getTile(hero.x, hero.y) instanceof Nexus) {
                     board.displayBoard();
                     nexusOp(i);
                 }
 
                 board.displayBoard();
-                System.out.print("Hero No." + (i+1) + ", " + player.heroArrayList.get(i).getName() + ". Pick a move: ");
+                System.out.print("Hero No." + (i + 1) + ", " + player.heroArrayList.get(i).getName() + ". Pick a move: ");
                 playerChoice = sc.next();
+
                 // whether player wants to move
                 if (playerChoice.equalsIgnoreCase("W") || playerChoice.equalsIgnoreCase("S") ||
-                    playerChoice.equalsIgnoreCase("A") || playerChoice.equalsIgnoreCase("D"))
-                    playerMove(playerChoice);
+                    playerChoice.equalsIgnoreCase("A") || playerChoice.equalsIgnoreCase("D")) {
+                    if (!playerMove(hero, playerChoice)) i--;  // failed to move
+                }
+
                 // or wants to see information and inventory
                 else if (playerChoice.equalsIgnoreCase("I")) {
                     player.displayInfoNotInFight();
@@ -100,8 +105,7 @@ public class LoV_Logic {
                 }
                 else if (playerChoice.equalsIgnoreCase("T")) {
                     boolean tpResult = teleport(i);
-                    if (!tpResult)
-                        i--;
+                    if (!tpResult) i--;
                 }
                 else if (playerChoice.equalsIgnoreCase("B")) {
                     back(i);
@@ -170,31 +174,66 @@ public class LoV_Logic {
             player.heroArrayList.get(heroIndex).getName() + ". You're at Nexus, input \"Y\" to buy/sell: ");
         decision = sc.next();
 
-        if(decision.equalsIgnoreCase("Y")) {
+        if (decision.equalsIgnoreCase("Y")) {
             boolean leave = false;
-            while (!leave){
+            while (!leave) {
                 // display all heroes' names, levels, and money
                 player.displayInfoInMarket();
                 market.shopping(player.heroArrayList.get(heroIndex));
                 // make sure player wants to leave
                 System.out.print(Color.YELLOW + "Are you done shopping? 'N' = stay, any other keys = leave ");
                 decision = sc.next();
-                if(!decision.equalsIgnoreCase("N"))
+                if (!decision.equalsIgnoreCase("N"))
                     leave = true;
             }
         }
     }
 
-    public void playerMove(String direction){}
+    public boolean playerMove(Hero hero, String direction) {
+        if (
+            (direction.equalsIgnoreCase("A") && (hero.y - 1 < 0)) ||
+            (direction.equalsIgnoreCase("D") && (hero.y + 1 >= board.getNumRow())) ||
+            (direction.equalsIgnoreCase("W") && (hero.x - 1 < 0)) ||
+            (direction.equalsIgnoreCase("S") && (hero.x + 1 >= board.getNumColumn()))
+        ) {
+            // Go outside the map
+            System.out.print(Color.RED + "Your can't go outside the map, please re-enter your move: " + Color.RESET);
+            return false;
+        } else if (
+            (direction.equalsIgnoreCase("A") && (board.getTile(hero.x, hero.y - 1) instanceof Inaccessible)) ||
+            (direction.equalsIgnoreCase("D") && (board.getTile(hero.x, hero.y + 1) instanceof Inaccessible)) ||
+            (direction.equalsIgnoreCase("W") && (board.getTile(hero.x - 1, hero.y) instanceof Inaccessible)) ||
+            (direction.equalsIgnoreCase("S") && (board.getTile(hero.x + 1, hero.y) instanceof Inaccessible))
+        ) {
+            // Move to Inaccessible Cell
+            System.out.print(Color.RED + "Inaccessible, please re-enter your move: " + Color.RESET);
+            return false;
+        }
 
-    public boolean teleport(int heroIndex){
+        // TO DO enemy, shop, etc.
+
+        int fromX = hero.x;
+        int fromY = hero.y;
+
+        if (direction.equalsIgnoreCase("A")) hero.setPos(hero.x, hero.y - 1);
+        if (direction.equalsIgnoreCase("D")) hero.setPos(hero.x, hero.y + 1);
+        if (direction.equalsIgnoreCase("W")) hero.setPos(hero.x - 1, hero.y);
+        if (direction.equalsIgnoreCase("S")) hero.setPos(hero.x + 1, hero.y);
+
+        board.getTile(fromX, fromY).setHeroOn(false);
+        board.getTile(hero.x, hero.y).setHeroOn(true);
+
+        return true;
+    }
+
+    public boolean teleport(int heroIndex) {
         String mateIndex;
         Scanner sc = new Scanner(System.in);
         System.out.print("Which teammate you want to teleport to? 1-3. hero index 4. cancel tp: ");
         mateIndex = sc.next();
 
         while (!mateIndex.matches("^[1-4]$") || Integer.parseInt(mateIndex) - 1 == heroIndex ||
-        player.heroArrayList.get(Integer.parseInt(mateIndex) - 1).x == 7) {
+            player.heroArrayList.get(Integer.parseInt(mateIndex) - 1).x == 7) {
             if(!mateIndex.matches("^[1-4]$"))
                 System.out.print(Color.RED + "Your selection is invalid, try again: " + Color.RESET);
             else if(Integer.parseInt(mateIndex) - 1 == heroIndex)
@@ -213,15 +252,15 @@ public class LoV_Logic {
         int oldX = player.heroArrayList.get(heroIndex).x;
         int oldY = player.heroArrayList.get(heroIndex).y;
 
-        //teleport to your teammate's back
-        board.getTile(oldX,oldY).setHeroOn(false);
+        // teleport to your teammate's back
+        board.getTile(oldX, oldY).setHeroOn(false);
         player.heroArrayList.get(heroIndex).setPos(x, y);
         board.getTile(x,y).setHeroOn(true);
 
         return true;
     }
 
-    public void back(int heroIndex){
+    public void back(int heroIndex) {
         int y;
         int oldX = player.heroArrayList.get(heroIndex).x;
         int oldY = player.heroArrayList.get(heroIndex).y;
