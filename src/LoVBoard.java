@@ -7,11 +7,13 @@ import java.util.Random;
  */
 
 public class LoVBoard extends Board {
+    private Tile[][] board;
+
     /**
      * No-arg constructor
      */
     LoVBoard() {
-        super();
+        this(0);
     }
 
     /**
@@ -25,7 +27,10 @@ public class LoVBoard extends Board {
      *	is determined by num of players
      *********************************************************/
     LoVBoard(int size) {
-        super(size);
+        this.size = size;
+        int column = (size * 2) + (size - 1);
+        int row = column;
+        board = new Tile[row][column];
     }
 
     /**
@@ -38,11 +43,11 @@ public class LoVBoard extends Board {
 
         System.out.println(bannerBorder);
         System.out.println(Color.BLUE   + " [H] " + Color.RESET + "You");
-        System.out.println(Color.GREEN  + " [N] " + Color.RESET + "Nexus");
-        System.out.println(Color.ORANGE + " [I] " + Color.RESET + "Inaccessible");
-        System.out.println(Color.BLUE    + " [P] " + Color.RESET + "Plain");
-        System.out.println(Color.CYAN    + " [B] " + Color.RESET + "Bush");
-        System.out.println(Color.GREY    + " [Cave] " + Color.RESET + "Cave");
+        System.out.println(Color.CYAN  + " [N] " + Color.RESET + "Nexus");
+        System.out.println(Color.RED + " [I] " + Color.RESET + "Inaccessible");
+        System.out.println(Color.RESET    + " [P] " + "Plain");
+        System.out.println(Color.GREEN    + " [B] " + Color.RESET + "Bush");
+        System.out.println(Color.ORANGE    + " [C] " + Color.RESET + "Cave");
         System.out.println(Color.PURPLE    + " [K] " + Color.RESET + "Koulou");
         System.out.println(Color.WHITE    + " [M] " + Color.RESET + "Monster");
         System.out.println(bannerBorder);
@@ -53,7 +58,7 @@ public class LoVBoard extends Board {
      */
     private void displayOpetations() {
         System.out.println(Color.PURPLE + "--------------------------------" + Color.RESET);
-        System.out.println(               "           Opetations           ");
+        System.out.println(               "           Operations           ");
         System.out.println(Color.PURPLE + "--------------------------------" + Color.RESET);
 
         System.out.println(Color.RED + "W/w" + Color.RESET + ": Up");
@@ -65,6 +70,9 @@ public class LoVBoard extends Board {
         System.out.println(Color.RED + "I/i" + Color.RESET + ": Show hero(es) info & Check inventory");
         System.out.println(Color.RED + "Q/q" + Color.RESET + ": Quit");
 
+        System.out.println(Color.RED + "T/t" + Color.RESET + ": Teleport to one of your teammate");
+        System.out.println(Color.RED + "B/b" + Color.RESET + ": Back to Nexus");
+
         System.out.println(Color.PURPLE + "--------------------------------" + Color.RESET);
     }
 
@@ -73,14 +81,12 @@ public class LoVBoard extends Board {
     {
         displayBoardInfo();
         String result = "";
-        for(int i = 0; i < super.board.length; i++)
+        for(int i = 0; i < this.board.length; i++)
         {
-            String row = "";
-            ArrayList<String[]> this_line = new ArrayList<String[]>();
-            for(int j = 0; j < super.board[i].length; j++)
+            ArrayList<String[]> this_line = new ArrayList<>();
+            for(int j = 0; j < this.board[i].length; j++)
             {
-                String[] this_draw  = null;
-                //this_draw = super.board[i][j].specialDraw().split("\\r?\\n");
+                String[] this_draw = this.board[i][j].specialDraw().split("\\r?\\n");
                 this_line.add(this_draw);
             }
             result += this.line_assembler(this_line) + "\n";
@@ -88,6 +94,7 @@ public class LoVBoard extends Board {
         System.out.println(result);
         displayOpetations();
     }
+
     public String line_assembler(ArrayList<String[]> target)
     {
         String result = "";
@@ -102,14 +109,15 @@ public class LoVBoard extends Board {
         }
         return result;
     }
+
     @Override
     public void setBoard()
     {
         //20 special cell 40 plain, nexus and inaccessible fixed num
-        super.cell_factory = new CellFactory();
+        this.cell_factory = new CellFactory();
         Random random = new Random();
-        int row = super.board.length;
-        int column = super.board[0].length;
+        int row = this.board.length;
+        int column = this.board[0].length;
         int number_of_nexus = (column - this.size + 1) * 2;
         int number_of_inaccessible = (this.size - 1) * row;
         int number_of_plain = 17 * this.size;
@@ -129,7 +137,7 @@ public class LoVBoard extends Board {
                     index_count_for_inaccessible -= 1;
                 }
                 //cell for nexus
-                else if(i == 0 || i == super.board.length - 1)
+                else if(i == 0 || i == this.board.length - 1)
                 {
                     type = CellType.NEXUS;
                 }
@@ -166,7 +174,7 @@ public class LoVBoard extends Board {
                     }
                 }
                 index_count_for_inaccessible += 1;
-                super.board[i][j] = super.cell_factory.create_cell(type);
+                this.board[i][j] = this.cell_factory.create_cell(type);
             }
             index_count_for_inaccessible = 0;
         }

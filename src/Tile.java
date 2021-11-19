@@ -19,42 +19,6 @@ public abstract class Tile extends Cell implements Drawable{
         accessible = true;
     }
 
-    /**
-     * Set the mark of a Cell
-     *
-     * @param mark the object that a cell needs to display
-     */
-    public void setMark(Object mark) {
-        this.mark = mark;
-    }
-
-    /**
-     * get the mark of a Cell
-     *
-     * @return the object that a cell needs to display
-     */
-    public Object getMark() {
-        return mark;
-    }
-
-    /**
-     * Set whether there's a hero on current the cell or not
-     *
-     * @param on On the Cell/ NOT on the Cell
-     */
-    public void setHeroOn(boolean on) {
-        this.heroOn = on;
-    }
-
-    /**
-     * Get whether there's a hero on current the cell or not
-     *
-     * @return On the Cell/ NOT on the Cell
-     */
-    public boolean getHeroOn() {
-        return heroOn;
-    }
-
     // get set monsterOn
     public boolean get_monster_on() {
         return this.monsterOn;

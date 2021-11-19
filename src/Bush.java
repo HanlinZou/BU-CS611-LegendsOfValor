@@ -20,11 +20,11 @@ public class Bush extends Tile {
     }
 
     public String getRowBound() {
-        return (Color.CYAN + "B---B---B" + Color.RESET);
+        return (Color.GREEN + "B---B---B" + Color.RESET);
     }
 
     public String getColBound() {
-        return (Color.CYAN + "|" + Color.RESET);
+        return (Color.GREEN + "|" + Color.RESET);
     }
 
     @Override

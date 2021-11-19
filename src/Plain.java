@@ -8,11 +8,11 @@ public class Plain extends Tile {
     }
 
     public String getRowBound() {
-        return (Color.BLUE + "P---P---P" + Color.RESET);
+        return (Color.RESET + "P---P---P");
     }
 
     public String getColBound() {
-        return (Color.BLUE + "|" + Color.RESET);
+        return (Color.RESET + "|");
     }
 
     @Override

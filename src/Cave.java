@@ -20,11 +20,11 @@ public class Cave extends Tile {
     }
 
     public String getRowBound() {
-        return (Color.GREY + "C---C---C" + Color.RESET);
+        return (Color.ORANGE + "C---C---C" + Color.RESET);
     }
 
     public String getColBound() {
-        return (Color.GREY + "|" + Color.RESET);
+        return (Color.ORANGE + "|" + Color.RESET);
     }
 
     @Override

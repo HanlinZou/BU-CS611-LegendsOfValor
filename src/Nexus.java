@@ -6,11 +6,11 @@ public class Nexus extends Tile {
     }
 
     public String getRowBound() {
-        return (Color.GREEN + "N---N---N" + Color.RESET);
+        return (Color.CYAN + "N---N---N" + Color.RESET);
     }
 
     public String getColBound() {
-        return (Color.GREEN + "|" + Color.RESET);
+        return (Color.CYAN + "|" + Color.RESET);
     }
 
     @Override

@@ -19,7 +19,7 @@ public class Board {
     Board() {
         board = null;
         size = 0;
-        //cell_factory = new CellFactory();
+        cell_factory = new CellFactory();
     }
 
     /**
@@ -29,9 +29,6 @@ public class Board {
      */
     Board(int size) {
         this.size = size;
-        /*int column = (size * 2) + (size - 1);
-        int row = column;
-        board = new Cell[row][column];*/
         board = new Cell[this.size][this.size];
     }
 
