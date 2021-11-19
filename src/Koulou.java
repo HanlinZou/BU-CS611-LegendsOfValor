@@ -1,5 +1,5 @@
 
-public class Koulou extends Cell {
+public class Koulou extends Tile {
     // increase strength
     private double buff;
 

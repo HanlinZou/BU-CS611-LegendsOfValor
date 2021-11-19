@@ -1,5 +1,5 @@
 
-public class Bush extends Cell {
+public class Bush extends Tile {
     // increase dexterity
     private double buff;
 

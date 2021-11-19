@@ -1,5 +1,5 @@
 
-public class Cave extends Cell {
+public class Cave extends Tile {
     // increase agility
     private double buff;
 

@@ -1,5 +1,5 @@
 
-public class Plain extends Cell {
+public class Plain extends Tile {
     Plain() {
         super.setHeroOn(false);
         super.setMonsterOn(false);

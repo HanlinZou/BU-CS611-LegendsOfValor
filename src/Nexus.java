@@ -1,5 +1,5 @@
 
-public class Nexus extends Cell {
+public class Nexus extends Tile {
     Nexus() {
         super.setCellType(CellType.NEXUS);
         super.setAccessible(true);

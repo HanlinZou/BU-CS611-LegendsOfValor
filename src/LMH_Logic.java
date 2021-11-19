@@ -20,7 +20,6 @@ public class LMH_Logic {
     CharacterLibrary chl;
     Market market;
     LMHBoard board;
-
     public int[] location = new int[]{0, 0};
 
     /**
@@ -34,26 +33,26 @@ public class LMH_Logic {
     private void printWelcomeMsg() {
         String banner =
             Color.BLUE +
-            ".__                                   .___    " + "\n" +
-            "|  |   ____   ____   ____   ____    __| _/    " + "\n" +
-            "|  | _/ __ \\ / ___\\_/ __ \\ /    \\  / __ | " + "\n" +
-            "|  |_\\  ___// /_/  >  ___/|   |  \\/ /_/ |   " + "\n" +
-            "|____/\\___  >___  / \\___  >___|  /\\____ |  " + "\n" +
-            "          \\/_____/      \\/     \\/      \\/ " + Color.RESET + "\n";
+                ".__                                           .___       " + "\n" +
+                "|  |   ____   ____    ____   ____   ____    __| _/       " + "\n" +
+                "|  | _/ __ \\ /    \\  / ___\\_/ __ \\ /    \\  / __ |   " + "\n" +
+                "|  |_\\  ___/|   |  / /_/  >  ___/|   |  \\/ /_/ |       " + "\n" +
+                "|____/\\___  >___|  /\\___  / \\___  >___|  /\\____ |    " + "\n" +
+                "          \\/     \\//_____/      \\/     \\/      \\/ z " + Color.RESET + "\n";
 
         System.out.println(banner);
 
         String swordArt =
             Color.RED +
-            "            (O)                                            " + "\n" +
-            "            <M                                             " + "\n" +
-            "o          <M  Welcome to Legends: Monsters and Heroes     " + "\n" +
-            "/| ......  /:M\\---------------------------------,,,,,,    " + "\n" +
-            "(O)[]XXXXXX[]I:K+}=====<{H}>===================-------->   " + "\n" +
-            "\\| ^^^^^^  \\:W/---------------------------------''''''   " + "\n" +
-            "o          <W  Have fun!                                   " + "\n" +
-            "            <W                                             " + "\n" +
-            "            (O)                                            " + Color.RESET + "\n";
+                "            (O)                                            " + "\n" +
+                "            <M                                             " + "\n" +
+                "o          <M  Welcome to Legends: Monsters and Heroes     " + "\n" +
+                "/| ......  /:M\\---------------------------------,,,,,,    " + "\n" +
+                "(O)[]XXXXXX[]I:K+}=====<{H}>===================-------->   " + "\n" +
+                "\\| ^^^^^^  \\:W/---------------------------------''''''   " + "\n" +
+                "o          <W  Have fun!                                   " + "\n" +
+                "            <W                                             " + "\n" +
+                "            (O)                                            " + Color.RESET + "\n";
 
         System.out.println(swordArt);
     }
@@ -72,8 +71,7 @@ public class LMH_Logic {
         this.player = new LMHPlayer(pName);
         this.chl = new CharacterLibrary();
         this.market = new Market();
-        //!!!!!!note here is 3, indicate there will be only three heros
-        this.board = new LMHBoard(3);
+        this.board = new LMHBoard(8);
         this.board.setBoard();
 
         // create heroes
@@ -100,13 +98,13 @@ public class LMH_Logic {
 
             // whether player wants to move
             if (playerChoice.equalsIgnoreCase("W") || playerChoice.equalsIgnoreCase("S") ||
-            playerChoice.equalsIgnoreCase("A") || playerChoice.equalsIgnoreCase("D"))
+                playerChoice.equalsIgnoreCase("A") || playerChoice.equalsIgnoreCase("D"))
                 playerMove(playerChoice);
-            // or wants to see information and inventory
+                // or wants to see information and inventory
             else if (playerChoice.equalsIgnoreCase("I")) {
                 player.displayInfoNotInFight();
                 System.out.print(Color.YELLOW + "Do you want to switch your weapon/armor, " +
-                        "use potions, or learn a spell? Input \"Y\" to operate: ");
+                    "use potions, or learn a spell? Input \"Y\" to operate: ");
                 String ans = sc.next();
                 if (ans.equalsIgnoreCase("Y")) {
                     for (int i = 0; i < player.heroArrayList.size(); i++)
@@ -147,7 +145,7 @@ public class LMH_Logic {
         }
         else if (direction.equalsIgnoreCase("D")) {
             if (location[1] != board.size - 1 &&
-                    !board.getCell(location[0], location[1] + 1).getMark().equals("X")) {
+                !board.getCell(location[0], location[1] + 1).getMark().equals("X")) {
                 board.getCell(location[0], location[1]).setHeroOn(false);
                 location[1]++;
                 board.getCell(location[0], location[1]).setHeroOn(true);
@@ -181,7 +179,7 @@ public class LMH_Logic {
 
                     // if input is invalid, leave the store
                     if(!heroNo.matches("[0-9]*") || Integer.parseInt(heroNo) < 1 ||
-                            Integer.parseInt(heroNo) > player.heroArrayList.size())
+                        Integer.parseInt(heroNo) > player.heroArrayList.size())
                         break;
                     market.shopping(player.heroArrayList.get(Integer.parseInt(heroNo) - 1));
                     // make sure player wants to leave
@@ -247,9 +245,9 @@ public class LMH_Logic {
                 for(int j = 0; j < chl.dragonArrayList.size(); j++) {
                     if (chl.dragonArrayList.get(j).getLevel() == heroLV[i]) {
                         monsterArrayList.add(new Monster(chl.dragonArrayList.get(j).getName(),
-                                chl.dragonArrayList.get(j).getLevel(), chl.dragonArrayList.get(j).getHP(),
-                                chl.dragonArrayList.get(j).getDamage(), chl.dragonArrayList.get(j).getDefense(),
-                                chl.dragonArrayList.get(j).getDodge()));
+                            chl.dragonArrayList.get(j).getLevel(), chl.dragonArrayList.get(j).getHP(),
+                            chl.dragonArrayList.get(j).getDamage(), chl.dragonArrayList.get(j).getDefense(),
+                            chl.dragonArrayList.get(j).getDodge()));
                         break;
                     }
                 }
@@ -258,9 +256,9 @@ public class LMH_Logic {
                 for (int j = 0; j < chl.exoArrayList.size(); j++) {
                     if (chl.exoArrayList.get(j).getLevel() == heroLV[i]) {
                         monsterArrayList.add(new Monster(chl.exoArrayList.get(j).getName(),
-                                chl.exoArrayList.get(j).getLevel(), chl.exoArrayList.get(j).getHP(),
-                                chl.exoArrayList.get(j).getDamage(), chl.exoArrayList.get(j).getDefense(),
-                                chl.exoArrayList.get(j).getDodge()));
+                            chl.exoArrayList.get(j).getLevel(), chl.exoArrayList.get(j).getHP(),
+                            chl.exoArrayList.get(j).getDamage(), chl.exoArrayList.get(j).getDefense(),
+                            chl.exoArrayList.get(j).getDodge()));
                         break;
                     }
                 }
@@ -269,9 +267,9 @@ public class LMH_Logic {
                 for (int j = 0; j < chl.spiritArrayList.size(); j++) {
                     if (chl.spiritArrayList.get(j).getLevel() == heroLV[i]) {
                         monsterArrayList.add(new Monster(chl.spiritArrayList.get(j).getName(),
-                                chl.spiritArrayList.get(j).getLevel(), chl.spiritArrayList.get(j).getHP(),
-                                chl.spiritArrayList.get(j).getDamage(), chl.spiritArrayList.get(j).getDefense(),
-                                chl.spiritArrayList.get(j).getDodge()));
+                            chl.spiritArrayList.get(j).getLevel(), chl.spiritArrayList.get(j).getHP(),
+                            chl.spiritArrayList.get(j).getDamage(), chl.spiritArrayList.get(j).getDefense(),
+                            chl.spiritArrayList.get(j).getDodge()));
                         break;
                     }
                 }
@@ -294,7 +292,7 @@ public class LMH_Logic {
                     if (player.heroArrayList.get(i).getCurrentHP() > 0) {
                         // if current hero hasn't died, ask player to pick an action
                         System.out.println(Color.GREEN + player.heroArrayList.get(i).getName() +
-                                ", your turn:\n1. Regular Attack\n2. Cast a spell\n3. Take a potion/Switch equipments");
+                            ", your turn:\n1. Regular Attack\n2. Cast a spell\n3. Take a potion/Switch equipments");
                         String decision = sc.next();
                         while (!decision.matches("^[1-3]$")) {
                             System.out.print(Color.RED + "Your selection is invalid, try again: " + Color.RESET);
@@ -314,7 +312,7 @@ public class LMH_Logic {
                                 if (monsterArrayList.get(targetNo).getCurrentHP() < 0) {
                                     //if yes, decrease monster number and remove the dead monster from list
                                     System.out.println(Color.GREEN + player.heroArrayList.get(i).getName() +
-                                            " just killed " + monsterArrayList.get(targetNo).getName());
+                                        " just killed " + monsterArrayList.get(targetNo).getName());
                                     monsterNum--;
                                     monsterArrayList.remove(targetNo);
                                 }
@@ -337,7 +335,7 @@ public class LMH_Logic {
                                 if (monsterArrayList.get(targetNo).getCurrentHP() < 0) {
                                     //if yes, decrease monster number and remove the dead monster from list
                                     System.out.println(Color.GREEN + player.heroArrayList.get(i).getName() +
-                                            " just killed " + monsterArrayList.get(targetNo).getName());
+                                        " just killed " + monsterArrayList.get(targetNo).getName());
                                     monsterNum--;
                                     monsterArrayList.remove(targetNo);
 
@@ -390,7 +388,7 @@ public class LMH_Logic {
                 //reward each hero based on if it's alive
                 if(player.heroArrayList.get(i).currentHP > 0){
                     System.out.println(Color.GREEN + player.heroArrayList.get(i).getName() +
-                            ", your survival will be rewarded!");
+                        ", your survival will be rewarded!");
                     player.heroArrayList.get(i).win();
 
                     // after gaining experience, check if enough to achieve next level
@@ -399,7 +397,7 @@ public class LMH_Logic {
                 }
                 else{
                     System.out.println(Color.GREEN + player.heroArrayList.get(i).getName() +
-                            ", you're revived by your friends");
+                        ", you're revived by your friends");
                     player.heroArrayList.get(i).revive();
                 }
             }

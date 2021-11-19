@@ -12,9 +12,9 @@ public class RPGGame {
         System.out.print(
             "Welcome to RPG Game Center.\n" +
             "1. Legends: Monsters and Heroes\n" +
-            "2. Cyberpunk 2077\n" +
-            "3. Grand Theft Auto V\n" +
-            "Which game you want to play? (Pick 1 now that's all we got!) "
+            "2. Legends of Valor\n" +
+            "3. Cyberpunk 2077\n" +
+            "Which game you want to play? (Pick 1/2 now that's all we got!) "
         );
         String gameChoice = sc.next();
         while (!gameChoice.matches("^[1-3]$")) {
@@ -25,6 +25,10 @@ public class RPGGame {
         if (gameChoice.equals("1")) {
             LMH_Logic lmh_logic = new LMH_Logic();
             lmh_logic.prep();
+        }
+        else if (gameChoice.equals("2")) {
+            LoV_Logic loV_logic = new LoV_Logic();
+            loV_logic.prep();
         }
 
         sc.close();

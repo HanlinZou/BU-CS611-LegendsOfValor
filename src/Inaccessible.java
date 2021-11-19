@@ -1,5 +1,5 @@
 
-public class Inaccessible extends Cell {
+public class Inaccessible extends Tile {
     Inaccessible() {
         super.setAccessible(false);
         super.setCellType(CellType.INACCESSIBLE);

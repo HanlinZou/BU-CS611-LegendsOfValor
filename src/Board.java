@@ -5,20 +5,21 @@
  */
 /*********************************************************
 *Please note:
-*	size equals to num of players, the shape of gameboard 
+*	size equals to num of players, the shape of gameboard
 *	is determined by num of players
 *********************************************************/
 public class Board {
     protected Cell[][] board;
     protected int size;
     protected CellFactory cell_factory;
+
     /**
      * No-arg constructor
      */
     Board() {
         board = null;
         size = 0;
-        cell_factory = new CellFactory();
+        //cell_factory = new CellFactory();
     }
 
     /**
@@ -28,9 +29,10 @@ public class Board {
      */
     Board(int size) {
         this.size = size;
-        int column = (size * 2) + (size - 1);
+        /*int column = (size * 2) + (size - 1);
         int row = column;
-        board = new Cell[row][column];
+        board = new Cell[row][column];*/
+        board = new Cell[this.size][this.size];
     }
 
     /**
@@ -59,14 +61,14 @@ public class Board {
     /**
      * Set an empty board
      */
-    public void setBoard() 
+    public void setBoard()
     {
-        /*for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) 
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++)
             {
                 this.board[i][j] = new Cell();
                 this.board[i][j].setMark(" ");
             }
-        }*/
+        }
     }
 }
