@@ -83,15 +83,20 @@ public class LoV_Logic {
                 }
 
                 board.displayBoard();
-                System.out.print("Hero No." + (i + 1) + ", " + player.heroArrayList.get(i).getName() + ". Pick a move: ");
+                System.out.print(Color.YELLOW + "Hero No." + (i + 1) + ", " +
+                    player.heroArrayList.get(i).getName() + ". Pick a move: ");
                 playerChoice = sc.next();
 
                 // whether player wants to move
                 if (playerChoice.equalsIgnoreCase("W") || playerChoice.equalsIgnoreCase("S") ||
                     playerChoice.equalsIgnoreCase("A") || playerChoice.equalsIgnoreCase("D")) {
                     if (!playerMove(hero, playerChoice)) i--;  // failed to move
+                    if (hero.x == 0){
+                        System.out.println(Color.ORANGE + "Heroes won!" + Color.RESET);
+                        playerChoice = "Q";
+                        break;
+                    }
                 }
-
                 // or wants to see information and inventory
                 else if (playerChoice.equalsIgnoreCase("I")) {
                     player.displayInfoNotInFight();
@@ -104,8 +109,7 @@ public class LoV_Logic {
                     }
                 }
                 else if (playerChoice.equalsIgnoreCase("T")) {
-                    boolean tpResult = teleport(i);
-                    if (!tpResult) i--;
+                    if (!teleport(i)) i--; //If tp fail due to no available target
                 }
                 else if (playerChoice.equalsIgnoreCase("B")) {
                     back(i);
@@ -217,18 +221,35 @@ public class LoV_Logic {
             return false;
         }
 
-        // TO DO enemy, shop, etc.
-
         int fromX = hero.x;
         int fromY = hero.y;
+        if (direction.equalsIgnoreCase("W")) {
+            //hero at left tile and there's a monster at right tile or at same tile
+            if(fromY % 3 == 0 &&
+                (board.getTile(fromX, fromY).get_monster_on() || board.getTile(fromX, fromY + 1).get_monster_on())) {
+                System.out.println(Color.RED + "Inaccessible, please re-enter your move: " + Color.RESET);
+                return false;
+            }
+            //hero at right tile and there's a monster at left tile or at same tile
+            else if(fromY % 3 != 0 &&
+                (board.getTile(fromX, fromY).get_monster_on() || board.getTile(fromX, fromY - 1).get_monster_on())) {
+                System.out.println(Color.RED + "Inaccessible, please re-enter your move: " + Color.RESET);
+                return false;
+            }
+        }
 
+        //check type of from tile and remove buff if necessary
+
+        // update board information
+        board.getTile(fromX, fromY).setHeroOn(false);
+        // update hero information
         if (direction.equalsIgnoreCase("A")) hero.setPos(hero.x, hero.y - 1);
         if (direction.equalsIgnoreCase("D")) hero.setPos(hero.x, hero.y + 1);
         if (direction.equalsIgnoreCase("W")) hero.setPos(hero.x - 1, hero.y);
         if (direction.equalsIgnoreCase("S")) hero.setPos(hero.x + 1, hero.y);
-
-        board.getTile(fromX, fromY).setHeroOn(false);
         board.getTile(hero.x, hero.y).setHeroOn(true);
+
+        //check type of to tile and add buff if necessary
 
         return true;
     }
