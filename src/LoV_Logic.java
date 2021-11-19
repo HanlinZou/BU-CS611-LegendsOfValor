@@ -75,9 +75,14 @@ public class LoV_Logic {
 
         do {
             for(int i = 0; i < player.heroArrayList.size(); i++) {
-                board.displayBoard();
-                playerChoice = sc.next();
+                if(board.getTile(player.heroArrayList.get(i).x, player.heroArrayList.get(i).y) instanceof Nexus) {
+                    board.displayBoard();
+                    nexusOp(i);
+                }
 
+                board.displayBoard();
+                System.out.print("Hero No." + (i+1) + ", " + player.heroArrayList.get(i).getName() + ". Pick a move: ");
+                playerChoice = sc.next();
                 // whether player wants to move
                 if (playerChoice.equalsIgnoreCase("W") || playerChoice.equalsIgnoreCase("S") ||
                     playerChoice.equalsIgnoreCase("A") || playerChoice.equalsIgnoreCase("D"))
@@ -156,6 +161,28 @@ public class LoV_Logic {
         monsterArrayList.get(1).setPos(0, 1);
         board.getTile(0, 7).setMonsterOn(true);
         monsterArrayList.get(2).setPos(0, 1);
+    }
+
+    public void nexusOp(int heroIndex){
+        Scanner sc = new Scanner(System.in);
+        String decision;
+        System.out.print(Color.YELLOW + "Hero No." + (heroIndex+1) + ", " +
+            player.heroArrayList.get(heroIndex).getName() + ". You're at Nexus, input \"Y\" to buy/sell: ");
+        decision = sc.next();
+
+        if(decision.equalsIgnoreCase("Y")) {
+            boolean leave = false;
+            while (!leave){
+                // display all heroes' names, levels, and money
+                player.displayInfoInMarket();
+                market.shopping(player.heroArrayList.get(heroIndex));
+                // make sure player wants to leave
+                System.out.print(Color.YELLOW + "Are you done shopping? 'N' = stay, any other keys = leave ");
+                decision = sc.next();
+                if(!decision.equalsIgnoreCase("N"))
+                    leave = true;
+            }
+        }
     }
 
     public void playerMove(String direction){}
