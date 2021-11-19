@@ -2,9 +2,13 @@ import java.util.Scanner;
 
 public class HeroCreation {
     CharacterLibrary chl = new CharacterLibrary();
-    private int numHeros = 3;
+    private int numHeros;
 
     HeroCreation() {
+    }
+
+    HeroCreation(int num){
+        numHeros = num;
     }
 
     public void prep(LMHPlayer player) {
@@ -17,7 +21,7 @@ public class HeroCreation {
             System.out.print(Color.YELLOW + "What position will your No." + i + " hero to be: " + Color.RESET);
             String posChoice = sc.next();
 
-            while (!posChoice.matches("^[1-" + numHeros + "]$")) {
+            while (!posChoice.matches("^[1-3]$")) {
                 System.out.print(Color.RED + "Your selection is invalid, try again: " + Color.RESET);
                 posChoice = sc.next();
             }

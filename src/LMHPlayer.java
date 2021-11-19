@@ -41,7 +41,7 @@ public class LMHPlayer extends Player {
     public void displayInfoInFight() {
         if (heroArrayList.isEmpty()) return;
 
-        System.out.println(Color.ORANGE +"Heros: " + Color.RESET);
+        System.out.println(Color.ORANGE +"Heroes: " + Color.RESET);
 
         String border =
             Color.ORANGE +
@@ -94,7 +94,7 @@ public class LMHPlayer extends Player {
             Color.RESET + "\n";
 
         String title =
-            "Name                       Type        Level    HP      MP      Strength    Dexterity    Agility    Money    Exp";
+            "Name                       Type      Level        HP      MP    Strength    Dexterity    Agility   Money     Exp";
 
         System.out.print(border);
         System.out.println(title);
@@ -107,18 +107,18 @@ public class LMHPlayer extends Player {
             String type = hero.getType();
 
             int level = hero.getLevel();
-            int exp = hero.getXP();
+            String exp = hero.getCurrentXP() + "/" + hero.getXP();
             int money = hero.getMoney();
 
-            int hp = hero.getHP();
-            int mp = hero.getMP();
+            String hp = hero.getCurrentHP() + "/" + hero.getHP();
+            String mp = hero.getCurrentMP() + "/" + hero.getMP();
 
             int strength = hero.getStrength();
             int dexterity = hero.getDexterity();
             int agility = hero.getAgility();
 
             System.out.printf(
-                "%-26s %-11s %-8d %-7d %-9d %-12d %-11d %-8d %-8d %-5d",
+                "%-26s %-11s %-8d %-7s %-9s %-12d %-11d %-8d %-8d %-5s",
                 name, type, level, hp, mp, strength, dexterity, agility , money, exp
             );
             System.out.println();

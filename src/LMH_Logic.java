@@ -74,8 +74,14 @@ public class LMH_Logic {
         this.board = new LMHBoard(8);
         this.board.setBoard();
 
+        System.out.print(Color.YELLOW + "How many heroes would you like?(1-3) ");
+        String heroNum = sc.next();
+        while(!heroNum.matches("^[1-3]$")){
+            System.out.print(Color.RED + "Your selection is invalid, try again: " + Color.RESET);
+            heroNum = sc.next();
+        }
         // create heroes
-        HeroCreation hc = new HeroCreation();
+        HeroCreation hc = new HeroCreation(Integer.parseInt(heroNum));
         hc.prep(player);
 
         // after all components are ready, start the game.
