@@ -1,29 +1,34 @@
 
-public class Inaccessible extends Cell
-{
-	Inaccessible()
-	{
-		super.set_accessible(false);
-		super.set_cell_type(CellType.INACCESSIBLE);
-	}
-	@Override
-	public String plainDraw()
-	{
-		return "IxxxIxxxI"
-				+ "\n" + "| X X X |"
-				+ "\n" + "IxxxIxxxI";
-	}
+public class Inaccessible extends Cell {
+    Inaccessible() {
+        super.setAccessible(false);
+        super.setCellType(CellType.INACCESSIBLE);
+    }
 
-	@Override
-	public String specialDraw() {
-		// TODO Auto-generated method stub
-		return this.plainDraw();
-	}
+    public String getRowBound() {
+        return (Color.ORANGE + "IxxxIxxxI" + Color.RESET);
+    }
 
-	@Override
-	public void cell_effect()
-	{
-		//nothing
-	}
-	
+    public String getColBound() {
+        return (Color.ORANGE + "|" + Color.RESET);
+    }
+
+    @Override
+    public String plainDraw() {
+        return
+            getRowBound() + "\n" +
+            Color.ORANGE + "| X X X |" + Color.RESET + "\n" +
+            getRowBound();
+    }
+
+    @Override
+    public String specialDraw() {
+        // TODO Auto-generated method stub
+        return this.plainDraw();
+    }
+
+    @Override
+    public void cellEffect() {
+        // nothing
+    }
 }

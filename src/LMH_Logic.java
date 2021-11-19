@@ -20,7 +20,7 @@ public class LMH_Logic {
     CharacterLibrary chl;
     Market market;
     LMHBoard board;
-    
+
     public int[] location = new int[]{0, 0};
 
     /**
@@ -34,12 +34,12 @@ public class LMH_Logic {
     private void printWelcomeMsg() {
         String banner =
             Color.BLUE +
-            ".__                                           .___       " + "\n" +
-            "|  |   ____   ____    ____   ____   ____    __| _/       " + "\n" +
-            "|  | _/ __ \\ /    \\  / ___\\_/ __ \\ /    \\  / __ |   " + "\n" +
-            "|  |_\\  ___/|   |  / /_/  >  ___/|   |  \\/ /_/ |       " + "\n" +
-            "|____/\\___  >___|  /\\___  / \\___  >___|  /\\____ |    " + "\n" +
-            "          \\/     \\//_____/      \\/     \\/      \\/ z " + Color.RESET + "\n";
+            ".__                                   .___    " + "\n" +
+            "|  |   ____   ____   ____   ____    __| _/    " + "\n" +
+            "|  | _/ __ \\ / ___\\_/ __ \\ /    \\  / __ | " + "\n" +
+            "|  |_\\  ___// /_/  >  ___/|   |  \\/ /_/ |   " + "\n" +
+            "|____/\\___  >___  / \\___  >___|  /\\____ |  " + "\n" +
+            "          \\/_____/      \\/     \\/      \\/ " + Color.RESET + "\n";
 
         System.out.println(banner);
 
