@@ -76,6 +76,7 @@ public class LoV_Logic {
         do {
             for(int i = 0; i < player.heroArrayList.size(); i++) {
                 Hero hero = player.heroArrayList.get(i);
+                hero.heal();
 
                 if (board.getTile(hero.x, hero.y) instanceof Nexus) {
                     board.displayBoard();
@@ -260,6 +261,14 @@ public class LoV_Logic {
         }
 
         //check type of from tile and remove buff if necessary
+        if(hero.getBuffed()){
+            if(hero.getBuffType().equals("dex"))
+                hero.setDexterity(hero.getDexterity() - hero.buffAmt);
+            else if(hero.getBuffType().equals("agi"))
+                hero.setAgility(hero.getAgility() - hero.buffAmt);
+            else
+                hero.setStrength(hero.getStrength() - hero.buffAmt);
+        }
 
         // update board information
         board.getTile(fromX, fromY).setHeroOn(false);
@@ -271,6 +280,24 @@ public class LoV_Logic {
         board.getTile(hero.x, hero.y).setHeroOn(true);
 
         //check type of to tile and add buff if necessary
+        if(board.getTile(hero.x, hero.y) instanceof Bush){
+            hero.setBuffed(true);
+            hero.setBuffType("dex");
+            hero.setBuffAmt(hero.getDexterity() / 10);
+            hero.setDexterity(hero.getDexterity() + hero.getBuffAmt());
+        }
+        else if(board.getTile(hero.x, hero.y) instanceof Cave){
+            hero.setBuffed(true);
+            hero.setBuffType("agi");
+            hero.setBuffAmt(hero.getAgility() / 10);
+            hero.setAgility(hero.getAgility() + hero.getBuffAmt());
+        }
+        else if(board.getTile(hero.x, hero.y) instanceof Koulou){
+            hero.setBuffed(true);
+            hero.setBuffType("str");
+            hero.setBuffAmt(hero.getStrength() / 10);
+            hero.setStrength(hero.getStrength() + hero.getBuffAmt());
+        }
 
         return true;
     }

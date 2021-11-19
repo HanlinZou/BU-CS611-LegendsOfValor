@@ -20,6 +20,10 @@ public abstract class Hero extends Character {
     // all items that a hero has in his package/bag
     private ArrayList<Item> storage;
     private ArrayList<Spell> learnedSpell;
+    //for LoV
+    boolean buffed = false;
+    int buffAmt = 0;
+    String buffType = "";
 
     /**
      * No-arg constructor
@@ -79,6 +83,30 @@ public abstract class Hero extends Character {
         setCurrentXP(currentXP - XP);
         setXP();
         boostSkill();
+    }
+
+    public void setBuffed(boolean buffed){
+        this.buffed = buffed;
+    }
+
+    public boolean getBuffed(){
+        return buffed;
+    }
+
+    public void setBuffType(String type){
+        buffType = String.valueOf(type);
+    }
+
+    public String getBuffType(){
+        return buffType;
+    }
+
+    public void setBuffAmt(int amt){
+        buffAmt = amt;
+    }
+
+    public int getBuffAmt(){
+        return buffAmt;
     }
 
     public void setMP(int MP) {
