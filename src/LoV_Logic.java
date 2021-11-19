@@ -74,7 +74,7 @@ public class LoV_Logic {
         String playerChoice = "Q";
 
         do {
-            for(int i = 0; i< player.heroArrayList.size(); i++) {
+            for(int i = 0; i < player.heroArrayList.size(); i++) {
                 board.displayBoard();
                 playerChoice = sc.next();
 
@@ -94,7 +94,9 @@ public class LoV_Logic {
                     }
                 }
                 else if (playerChoice.equalsIgnoreCase("T")) {
-                    teleport();
+                    boolean tpResult = teleport(i);
+                    if (!tpResult)
+                        i--;
                 }
                 else if (playerChoice.equalsIgnoreCase("B")) {
                     back();
@@ -157,6 +159,39 @@ public class LoV_Logic {
     }
 
     public void playerMove(String direction){}
-    public void teleport(){}
+
+    public boolean teleport(int heroIndex){
+        String mateIndex;
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Which teammate you want to teleport to? 1-3. hero index 4. cancel tp: ");
+        mateIndex = sc.next();
+
+        while (!mateIndex.matches("^[1-4]$") || Integer.parseInt(mateIndex) - 1 == heroIndex ||
+        player.heroArrayList.get(Integer.parseInt(mateIndex) - 1).x == 7) {
+            if(!mateIndex.matches("^[1-4]$"))
+                System.out.print(Color.RED + "Your selection is invalid, try again: " + Color.RESET);
+            else if(Integer.parseInt(mateIndex) - 1 == heroIndex)
+                System.out.print(Color.RED + "You can't teleport to yourself, try again: " + Color.RESET);
+            else
+                System.out.print(Color.RED + "You can't teleport to a hero at Nexus, try again: " + Color.RESET);
+            mateIndex = sc.next();
+        }
+
+        int mate = Integer.parseInt(mateIndex) - 1;
+        if(mate == 4)
+            return false;
+
+        int x = player.heroArrayList.get(mate).x + 1;
+        int y = player.heroArrayList.get(mate).y;
+        int oldX = player.heroArrayList.get(heroIndex).x;
+        int oldY = player.heroArrayList.get(heroIndex).y;
+
+        //teleport to your teammate's back
+        board.getTile(oldX,oldY).setHeroOn(false);
+        player.heroArrayList.get(heroIndex).setPos(x, y);
+        board.getTile(x,y).setHeroOn(true);
+
+        return true;
+    }
     public void back(){}
 }
