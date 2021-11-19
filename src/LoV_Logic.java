@@ -97,6 +97,10 @@ public class LoV_Logic {
                         break;
                     }
                 }
+                // or want to fight
+                else if (playerChoice.equalsIgnoreCase("F")){
+                    if (!fight(hero)) i--;
+                }
                 // or wants to see information and inventory
                 else if (playerChoice.equalsIgnoreCase("I")) {
                     player.displayInfoNotInFight();
@@ -236,6 +240,23 @@ public class LoV_Logic {
                 System.out.println(Color.RED + "Inaccessible, please re-enter your move: " + Color.RESET);
                 return false;
             }
+            // avoid two heroes at same tile
+            if(board.getTile(fromX - 1, fromY).getHeroOn()){
+                System.out.println(Color.RED + "A hero in front of you, please re-enter your move: " + Color.RESET);
+                return false;
+            }
+        }
+        else if(direction.equalsIgnoreCase("S") && board.getTile(fromX + 1, fromY).getHeroOn()){
+            System.out.println(Color.RED + "A hero is behind you, please re-enter your move: " + Color.RESET);
+            return false;
+        }
+        else if(direction.equalsIgnoreCase("A") && board.getTile(fromX, fromY - 1).getHeroOn()){
+            System.out.println(Color.RED + "A hero is on your left, please re-enter your move: " + Color.RESET);
+            return false;
+        }
+        else if(direction.equalsIgnoreCase("D") && board.getTile(fromX, fromY + 1).getHeroOn()){
+            System.out.println(Color.RED + "A hero is on your right, please re-enter your move: " + Color.RESET);
+            return false;
         }
 
         //check type of from tile and remove buff if necessary
@@ -302,5 +323,9 @@ public class LoV_Logic {
 
         player.heroArrayList.get(heroIndex).setPos(7, y);
         board.getTile(7,y).setHeroOn(true);
+    }
+
+    public boolean fight(Hero hero){
+        return true;
     }
 }

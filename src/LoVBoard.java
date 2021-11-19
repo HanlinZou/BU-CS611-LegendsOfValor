@@ -66,7 +66,7 @@ public class LoVBoard extends Board {
 
         System.out.println(Color.RED + "S/s" + Color.RESET + ": Down");
         System.out.println(Color.RED + "D/d" + Color.RESET + ": Right");
-
+        System.out.println(Color.RED + "F/f" + Color.RESET + ": Fight");
         System.out.println(Color.RED + "I/i" + Color.RESET + ": Show hero(es) info & Check inventory");
         System.out.println(Color.RED + "Q/q" + Color.RESET + ": Quit");
 
