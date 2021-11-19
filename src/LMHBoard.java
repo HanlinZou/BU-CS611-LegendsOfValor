@@ -40,9 +40,9 @@ public class LMHBoard extends Board {
     /**
      * Prints instructions on movement operations.
      */
-    private void displayOpetations() {
+    private void displayOperations() {
         System.out.println(Color.PURPLE + "--------------------------------" + Color.RESET);
-        System.out.println(               "           Opetations           ");
+        System.out.println(               "           Operations           ");
         System.out.println(Color.PURPLE + "--------------------------------" + Color.RESET);
 
         System.out.println(Color.RED + "W/w" + Color.RESET + ": Up");
@@ -81,7 +81,7 @@ public class LMHBoard extends Board {
             System.out.print("\n");
         }
 
-        displayOpetations();
+        displayOperations();
     }
 
     @Override
@@ -90,7 +90,7 @@ public class LMHBoard extends Board {
         int category;
         for (int i = 0; i < this.size; i++) {
             for (int j = 0; j < this.size; j++) {
-                this.board[i][j] = new Plain();
+                this.board[i][j] = new Cell();
                 category = random.nextInt(10);
                 if (category < 2)
                     this.board[i][j].setMark("X");
