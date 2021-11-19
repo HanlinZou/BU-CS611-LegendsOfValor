@@ -325,7 +325,88 @@ public class LoV_Logic {
         board.getTile(7,y).setHeroOn(true);
     }
 
+    /**
+     * Priority of target pick: Hero first fight the monster at same tile,
+     * then the one in front of him, then diagonal one.
+     * @param hero
+     * @return
+     */
     public boolean fight(Hero hero){
+        int x = hero.x;
+        int y = hero.y;
+        Monster monster = null;
+        int monsterIndex = -1;
+
+        // Check whether a monster at same tile or in front of a hero
+        if(!board.getTile(x, y).get_monster_on()){
+            if(board.getTile(x - 1, y).get_monster_on()){
+                for (int i = 0; i < monsterArrayList.size(); i++) {
+                    if (monsterArrayList.get(i).getX() == x && monsterArrayList.get(i).getY() == y)
+                        monster = monsterArrayList.get(i);
+                        monsterIndex = i;
+                }
+            }
+        }
+        else if (board.getTile(x, y).get_monster_on()){
+            for (int i = 0; i < monsterArrayList.size(); i++) {
+                if (monsterArrayList.get(i).getX() == x && monsterArrayList.get(i).getY() == y)
+                    monster = monsterArrayList.get(i);
+                monsterIndex = i;
+            }
+        }
+        //Check if there's a monster at diagonal or right tile if hero on left tile
+        //No need to check if there's a monster at diagonal or left tile if hero on right tile
+        //because monsters only move forward or fight, and they are spawned on right tile
+        else{
+            // avoid index out of bound error
+            if(y != board.getNumColumn() && board.getTile(x - 1, y + 1).get_monster_on()){
+                for (int i = 0; i < monsterArrayList.size(); i++) {
+                    if (monsterArrayList.get(i).getX() == x && monsterArrayList.get(i).getY() == y)
+                        monster = monsterArrayList.get(i);
+                    monsterIndex = i;
+                }
+            }
+        }
+
+        if(monster == null){
+            System.out.println(Color.RED + "You have no target to initiate a fight. ");
+            return false;
+        }
+
+        Scanner sc = new Scanner(System.in);
+        System.out.print(Color.YELLOW + "Do you want to regular attack or cast a spell? 1. regular 2. spell ");
+        String decision = sc.next();
+        while (!decision.matches("^[1-2]$")) {
+            System.out.print(Color.RED + "Your selection is invalid, try again: " + Color.RESET);
+            decision = sc.next();
+        }
+        switch (decision){
+            case "1":
+                // regular attack
+                hero.regularAttack(monster);
+
+                // check whether the monster is dead
+                if (monster.getCurrentHP() < 0) {
+                    //if yes, remove the dead monster from list
+                    System.out.println(Color.GREEN + hero.getName() + " just killed " + monster.getName());
+                    monsterArrayList.remove(monsterIndex);
+                }
+            case "2":
+                // let hero cast a spell if learned any
+                if (hero.getLearnedSpell().size() > 0)
+                    hero.castSpell(monster);
+                else {
+                    System.out.println(Color.RED + "There is a monster but you haven't learned any spell, retry.");
+                    return false;
+                }
+
+                // check whether the monster is dead
+                if (monster.getCurrentHP() < 0) {
+                    //if yes, remove the dead monster from list
+                    System.out.println(Color.GREEN + hero.getName() + " just killed " + monster.getName());
+                    monsterArrayList.remove(monsterIndex);
+                }
+        }
         return true;
     }
 }
