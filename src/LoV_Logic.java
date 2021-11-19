@@ -109,6 +109,10 @@ public class LoV_Logic {
                 }
                 else if (playerChoice.equalsIgnoreCase("B")) {
                     back(i);
+                } else {
+                    // Invalid action
+                    System.out.println(Color.RED + "Invalid action, please re-enter it." + Color.RESET);
+                    i--;
                 }
             }
         } while(!playerChoice.equalsIgnoreCase("Q"));
@@ -197,7 +201,7 @@ public class LoV_Logic {
             (direction.equalsIgnoreCase("S") && (hero.x + 1 >= board.getNumColumn()))
         ) {
             // Go outside the map
-            System.out.print(Color.RED + "Your can't go outside the map, please re-enter your move: " + Color.RESET);
+            System.out.println(Color.RED + "Your can't go outside the map, please re-enter your move: " + Color.RESET);
             return false;
         } else if (
             (direction.equalsIgnoreCase("A") && (board.getTile(hero.x, hero.y - 1) instanceof Inaccessible)) ||
@@ -206,7 +210,7 @@ public class LoV_Logic {
             (direction.equalsIgnoreCase("S") && (board.getTile(hero.x + 1, hero.y) instanceof Inaccessible))
         ) {
             // Move to Inaccessible Cell
-            System.out.print(Color.RED + "Inaccessible, please re-enter your move: " + Color.RESET);
+            System.out.println(Color.RED + "Inaccessible, please re-enter your move: " + Color.RESET);
             return false;
         }
 
