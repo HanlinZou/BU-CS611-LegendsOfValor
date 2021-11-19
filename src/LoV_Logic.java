@@ -99,7 +99,7 @@ public class LoV_Logic {
                         i--;
                 }
                 else if (playerChoice.equalsIgnoreCase("B")) {
-                    back();
+                    back(i);
                 }
             }
         } while(!playerChoice.equalsIgnoreCase("Q"));
@@ -193,5 +193,20 @@ public class LoV_Logic {
 
         return true;
     }
-    public void back(){}
+
+    public void back(int heroIndex){
+        int y;
+        int oldX = player.heroArrayList.get(heroIndex).x;
+        int oldY = player.heroArrayList.get(heroIndex).y;
+        board.getTile(oldX,oldY).setHeroOn(false);
+        if(oldY < 2)
+            y = 0;
+        else if(oldY < 5)
+            y = 3;
+        else
+            y = 6;
+
+        player.heroArrayList.get(heroIndex).setPos(7, y);
+        board.getTile(7,y).setHeroOn(true);
+    }
 }
