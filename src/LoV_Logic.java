@@ -109,11 +109,14 @@ public class LoV_Logic {
                 }
                 else if (playerChoice.equalsIgnoreCase("B")) {
                     back(i);
-                } else {
+                }
+                else if (!playerChoice.equalsIgnoreCase("Q")){
                     // Invalid action
                     System.out.println(Color.RED + "Invalid action, please re-enter it." + Color.RESET);
                     i--;
                 }
+                else
+                    break;
             }
         } while(!playerChoice.equalsIgnoreCase("Q"));
         System.out.println(Color.RESET + "Goodbye. " + player.getPlayerName());
