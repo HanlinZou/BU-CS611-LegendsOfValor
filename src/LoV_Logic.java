@@ -1,7 +1,162 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class LoV_Logic {
-    public void prep(){
-        LoVBoard lvb = new LoVBoard(3);
-        lvb.setBoard();
-        lvb.displayBoard();
+
+    LMHPlayer player;
+    ArrayList<Monster> monsterArrayList = new ArrayList<>();
+    CharacterLibrary chl;
+    Market market;
+    LoVBoard board;
+
+    /**
+     * Prints welcome messages.
+     */
+    private void printWelcomeMsg() {
+        String banner =
+            Color.BLUE +
+                ".__                                           .___       " + "\n" +
+                "|  |   ____   ____    ____   ____   ____    __| _/       " + "\n" +
+                "|  | _/ __ \\ /    \\  / ___\\_/ __ \\ /    \\  / __ |   " + "\n" +
+                "|  |_\\  ___/|   |  / /_/  >  ___/|   |  \\/ /_/ |       " + "\n" +
+                "|____/\\___  >___|  /\\___  / \\___  >___|  /\\____ |    " + "\n" +
+                "          \\/     \\//_____/      \\/     \\/      \\/ z " + Color.RESET + "\n";
+
+        System.out.println(banner);
+
+        String swordArt =
+            Color.RED +
+                "            (O)                                            " + "\n" +
+                "            <M                                             " + "\n" +
+                "o          <M  Welcome to Legends of Valor                 " + "\n" +
+                "/| ......  /:M\\---------------------------------,,,,,,    " + "\n" +
+                "(O)[]XXXXXX[]I:K+}=====<{H}>===================-------->   " + "\n" +
+                "\\| ^^^^^^  \\:W/---------------------------------''''''   " + "\n" +
+                "o          <W  Have fun!                                   " + "\n" +
+                "            <W                                             " + "\n" +
+                "            (O)                                            " + Color.RESET + "\n";
+
+        System.out.println(swordArt);
     }
+
+    public void prep(){
+        Scanner sc = new Scanner(System.in);
+
+        printWelcomeMsg();
+
+        System.out.print(Color.YELLOW + "I need your name first: " + Color.RESET);
+        String pName = sc.next();
+
+        this.player = new LMHPlayer(pName);
+        this.chl = new CharacterLibrary();
+        this.market = new Market();
+        this.board = new LoVBoard(3);
+        this.board.setBoard();
+        // create heroes
+        HeroCreation hc = new HeroCreation(3);
+        hc.prep(player);
+        spawnMonsters();
+        //set heroes' and monsters' initial location
+        board.getTile(7, 0).setHeroOn(true);
+        player.heroArrayList.get(0).setPos(7, 0);
+        board.getTile(7, 3).setHeroOn(true);
+        player.heroArrayList.get(1).setPos(7, 3);
+        board.getTile(7, 6).setHeroOn(true);
+        player.heroArrayList.get(2).setPos(7, 6);
+
+        // after all components are ready, start the game.
+        start();
+        sc.close();
+    }
+
+    public void start() {
+        Scanner sc = new Scanner(System.in);
+        String playerChoice = "Q";
+
+        do {
+            for(int i = 0; i< player.heroArrayList.size(); i++) {
+                board.displayBoard();
+                playerChoice = sc.next();
+
+                // whether player wants to move
+                if (playerChoice.equalsIgnoreCase("W") || playerChoice.equalsIgnoreCase("S") ||
+                    playerChoice.equalsIgnoreCase("A") || playerChoice.equalsIgnoreCase("D"))
+                    playerMove(playerChoice);
+                // or wants to see information and inventory
+                else if (playerChoice.equalsIgnoreCase("I")) {
+                    player.displayInfoNotInFight();
+                    System.out.print(Color.YELLOW + "Do you want to switch your weapon/armor, " +
+                        "use potions, or learn a spell? Input \"Y\" to operate: ");
+                    String ans = sc.next();
+                    if (ans.equalsIgnoreCase("Y")) {
+                        player.heroArrayList.get(i).itemOp(false);
+                        i--;
+                    }
+                }
+                else if (playerChoice.equalsIgnoreCase("T")) {
+                    teleport();
+                }
+                else if (playerChoice.equalsIgnoreCase("B")) {
+                    back();
+                }
+            }
+        } while(!playerChoice.equalsIgnoreCase("Q"));
+        System.out.println(Color.RESET + "Goodbye. " + player.getPlayerName());
+    }
+
+    public void spawnMonsters(){
+        // btw, each monster has same level as heroes
+        int[] heroLV = new int[3];
+        for (int i = 0; i < 3; i++) {
+            heroLV[i] = player.heroArrayList.get(i).getLevel();
+        }
+
+        // search for monster with same level as hero and add it in monster list
+        for (int i = 0; i < 3; i++) {
+            if(i % 3 == 0) {
+                for(int j = 0; j < chl.dragonArrayList.size(); j++) {
+                    if (chl.dragonArrayList.get(j).getLevel() == heroLV[i]) {
+                        monsterArrayList.add(new Monster(chl.dragonArrayList.get(j).getName(),
+                            chl.dragonArrayList.get(j).getLevel(), chl.dragonArrayList.get(j).getHP(),
+                            chl.dragonArrayList.get(j).getDamage(), chl.dragonArrayList.get(j).getDefense(),
+                            chl.dragonArrayList.get(j).getDodge()));
+                        break;
+                    }
+                }
+            }
+            else if (i % 3 == 1) {
+                for (int j = 0; j < chl.exoArrayList.size(); j++) {
+                    if (chl.exoArrayList.get(j).getLevel() == heroLV[i]) {
+                        monsterArrayList.add(new Monster(chl.exoArrayList.get(j).getName(),
+                            chl.exoArrayList.get(j).getLevel(), chl.exoArrayList.get(j).getHP(),
+                            chl.exoArrayList.get(j).getDamage(), chl.exoArrayList.get(j).getDefense(),
+                            chl.exoArrayList.get(j).getDodge()));
+                        break;
+                    }
+                }
+            }
+            else {
+                for (int j = 0; j < chl.spiritArrayList.size(); j++) {
+                    if (chl.spiritArrayList.get(j).getLevel() == heroLV[i]) {
+                        monsterArrayList.add(new Monster(chl.spiritArrayList.get(j).getName(),
+                            chl.spiritArrayList.get(j).getLevel(), chl.spiritArrayList.get(j).getHP(),
+                            chl.spiritArrayList.get(j).getDamage(), chl.spiritArrayList.get(j).getDefense(),
+                            chl.spiritArrayList.get(j).getDodge()));
+                        break;
+                    }
+                }
+            }
+        }
+
+        board.getTile(0, 1).setMonsterOn(true);
+        monsterArrayList.get(0).setPos(0, 1);
+        board.getTile(0, 4).setMonsterOn(true);
+        monsterArrayList.get(1).setPos(0, 1);
+        board.getTile(0, 7).setMonsterOn(true);
+        monsterArrayList.get(2).setPos(0, 1);
+    }
+
+    public void playerMove(String direction){}
+    public void teleport(){}
+    public void back(){}
 }
