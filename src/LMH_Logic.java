@@ -47,7 +47,7 @@ public class LMH_Logic {
             Color.RED +
             "            (O)                                            " + "\n" +
             "            <M                                             " + "\n" +
-            "o          <M  Welcome to Legends: Monsters and Heroes     " + "\n" +
+            "o          <M  Welcome to Legends of Valor                 " + "\n" +
             "/| ......  /:M\\---------------------------------,,,,,,    " + "\n" +
             "(O)[]XXXXXX[]I:K+}=====<{H}>===================-------->   " + "\n" +
             "\\| ^^^^^^  \\:W/---------------------------------''''''   " + "\n" +
