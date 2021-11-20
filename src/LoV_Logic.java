@@ -297,36 +297,59 @@ public class LoV_Logic {
     }
 
     /**
-     * Teleports the given player to one teammate's back.
+     * Teleports the given player to one lane's Nexus.
      *
      * @param heroIndex Index the hero to be teleported.
     */
     public boolean teleport(int heroIndex) {
-        String mateIndex;
+        String laneIndex;
         Scanner sc = new Scanner(System.in);
-        System.out.print("Which teammate you want to teleport to? 1-3. hero index 4. cancel tp: ");
-        mateIndex = sc.next();
+        System.out.print("Which lane you want to teleport to? 1 top lane 2. mid lane 3. bot lane 4. cancel tp: ");
+        laneIndex = sc.next();
 
-        while (!mateIndex.matches("^[1-4]$") || Integer.parseInt(mateIndex) - 1 == heroIndex ||
-            player.heroArrayList.get(Integer.parseInt(mateIndex) - 1).x == 7) {
-            if (!mateIndex.matches("^[1-4]$"))
+        while (!laneIndex.matches("^[1-4]$") ||
+            (laneIndex.equals("1") && board.getTile(7, 0).getHeroOn() && board.getTile(7, 1).getHeroOn()) ||
+            (laneIndex.equals("2") && board.getTile(7, 3).getHeroOn() && board.getTile(7, 4).getHeroOn()) ||
+            (laneIndex.equals("3") && board.getTile(7, 6).getHeroOn() && board.getTile(7, 7).getHeroOn())) {
+            if (!laneIndex.matches("^[1-4]$"))
                 System.out.print(Color.RED + "Your selection is invalid, try again: " + Color.RESET);
-            else if(Integer.parseInt(mateIndex) - 1 == heroIndex)
-                System.out.print(Color.RED + "You can't teleport to yourself, try again: " + Color.RESET);
-            else
-                System.out.print(Color.RED + "You can't teleport to a hero at Nexus, try again: " + Color.RESET);
-            mateIndex = sc.next();
+            else if(laneIndex.equals("1") && board.getTile(7, 0).getHeroOn() && board.getTile(7, 1).getHeroOn()){
+                System.out.print(Color.RED + "Top lane's Nexus if full, try again: " + Color.RESET);
+            }
+            else if(laneIndex.equals("2") && board.getTile(7, 3).getHeroOn() && board.getTile(7, 4).getHeroOn()){
+                System.out.print(Color.RED + "Mid lane's Nexus if full, try again: " + Color.RESET);
+            }
+            else if(laneIndex.equals("3") && board.getTile(7, 6).getHeroOn() && board.getTile(7, 7).getHeroOn()){
+                System.out.print(Color.RED + "Bot lane's Nexus if full, try again: " + Color.RESET);
+            }
+            laneIndex = sc.next();
         }
 
-        int mate = Integer.parseInt(mateIndex) - 1;
-        if(mate == 4)
-            return false;
-
-        int x = player.heroArrayList.get(mate).x + 1;
-        int y = player.heroArrayList.get(mate).y;
+        int lane = Integer.parseInt(laneIndex);
         int oldX = player.heroArrayList.get(heroIndex).x;
         int oldY = player.heroArrayList.get(heroIndex).y;
-
+        int x = 7;
+        int y;
+        if(lane == 4)
+            return false;
+        else if(lane == 3){
+            if(board.getTile(7, 6).getHeroOn())
+                y = 7;
+            else
+                y = 6;
+        }
+        else if(lane == 2){
+            if(board.getTile(7, 3).getHeroOn())
+                y = 4;
+            else
+                y = 3;
+        }
+        else{
+            if(board.getTile(7, 0).getHeroOn())
+                y = 1;
+            else
+                y = 0;
+        }
         // teleport to your teammate's back
         board.getTile(oldX, oldY).setHeroOn(false);
         player.heroArrayList.get(heroIndex).setPos(x, y);

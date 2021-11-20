@@ -165,5 +165,25 @@ public abstract class Character implements Fight {
         }
     }
 
+    /**
+     * Calculate this character's regular attack damage.
+     *
+     * @return Regular damage
+     */
+    public abstract int attackDamage();
 
+    /**
+     * Calculate how much damage this character can block when get attacked.
+     *
+     * @return Defense value
+     */
+    public abstract int calDefense();
+
+    /**
+     * Calculate the probability for this character to dodge a regular attack
+     * successfully.
+     *
+     * @return Probability to dodge a regular attack
+     */
+    public abstract double probDodge();
 }
