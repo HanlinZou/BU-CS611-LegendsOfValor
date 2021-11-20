@@ -1,5 +1,5 @@
 
 public interface Consumable 
 {
-	boolean Consumable();
+	boolean Consumable(int hero_level);
 }

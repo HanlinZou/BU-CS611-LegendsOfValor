@@ -6,7 +6,6 @@
 public class Potion extends Item implements Consumable {
     private int statInc;
     private String statCategory;
-    private boolean consumed;
 
     /**
      * No-arg constructor
@@ -14,7 +13,6 @@ public class Potion extends Item implements Consumable {
     Potion() {
         statInc = 0;
         statCategory = "";
-        this.consumed = false;
     }
 
     /**
@@ -57,8 +55,8 @@ public class Potion extends Item implements Consumable {
     }
 
 	@Override
-	public boolean Consumable() {
-		if(this.consumed == false)
+	public boolean Consumable(int hero_level) {
+		if(super.minLv <= hero_level)
 		{
 			return true;
 		}
