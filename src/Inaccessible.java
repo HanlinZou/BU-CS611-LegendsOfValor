@@ -30,9 +30,4 @@ public class Inaccessible extends Tile {
         // TODO Auto-generated method stub
         return this.plainDraw();
     }
-
-    @Override
-    public void cellEffect() {
-        // nothing
-    }
 }

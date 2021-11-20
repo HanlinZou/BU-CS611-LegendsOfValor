@@ -85,122 +85,270 @@ public abstract class Hero extends Character {
         boostSkill();
     }
 
+    /**
+     * Sets the current buff (increased) portion on hero.
+     *
+     * @param buffed Buff portion.
+     */
     public void setBuffed(boolean buffed){
         this.buffed = buffed;
     }
 
-    public boolean getBuffed(){
+    /**
+     * Returns the current buff (increased) portion of this hero.
+     *
+     * @return Buff portion.
+     */
+    public boolean getBuffed() {
         return buffed;
     }
 
-    public void setBuffType(String type){
+    /**
+     * Sets the current buff type (which attribute to increase) on hero.
+     *
+     * @param type Buff type.
+     */
+    public void setBuffType(String type) {
         buffType = String.valueOf(type);
     }
 
-    public String getBuffType(){
+    /**
+     * Returns the current buff type (which attribute to increase) on hero.
+     *
+     * @return Buff type.
+     */
+    public String getBuffType() {
         return buffType;
     }
 
-    public void setBuffAmt(int amt){
+    /**
+     * Sets the current buff (increased) value on hero.
+     *
+     * @param amt Buff value.
+     */
+    public void setBuffAmt(int amt) {
         buffAmt = amt;
     }
 
+    /**
+     * Returns the current buff (increased) value of this hero.
+     *
+     * @return Buff value.
+     */
     public int getBuffAmt(){
         return buffAmt;
     }
 
+    /**
+     * Sets hero's mana.
+     *
+     * @param MP Mana value.
+     */
     public void setMP(int MP) {
         this.MP = MP;
     }
 
+    /**
+     * Sets hero's current mana.
+     *
+     * @param MP Current Mana value.
+     */
     public void setCurrentMP(int MP) {
         currentMP = MP;
     }
 
+    /**
+     * Sets hero's strength.
+     *
+     * @param strength Hero's strength.
+     */
     public void setStrength(int strength) {
         this.strength = strength;
     }
 
+    /**
+     * Sets hero's agility.
+     *
+     * @param agility Hero's agility.
+     */
     public void setAgility(int agility) {
         this.agility = agility;
     }
 
+    /**
+     * Sets hero's dexterity.
+     *
+     * @param dexterity Hero's dexterity.
+     */
     public void setDexterity(int dexterity) {
         this.dexterity = dexterity;
     }
 
+    /**
+     * Sets hero's defense.
+     *
+     * @param defense Hero's defense.
+     */
     public void setDefense(int defense) {
         this.defense = defense;
     }
 
+    /**
+     * Sets hero's money.
+     *
+     * @param money Hero's money.
+     */
     public void setMoney(int money) {
         this.money = money;
     }
 
+    /**
+     * Sets hero's experience points (EXP) to level * 10.
+     */
     public void setXP() {
         XP = level * 10;
     }
 
+    /**
+     * Sets hero's current EXP.
+     *
+     * @param XP Current EXP.
+     */
     public void setCurrentXP(int XP) {
         currentXP = XP;
     }
 
+    /**
+     * Equips a weapon.
+     *
+     * @param Weapon A weapon object to be equipped.
+     */
     public void setEquippedWeapon(Weapon weapon) {
         equippedWeapon = weapon;
     }
 
+    /**
+     * Equips an armor.
+     *
+     * @param Armor An armor object to be equipped.
+     */
     public void setEquippedArmor(Armor armor) {
         equippedArmor = armor;
     }
 
+    /**
+     * Returns hero's mana value.
+     *
+     * @return Mana value.
+     */
     public int getMP() {
         return MP;
     }
 
+    /**
+     * Returns hero's current mana value.
+     *
+     * @return Current mana value.
+     */
     public int getCurrentMP() {
         return currentMP;
     }
 
+    /**
+     * Returns hero's EXP.
+     *
+     * @return EXP.
+     */
     public int getXP() {
         return XP;
     }
 
+    /**
+     * Returns hero's current EXP.
+     *
+     * @return Current EXP.
+     */
     public int getCurrentXP() {
         return currentXP;
     }
 
+    /**
+     * Returns hero's strength.
+     *
+     * @return Hero's strength.
+     */
     public int getStrength() {
         return strength;
     }
 
+    /**
+     * Returns hero's dexterity.
+     *
+     * @return Hero's dexterity.
+     */
     public int getDexterity() {
         return dexterity;
     }
 
+    /**
+     * Returns hero's agility.
+     *
+     * @return Hero's agility.
+     */
     public int getAgility() {
         return agility;
     }
 
+    /**
+     * Returns hero's defense.
+     *
+     * @return Hero's defense.
+     */
     public int getDefense() {
         return defense;
     }
 
+    /**
+     * Returns hero's money.
+     *
+     * @return Hero's money.
+     */
     public int getMoney() {
         return money;
     }
 
+    /**
+     * Returns hero's equipped weapon.
+     *
+     * @return Hero's equipped weapon.
+     */
     public Weapon getEquippedWeapon() {
         return equippedWeapon;
     }
 
+    /**
+     * Returns hero's equipped armor.
+     *
+     * @return Hero's equipped armor.
+     */
     public Armor getEquippedArmor() {
         return equippedArmor;
     }
 
+    /**
+     * Returns a list of items in this hero's storage.
+     *
+     * @return A list of items in storage.
+     */
     public ArrayList<Item> getStorage() {
         return storage;
     }
 
+    /**
+     * Returns a list of spells that has been learned by this hero.
+     *
+     * @return A list of learned spells.
+     */
     public ArrayList<Spell> getLearnedSpell() {
         return learnedSpell;
     }

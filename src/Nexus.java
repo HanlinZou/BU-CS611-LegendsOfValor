@@ -16,10 +16,4 @@ public class Nexus extends Tile {
     public String getColBound() {
         return (Color.CYAN + "|" + Color.RESET);
     }
-
-    @Override
-    public void cellEffect() {
-        // hero spawn & market
-        // to do
-    }
 }

@@ -236,13 +236,13 @@ public class LoV_Logic {
         if (direction.equalsIgnoreCase("W")) {
             //hero at left tile and there's a monster at right tile or at same tile
             if(fromY % 3 == 0 &&
-                (board.getTile(fromX, fromY).get_monster_on() || board.getTile(fromX, fromY + 1).get_monster_on())) {
+                (board.getTile(fromX, fromY).getMonsterOn() || board.getTile(fromX, fromY + 1).getMonsterOn())) {
                 System.out.println(Color.RED + "Kill the monster first, please re-enter your move: " + Color.RESET);
                 return false;
             }
             //hero at right tile and there's a monster at left tile or at same tile
             else if(fromY % 3 != 0 &&
-                (board.getTile(fromX, fromY).get_monster_on() || board.getTile(fromX, fromY - 1).get_monster_on())) {
+                (board.getTile(fromX, fromY).getMonsterOn() || board.getTile(fromX, fromY - 1).getMonsterOn())) {
                 System.out.println(Color.RED + "Kill the monster first, please re-enter your move: " + Color.RESET);
                 return false;
             }
@@ -252,58 +252,45 @@ public class LoV_Logic {
                 return false;
             }
         }
-        else if(direction.equalsIgnoreCase("S") && board.getTile(fromX + 1, fromY).getHeroOn()) {
+        else if (direction.equalsIgnoreCase("S") && board.getTile(fromX + 1, fromY).getHeroOn()) {
             System.out.println(Color.RED + "A hero is behind you, please re-enter your move: " + Color.RESET);
             return false;
         }
-        else if(direction.equalsIgnoreCase("A") && board.getTile(fromX, fromY - 1).getHeroOn()) {
+        else if (direction.equalsIgnoreCase("A") && board.getTile(fromX, fromY - 1).getHeroOn()) {
             System.out.println(Color.RED + "A hero is on your left, please re-enter your move: " + Color.RESET);
             return false;
         }
-        else if(direction.equalsIgnoreCase("D") && board.getTile(fromX, fromY + 1).getHeroOn()) {
+        else if (direction.equalsIgnoreCase("D") && board.getTile(fromX, fromY + 1).getHeroOn()) {
             System.out.println(Color.RED + "A hero is on your right, please re-enter your move: " + Color.RESET);
             return false;
         }
 
+        Tile fromTile = board.getTile(fromX, fromY);
+
         // check type of from tile and remove buff if necessary
-        if (hero.getBuffed()) {
-            if(hero.getBuffType().equals("dex"))
-                hero.setDexterity(hero.getDexterity() - hero.buffAmt);
-            else if(hero.getBuffType().equals("agi"))
-                hero.setAgility(hero.getAgility() - hero.buffAmt);
-            else
-                hero.setStrength(hero.getStrength() - hero.buffAmt);
+        if (hero.getBuffed() && fromTile.isBuffTile()) {
+            BuffTile buffFromTile = (BuffTile) fromTile;
+            buffFromTile.removeEffect(hero);
         }
 
         // remove hero from the old position
-        board.getTile(fromX, fromY).setHeroOn(false);
+        fromTile.setHeroOn(false);
 
         // update hero position
         if (direction.equalsIgnoreCase("A")) hero.setPos(hero.x, hero.y - 1);
         if (direction.equalsIgnoreCase("D")) hero.setPos(hero.x, hero.y + 1);
         if (direction.equalsIgnoreCase("W")) hero.setPos(hero.x - 1, hero.y);
         if (direction.equalsIgnoreCase("S")) hero.setPos(hero.x + 1, hero.y);
+
+        Tile toTile = board.getTile(hero.x, hero.y);
+
         // add hero to the new position
-        board.getTile(hero.x, hero.y).setHeroOn(true);
+        toTile.setHeroOn(true);
 
         // check type of to tile and add buff if necessary
-        if (board.getTile(hero.x, hero.y) instanceof Bush) {
-            hero.setBuffed(true);
-            hero.setBuffType("dex");
-            hero.setBuffAmt((int) (hero.getDexterity() * ((Bush) board.getTile(hero.x, hero.y)).getBuff()));
-            hero.setDexterity(hero.getDexterity() + hero.getBuffAmt());
-        }
-        else if (board.getTile(hero.x, hero.y) instanceof Cave) {
-            hero.setBuffed(true);
-            hero.setBuffType("agi");
-            hero.setBuffAmt((int) (hero.getAgility() * ((Cave) board.getTile(hero.x, hero.y)).getBuff()));
-            hero.setAgility(hero.getAgility() + hero.getBuffAmt());
-        }
-        else if (board.getTile(hero.x, hero.y) instanceof Koulou) {
-            hero.setBuffed(true);
-            hero.setBuffType("str");
-            hero.setBuffAmt((int) (hero.getStrength() * ((Koulou) board.getTile(hero.x, hero.y)).getBuff()));
-            hero.setStrength(hero.getStrength() + hero.getBuffAmt());
+        if (toTile.isBuffTile()) {
+            BuffTile buffToTile = (BuffTile) toTile;
+            buffToTile.cellEffect(hero);
         }
 
         return true;
@@ -322,7 +309,7 @@ public class LoV_Logic {
 
         while (!mateIndex.matches("^[1-4]$") || Integer.parseInt(mateIndex) - 1 == heroIndex ||
             player.heroArrayList.get(Integer.parseInt(mateIndex) - 1).x == 7) {
-            if(!mateIndex.matches("^[1-4]$"))
+            if (!mateIndex.matches("^[1-4]$"))
                 System.out.print(Color.RED + "Your selection is invalid, try again: " + Color.RESET);
             else if(Integer.parseInt(mateIndex) - 1 == heroIndex)
                 System.out.print(Color.RED + "You can't teleport to yourself, try again: " + Color.RESET);
@@ -357,7 +344,7 @@ public class LoV_Logic {
         int y;
         int oldX = player.heroArrayList.get(heroIndex).x;
         int oldY = player.heroArrayList.get(heroIndex).y;
-        board.getTile(oldX,oldY).setHeroOn(false);
+        board.getTile(oldX, oldY).setHeroOn(false);
         if (oldY < 2)
             y = 0;
         else if (oldY < 5)
@@ -385,7 +372,7 @@ public class LoV_Logic {
         int monsterIndex = -1;
 
         //check whether a monster at same tile
-        if (board.getTile(x, y).get_monster_on()){
+        if (board.getTile(x, y).getMonsterOn()){
             for (int i = 0; i < monsterArrayList.size(); i++) {
                 if (monsterArrayList.get(i).getX() == x && monsterArrayList.get(i).getY() == y) {
                     monster = monsterArrayList.get(i);
@@ -394,7 +381,7 @@ public class LoV_Logic {
             }
         }
         // Check whether a monster at front tile
-        else if(board.getTile(x - 1, y).get_monster_on()){
+        else if(board.getTile(x - 1, y).getMonsterOn()){
             for (int i = 0; i < monsterArrayList.size(); i++) {
                 if (monsterArrayList.get(i).getX() == x - 1 && monsterArrayList.get(i).getY() == y) {
                     monster = monsterArrayList.get(i);
@@ -403,7 +390,7 @@ public class LoV_Logic {
             }
         }
         // Check whether a monster at right tile
-        else if (y != board.getNumColumn() && board.getTile(x, y + 1).get_monster_on()) {
+        else if (y != board.getNumColumn() && board.getTile(x, y + 1).getMonsterOn()) {
             for (int i = 0; i < monsterArrayList.size(); i++) {
                 if (monsterArrayList.get(i).getX() == x && monsterArrayList.get(i).getY() == y + 1) {
                     monster = monsterArrayList.get(i);
@@ -415,7 +402,7 @@ public class LoV_Logic {
         // Check if there's a monster at diagonal or right tile if hero on left tile
         // No need to check if there's a monster at diagonal or left tile if hero on right tile
         // because monsters only move forward or fight, and they are spawned on right tile
-        else if (y != board.getNumColumn() && board.getTile(x - 1, y + 1).get_monster_on()) {
+        else if (y != board.getNumColumn() && board.getTile(x - 1, y + 1).getMonsterOn()) {
             for (int i = 0; i < monsterArrayList.size(); i++) {
                 if (monsterArrayList.get(i).getX() == x - 1 && monsterArrayList.get(i).getY() == y + 1) {
                     monster = monsterArrayList.get(i);
@@ -510,7 +497,7 @@ public class LoV_Logic {
                 }
             }
             // if no monster at front tile and no hero around, move forward
-            else if (!board.getTile(x + 1, y).get_monster_on() && !board.getTile(x, y).getHeroOn() && !board.getTile(x, y - 1).getHeroOn()) {
+            else if (!board.getTile(x + 1, y).getMonsterOn() && !board.getTile(x, y).getHeroOn() && !board.getTile(x, y - 1).getHeroOn()) {
                 board.getTile(x, y).setMonsterOn(false);
                 monster.setPos(x + 1, y);
                 board.getTile(x + 1, y).setMonsterOn(true);

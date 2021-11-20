@@ -18,9 +18,4 @@ public class Plain extends Tile {
     public String getColBound() {
         return (Color.RESET + "|");
     }
-
-    @Override
-    public void cellEffect() {
-        // nothing
-    }
 }

@@ -1,6 +1,6 @@
 /**
- * Cell class maintains information about the contents of a Cell.
- * Cell class has a specified schema specified by a Cell object.
+ * Tile class maintains information about the contents of a LoV game board cell.
+ * Tile class has a specified schema specified by a Cell object.
  */
 public abstract class Tile extends Cell implements Drawable {
 
@@ -24,7 +24,7 @@ public abstract class Tile extends Cell implements Drawable {
      *
      * @return On the Tile / NOT on the Tile
      */
-    public boolean get_monster_on() {
+    public boolean getMonsterOn() {
         return this.monsterOn;
     }
 
@@ -73,8 +73,6 @@ public abstract class Tile extends Cell implements Drawable {
         this.accessible = access;
     }
 
-    public abstract void cellEffect();
-
     /**
      * Prints the tile when there is no character on it.
      */
@@ -89,15 +87,15 @@ public abstract class Tile extends Cell implements Drawable {
      * Prints the tile when there is(are) character(s) on it.
      */
     public String specialDraw() {
-        if (!getHeroOn() && !get_monster_on()) return plainDraw();
+        if (!getHeroOn() && !getMonsterOn()) return plainDraw();
 
         String body = "";
         String hero = Color.BLUE + "H" + Color.RESET;
         String monster = Color.WHITE + "M" + Color.RESET;
 
-        if (getHeroOn() && get_monster_on()) {
+        if (getHeroOn() && getMonsterOn()) {
             body = getColBound() + " " + hero + "   " + monster + " " + getColBound();
-        } else if (get_monster_on()) {
+        } else if (getMonsterOn()) {
             body = getColBound() + "     " + monster + " " + getColBound();
         } else if (getHeroOn()) {
             body = getColBound() + " " + hero + "     " + getColBound();
@@ -107,6 +105,15 @@ public abstract class Tile extends Cell implements Drawable {
             getRowBound() + "\n" +
             body + "\n" +
             getRowBound();
+    }
+
+    /**
+     * Returns if this tile can give hero standing on it buff.
+     *
+     * @return Buff tile or not?
+     */
+    public boolean isBuffTile() {
+        return false;
     }
 
     @Override

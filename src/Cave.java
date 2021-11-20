@@ -3,24 +3,12 @@
  * Inheirts from Tile class and implements necessary interfaces.
 */
 
-public class Cave extends Tile {
-    // increase agility
-    private double buff;
-
-    Cave() {
+public class Cave extends BuffTile {
+    public Cave() {
+        super(0.1);
         super.setHeroOn(false);
         super.setMonsterOn(false);
         super.setCellType(CellType.CAVE);
-        super.setAccessible(true);
-        setBuff(0.1);
-    }
-
-    public double getBuff() {
-        return this.buff;
-    }
-
-    public void setBuff(double v) {
-        this.buff = v;
     }
 
     public String getRowBound() {
@@ -31,8 +19,37 @@ public class Cave extends Tile {
         return (Color.ORANGE + "|" + Color.RESET);
     }
 
+    /**
+     * Increases the agility of the given hero.
+     *
+     * @param hero A hero object.
+    */
     @Override
-    public void cellEffect() {
-        // buff agility
+    public void cellEffect(Hero hero) {
+        hero.setBuffed(true);
+        hero.setBuffType("agi");
+        hero.setBuffAmt((int) (hero.getAgility() * getBuff()));
+        hero.setAgility(hero.getAgility() + hero.getBuffAmt());
+        System.out.println(
+            Color.RED + "Cave Buff: hero " + hero.getName() + "'s agility increase " + getBuff() + ", " +
+            "now is " + hero.getAgility() + "." + Color.RESET
+        );
+    }
+
+    /**
+     * Restore the agility of the given hero.
+     *
+     * @param hero A hero object.
+    */
+    @Override
+    public void removeEffect(Hero hero) {
+        if (!(hero.getBuffed() && hero.getBuffType().equals("agi"))) return;
+        hero.setAgility(hero.getAgility() - hero.getBuffAmt());
+        hero.setBuffed(false);
+        hero.setBuffType("");
+        hero.setBuffAmt(0);
+        System.out.println(
+            Color.RED + "Cave Buff removed: hero " + hero.getName() + "'s agility return to " + hero.getAgility() + "." + Color.RESET
+        );
     }
 }
