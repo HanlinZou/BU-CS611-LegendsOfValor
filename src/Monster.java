@@ -57,14 +57,32 @@ public class Monster extends Character {
     }
 
     /**
-     * Display all monsters' info when in fight
+     * Display monster's info when in fight
      */
-    public void displayInfo() {
-        System.out.print(Color.PURPLE + "Name: " + name);
-        System.out.print(" Level: " + level);
-        System.out.print(" HP: " + currentHP + "/" + HP);
-        System.out.print(" Defense: " + defense);
-        System.out.println(" Damage: " + damage + Color.RESET);
+    public void displayInfoInFight(boolean displayTitle, int index) {
+        String border = Color.PURPLE +
+            "-------------------------------------------------------------------" +
+            Color.RESET;
+
+
+        if (displayTitle) {
+            System.out.println(Color.PURPLE +"Monster " + getName() + ":" + Color.RESET);
+
+            System.out.println(border);
+            System.out.println("Name                       Level    HP        Damage    Defense");
+            System.out.println(border);
+        }
+
+        String name = index > -1 ? index + ". " + getName() : getName();
+        String hp = getCurrentHP() + "/" + getHP();
+        int level = getLevel();
+        int damage = getDamage();
+        int defense = getDefense();
+
+        System.out.printf("%-26s %-8d %-9s %-9d %-11d", name, level, hp, damage, defense);
+        System.out.println();
+
+        if (displayTitle) System.out.println(border);
     }
 
     @Override

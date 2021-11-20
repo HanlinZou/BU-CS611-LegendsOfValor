@@ -176,24 +176,17 @@ public class LMH_Logic {
 
         String border = Color.PURPLE +
             "-------------------------------------------------------------------" +
-            Color.RESET + "\n";
+            Color.RESET;
 
-        System.out.print(border);
+        System.out.println(border);
         System.out.println("Name                       Level    HP        Damage    Defense");
-        System.out.print(border);
+        System.out.println(border);
 
         for (int i = 0; i < monsterArrayList.size(); i++) {
             Monster m = monsterArrayList.get(i);
-
-            String name = (i + 1) + ". " + m.getName();
-            String hp = m.getCurrentHP() + "/" + m.getHP();
-            int level = m.getLevel();
-            int damage = m.getDamage();
-            int defense = m.getDefense();
-
-            System.out.printf("%-26s %-8d %-9s %-9d %-11d", name, level, hp, damage, defense);
-            System.out.println();
+            m.displayInfoInFight(false, i + 1);
         }
+
         System.out.println(border);
     }
 

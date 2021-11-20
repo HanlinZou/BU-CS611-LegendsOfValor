@@ -383,6 +383,7 @@ public abstract class Hero extends Character {
      *
      * @return Probability that a hero dodge a regular attack
      */
+    @Override
     public double probDodge() {
         return agility * 0.002 * 0.01;
     }
@@ -694,6 +695,126 @@ public abstract class Hero extends Character {
             } else
                 done = true;
         }
+    }
+
+    /**
+     * Display hero's info when not in fight
+     *
+     * @param displayTitle Display tatble title or not?
+     * @param index Index of the hero, -1 for no index.
+     */
+    @Override
+    public void displayInfoInFight(boolean displayTitle, int index) {
+        String border =
+            Color.ORANGE +
+            "-----------------------------------------------------------------------------------------------------" +
+            Color.RESET;
+
+        if (displayTitle) {
+            System.out.println(Color.ORANGE +"Hero " + getName() + ":" + Color.RESET);
+
+            String title =
+                "Name                       Type        Level    HP        MP        Equipped Weapon    Equipped Armor";
+
+            System.out.println(border);
+            System.out.println(title);
+            System.out.println(border);
+        }
+
+        String name = index > -1 ? index + ". " + getName() : getName();
+        String type = getType();
+
+        int level = getLevel();
+        String hp = getCurrentHP() + "/" + getHP();
+        String mp = getCurrentMP() + "/" + getMP();
+
+        Weapon weapon = getEquippedWeapon();
+        Armor armor = getEquippedArmor();
+        String weaponName = (weapon != null) ? weapon.getName() + "(" + weapon.getDamage() + ")" : "null";
+        String armorName = (armor != null) ? armor.getName() + "(" + armor.getDefense() + ")"  : "null";
+
+        System.out.printf(
+            "%-26s %-11s %-8d %-9s %-9s %-18s %-18s",
+            name, type, level, hp, mp, weaponName, armorName
+        );
+        System.out.println();
+
+        if (displayTitle) System.out.println(border);
+    }
+
+    /**
+     * Display hero's info when in fight
+     */
+    public void displayInfoNotInFight(boolean displayTitle, int index) {
+        String border =
+            Color.ORANGE +
+            "----------------------------------------------------------------------------------------------------------------" +
+            Color.RESET;
+
+        if (displayTitle) {
+            System.out.println(Color.ORANGE +"Hero " + getName() + ":" + Color.RESET);
+
+            String title =
+                "Name                       Type      Level        HP      MP    Strength    Dexterity    Agility   Money     Exp";
+
+            System.out.println(border);
+            System.out.println(title);
+            System.out.println(border);
+        }
+
+        String name = index + ". " + getName();
+        String type = getType();
+
+        int level = getLevel();
+        String exp = getCurrentXP() + "/" + getXP();
+        int money = getMoney();
+
+        String hp = getCurrentHP() + "/" + getHP();
+        String mp = getCurrentMP() + "/" + getMP();
+
+        int strength = getStrength();
+        int dexterity = getDexterity();
+        int agility = getAgility();
+
+        System.out.printf(
+            "%-26s %-11s %-8d %-7s %-9s %-12d %-11d %-8d %-8d %-5s",
+            name, type, level, hp, mp, strength, dexterity, agility , money, exp
+        );
+        System.out.println();
+
+        if (displayTitle) System.out.println(border);
+    }
+
+    /**
+     * Display hero's info when in market
+     */
+    public void displayInfoInMarket(boolean displayTitle, int index) {
+        String border =
+            Color.ORANGE +
+            "-----------------------------------------------------" +
+            Color.RESET;
+
+        if (displayTitle) {
+            System.out.println(Color.ORANGE +"Hero " + getName() + ":" + Color.RESET);
+
+            String title =
+                "Name                       Type        Level    Money";
+
+            System.out.println(border);
+            System.out.println(title);
+            System.out.println(border);
+        }
+
+        String name = index + ". " + getName();
+        String type = getType();
+
+        int level = getLevel();
+        int money = getMoney();
+
+        System.out.printf("%-26s %-11s %-8d %-8d", name, type, level, money);
+        System.out.println();
+
+        if (displayTitle) System.out.println(border);
     }
 
     @Override

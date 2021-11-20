@@ -479,7 +479,7 @@ public class LoV_Logic {
                 }
                 break;
         }
-        monsterArrayList.get(monsterIndex).displayInfo();
+        monsterArrayList.get(monsterIndex).displayInfoInFight(true, -1);
 
         return true;
     }
@@ -491,43 +491,45 @@ public class LoV_Logic {
         for (Monster monster : monsterArrayList) {
             int x = monster.getX();
             int y = monster.getY();
-            // if there's a hero at same tile, attack
-            if (board.getTile(x, y).getHeroOn()) {
-                for (int j = 0; j < player.heroArrayList.size(); j++) {
-                    if (player.heroArrayList.get(j).getX() == x && player.heroArrayList.get(j).getY() == y)
-                        monster.regularAttack(player.heroArrayList.get(j));
+
+            /**
+             * 1. same tile
+             * 2. front tile
+             * 3. left tile
+             * 4. diagonal tile
+             */
+            int[] dx = new int[]{0, 1,  0,  1};
+            int[] dy = new int[]{0, 0, -1, -1};
+
+            boolean isFight = false;
+
+            // Attack hero if possible
+            for (int i = 0; i < dx.length; i++) {
+                int toX = x + dx[i];
+                int toY = y + dy[i];
+
+                if (board.getTile(toX, toY).getHeroOn()) {
+                    for (Hero hero : player.heroArrayList) {
+                        if (hero.getX() == toX && hero.getY() == toY) {
+                            monster.regularAttack(hero);
+                            hero.displayInfoInFight(true, -1);
+                            break;
+                        }
+                    }
+                    isFight = true;
+                    break;
                 }
             }
-            // if there's a hero at front tile, attack
-            else if (board.getTile(x + 1, y).getHeroOn()) {
-                for (int j = 0; j < player.heroArrayList.size(); j++) {
-                    if (player.heroArrayList.get(j).getX() == x + 1 && player.heroArrayList.get(j).getY() == y)
-                        monster.regularAttack(player.heroArrayList.get(j));
-                }
-            }
-            // if there's a hero at left tile, attack
-            else if (board.getTile(x, y - 1).getHeroOn()) {
-                for (int j = 0; j < player.heroArrayList.size(); j++) {
-                    if (player.heroArrayList.get(j).getX() == x && player.heroArrayList.get(j).getY() == y - 1)
-                        monster.regularAttack(player.heroArrayList.get(j));
-                }
-            }
-            // if there's a hero at diagonal tile, attack
-            else if (board.getTile(x + 1, y - 1).getHeroOn()) {
-                for (int j = 0; j < player.heroArrayList.size(); j++) {
-                    if (player.heroArrayList.get(j).getX() == x + 1 && player.heroArrayList.get(j).getY() == y - 1)
-                        monster.regularAttack(player.heroArrayList.get(j));
-                }
-            }
-            // if no monster at front tile and no hero around, move forward
-            else if (!board.getTile(x + 1, y).getMonsterOn() && !board.getTile(x, y).getHeroOn() && !board.getTile(x, y - 1).getHeroOn()) {
+
+            // If no fight, no monster at front tile and no hero around, move forward
+            if (!isFight && !board.getTile(x + 1, y).getMonsterOn() && !board.getTile(x, y).getHeroOn() && !board.getTile(x, y - 1).getHeroOn()) {
                 board.getTile(x, y).setMonsterOn(false);
                 monster.setPos(x + 1, y);
                 board.getTile(x + 1, y).setMonsterOn(true);
             }
         }
 
-        //check if any hero died
+        // check if any hero died
         for (int k = 0; k < player.heroArrayList.size(); k++) {
             if (player.heroArrayList.get(k).getCurrentHP() <= 0) {
                 System.out.println(Color.RED + player.heroArrayList.get(k).getName() + " died during the fight.");

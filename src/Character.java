@@ -186,4 +186,9 @@ public abstract class Character implements Fight {
      * @return Probability to dodge a regular attack
      */
     public abstract double probDodge();
+
+    /**
+     * Displays the character's information during a fight.
+     */
+    public abstract void displayInfoInFight(boolean displayTitle, int index);
 }
