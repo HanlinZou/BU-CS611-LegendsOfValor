@@ -1,5 +1,8 @@
-public class Spirit extends Monster {
+/**
+ * Spirit class maintains information and actions for a Spirit monster.
+ */
 
+public class Spirit extends Monster {
     /**
      * No-arg constructor
      */

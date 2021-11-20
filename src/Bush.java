@@ -1,3 +1,7 @@
+/**
+ * Bush class maintains information about the contents of a bush tile for LoV.
+ * Inheirts from Tile class and implements necessary interfaces.
+*/
 
 public class Bush extends Tile {
     // increase dexterity
@@ -8,14 +12,14 @@ public class Bush extends Tile {
         super.setMonsterOn(false);
         super.setCellType(CellType.BUSH);
         super.setAccessible(true);
-        set_buff(0.1);
+        setBuff(0.1);
     }
 
-    public double get_buff() {
+    public double getBuff() {
         return this.buff;
     }
 
-    public void set_buff(double v) {
+    public void setBuff(double v) {
         this.buff = v;
     }
 

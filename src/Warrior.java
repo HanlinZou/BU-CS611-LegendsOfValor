@@ -1,5 +1,8 @@
-public class Warrior extends Hero {
+/**
+ * Warrior class maintains information and actions for a Warrior hero.
+ */
 
+public class Warrior extends Hero {
     /**
      * Constructor of Warrior object
      *

@@ -54,11 +54,9 @@ public class Board {
     /**
      * Set an empty board
      */
-    public void setBoard()
-    {
+    public void setBoard() {
         for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++)
-            {
+            for (int j = 0; j < size; j++) {
                 this.board[i][j] = new Cell();
                 this.board[i][j].setMark(" ");
             }

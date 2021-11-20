@@ -32,18 +32,38 @@ public class Weapon extends Item {
         setHands(hands);
     }
 
+    /**
+     * Sets the base demage of this weapon.
+     *
+     * @param demage Base damage.
+     */
     public void setDamage(int damage) {
         this.damage = damage;
     }
 
+    /**
+     * Sets the required number of hands of this weapon.
+     *
+     * @param hands Required number of hands.
+     */
     public void setHands(int hands) {
         this.hands = hands;
     }
 
+    /**
+     * Returns the base demage of this weapon.
+     *
+     * @return Base damage.
+     */
     public int getDamage() {
         return damage;
     }
 
+    /**
+     * Returns the required number of hands of this weapon.
+     *
+     * @return Required number of hands.
+     */
     public int getHands() {
         return hands;
     }

@@ -1,3 +1,7 @@
+/**
+ * Inaccessible class maintains information about the contents of an inaccessible tile for LoV.
+ * Inheirts from Tile class and implements necessary interfaces.
+*/
 
 public class Inaccessible extends Tile {
     Inaccessible() {

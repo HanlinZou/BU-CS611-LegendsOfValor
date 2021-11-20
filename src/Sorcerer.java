@@ -1,5 +1,8 @@
-public class Sorcerer extends Hero {
+/**
+ * Sorcerer class maintains information and actions for a Sorcerer hero.
+ */
 
+public class Sorcerer extends Hero {
     /**
      * Constructor of Sorcerer object
      *

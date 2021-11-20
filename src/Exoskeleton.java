@@ -1,5 +1,8 @@
-public class Exoskeleton extends Monster {
+/**
+ * Exoskeleton class maintains information and actions for an exoskeleton monster.
+ */
 
+public class Exoskeleton extends Monster {
     /**
      * No-arg constructor
      */

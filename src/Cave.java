@@ -1,3 +1,7 @@
+/**
+ * Cave class maintains information about the contents of a cave tile.
+ * Inheirts from Tile class and implements necessary interfaces.
+*/
 
 public class Cave extends Tile {
     // increase agility
@@ -8,14 +12,14 @@ public class Cave extends Tile {
         super.setMonsterOn(false);
         super.setCellType(CellType.CAVE);
         super.setAccessible(true);
-        set_buff(0.1);
+        setBuff(0.1);
     }
 
-    public double get_buff() {
+    public double getBuff() {
         return this.buff;
     }
 
-    public void set_buff(double v) {
+    public void setBuff(double v) {
         this.buff = v;
     }
 

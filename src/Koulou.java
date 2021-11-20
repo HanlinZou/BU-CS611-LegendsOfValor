@@ -1,3 +1,7 @@
+/**
+ * Koulou class maintains information about the contents of an koulou tile for LoV.
+ * Inheirts from Tile class and implements necessary interfaces.
+*/
 
 public class Koulou extends Tile {
     // increase strength
@@ -8,14 +12,14 @@ public class Koulou extends Tile {
         super.setMonsterOn(false);
         super.setCellType(CellType.KOULOU);
         super.setAccessible(true);
-        set_buff(0.1);
+        setBuff(0.1);
     }
 
-    public double get_buff() {
+    public double getBuff() {
         return this.buff;
     }
 
-    public void set_buff(double v) {
+    public void setBuff(double v) {
         this.buff = v;
     }
 

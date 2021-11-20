@@ -7,6 +7,9 @@ public class Game {
     Game() {
     }
 
+    /**
+     * Starts the game center and prompts the user to choose game.
+     */
     public void start() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Welcome to Game Center.\n1. RPG\n2. FPS\n3. MOBA\n" +

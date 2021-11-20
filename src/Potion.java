@@ -32,18 +32,38 @@ public class Potion extends Item {
         setStatCategory(statCategory);
     }
 
+    /**
+     * Sets the value this potion can improve.
+     *
+     * @param statInc Improved value.
+     */
     public void setStatInc(int statInc) {
         this.statInc = statInc;
     }
 
+    /**
+     * Sets the attribute(s) this potion can improve.
+     *
+     * @param statCategory Improved attribute(s).
+     */
     public void setStatCategory(String statCategory) {
         this.statCategory = statCategory;
     }
 
+    /**
+     * Returns the value this potion can improve.
+     *
+     * @return Improved value.
+     */
     public int getStatInc() {
         return statInc;
     }
 
+    /**
+     * Returns the attribute(s) this potion can improve.
+     *
+     * @return Improved attribute(s).
+     */
     public String getStatCategory() {
         return statCategory;
     }

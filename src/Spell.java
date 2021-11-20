@@ -35,30 +35,65 @@ public abstract class Spell extends Item {
         setManaCost(manaCost);
     }
 
+    /**
+     * Sets type for this spell (fire / ice / lightning)
+     *
+     * @param type Spell type.
+     */
     public void setType(String type) {
         this.type = type;
     }
 
+    /**
+     * Sets base demage of this spell.
+     *
+     * @param damage Spell base damage.
+     */
     public void setDamage(int damage) {
         this.damage = damage;
     }
 
+    /**
+     * Sets the mana value this spell would cost.
+     *
+     * @param manaCost Mana value to be cost.
+     */
     public void setManaCost(int manaCost) {
         this.manaCost = manaCost;
     }
 
+    /**
+     * Returns the type for this spell (fire / ice / lightning)
+     *
+     * @return Spell type.
+     */
     public String getType() {
         return type;
     }
 
+    /**
+     * Returns the base demage of this spell.
+     *
+     * @return Spell base damage.
+     */
     public int getDamage() {
         return damage;
     }
 
+    /**
+     * Returns the mana value this spell would cost.
+     *
+     * @return Mana value to be cost.
+     */
     public int getManaCost() {
         return manaCost;
     }
 
+    /**
+     * Computes the damage this spell can cause in fights.
+     *
+     * @return Spell damage.
+     */
     public int damageInFight() {
         return damage / 4;
     }

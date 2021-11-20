@@ -25,7 +25,7 @@ public class Cell {
     }
 
     /**
-     * get the mark of a Cell
+     * Get the mark of a Cell
      *
      * @return the object that a cell needs to display
      */
@@ -36,7 +36,7 @@ public class Cell {
     /**
      * Set whether there's a hero on current the cell or not
      *
-     * @param on On the Cell/ NOT on the Cell
+     * @param on On the Cell / NOT on the Cell
      */
     public void setHeroOn(boolean on) {
         this.heroOn = on;
@@ -45,7 +45,7 @@ public class Cell {
     /**
      * Get whether there's a hero on current the cell or not
      *
-     * @return On the Cell/ NOT on the Cell
+     * @return On the Cell / NOT on the Cell
      */
     public boolean getHeroOn() {
         return heroOn;

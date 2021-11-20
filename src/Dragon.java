@@ -1,5 +1,8 @@
-public class Dragon extends Monster {
+/**
+ * Dragon class maintains information and actions for a dragon monster.
+ */
 
+public class Dragon extends Monster {
     /**
      * No-arg constructor
      */

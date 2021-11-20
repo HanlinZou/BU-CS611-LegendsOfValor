@@ -1,5 +1,8 @@
-public class IceSpell extends Spell {
+/**
+ * IceSpell class maintains information and actions for an ice spell.
+ */
 
+public class IceSpell extends Spell {
     /**
      * No-arg constructor
      */

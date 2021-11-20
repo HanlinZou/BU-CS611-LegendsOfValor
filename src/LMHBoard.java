@@ -57,6 +57,9 @@ public class LMHBoard extends Board {
         System.out.println(Color.PURPLE + "--------------------------------" + Color.RESET);
     }
 
+    /**
+     * Displays the LMH board in terminal.
+     */
     @Override
     public void displayBoard() {
         displayBoardInfo();
@@ -84,6 +87,9 @@ public class LMHBoard extends Board {
         displayOperations();
     }
 
+    /**
+     * Initializes the LMH board randomly.
+     */
     @Override
     public void setBoard() {
         Random random = new Random();

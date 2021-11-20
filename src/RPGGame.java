@@ -7,6 +7,9 @@ public class RPGGame {
     RPGGame() {
     }
 
+    /**
+     * Start the RPG game center and prompt user to choose game.
+     */
     public void start() {
         Scanner sc = new Scanner(System.in);
         System.out.print(

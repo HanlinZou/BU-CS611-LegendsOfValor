@@ -1,5 +1,8 @@
-public class FireSpell extends Spell {
+/**
+ * FireSpell class maintains information and actions for an fire spell.
+ */
 
+public class FireSpell extends Spell {
     /**
      * No-arg constructor
      */

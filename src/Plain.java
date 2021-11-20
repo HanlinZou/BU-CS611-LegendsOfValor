@@ -1,3 +1,7 @@
+/**
+ * Plain class maintains information about the contents of a Plain tile for LoV.
+ * Inheirts from Tile class and implements necessary interfaces.
+*/
 
 public class Plain extends Tile {
     Plain() {

@@ -1,5 +1,8 @@
-public class Paladin extends Hero {
+/**
+ * Exoskeleton class maintains information and actions for a Paladin hero.
+ */
 
+public class Paladin extends Hero {
     /**
      * Constructor of Paladin object
      *

@@ -19,35 +19,65 @@ public abstract class Tile extends Cell implements Drawable {
         accessible = true;
     }
 
-    // get set monsterOn
+    /**
+     * Returns whether there's a monster on current the tile or not
+     *
+     * @return On the Tile / NOT on the Tile
+     */
     public boolean get_monster_on() {
         return this.monsterOn;
     }
 
+    /**
+     * Set whether there's a monster on current the tile or not
+     *
+     * @param on On the Tile / NOT on the Tile
+     */
     public void setMonsterOn(boolean on) {
         this.monsterOn = on;
     }
 
-    // get set cell type
+    /**
+     * Returns the cell type
+     *
+     * @return Type of the cell
+     */
     public CellType getCellType() {
         return this.type;
     }
 
+    /**
+     * Set the cell type
+     *
+     * @param type Type of the cell
+     */
     public void setCellType(CellType type) {
         this.type = type;
     }
 
-    // get set accessible
+    /**
+     * Returns if this tile is accessible
+     *
+     * @return Accessible or not
+     */
     public boolean getAccessible() {
         return this.accessible;
     }
 
+    /**
+     * Set if this tile is accessible
+     *
+     * @param access Accessible or not
+     */
     public void setAccessible(boolean access) {
         this.accessible = access;
     }
 
     public abstract void cellEffect();
 
+    /**
+     * Prints the tile when there is no character on it.
+     */
     public String plainDraw() {
         return
             getRowBound() + "\n" +
@@ -55,6 +85,9 @@ public abstract class Tile extends Cell implements Drawable {
             getRowBound();
     }
 
+    /**
+     * Prints the tile when there is(are) character(s) on it.
+     */
     public String specialDraw() {
         if (!getHeroOn() && !get_monster_on()) return plainDraw();
 

@@ -17,26 +17,56 @@ public class Item {
         minLv = 0;
     }
 
+    /**
+     * Set the name for this item.
+     *
+     * @param name Item name.
+     */
     public void setName(String name) {
         this.name = name.replace("_", " ");
     }
 
+    /**
+     * Set price for this item.
+     *
+     * @param price Item price.
+     */
     public void setCost(int cost) {
         this.cost = cost;
     }
 
+    /**
+     * Set the required level for this item.
+     *
+     * @param minLv Required level.
+     */
     public void setMinLv(int minLv) {
         this.minLv = minLv;
     }
 
+    /**
+     * Returns the name of this item.
+     *
+     * @return Item name.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Returns the price if this item.
+     *
+     * @return Item price.
+     */
     public int getCost() {
         return cost;
     }
 
+    /**
+     * Returns the required level for this item.
+     *
+     * @return Required level.
+     */
     public int getMinLv() {
         return minLv;
     }

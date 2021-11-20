@@ -102,10 +102,20 @@ public class LoVBoard extends Board {
         return result.toString();
     }
 
+    /**
+     * Returns the number of rows of the board.
+     *
+     * @return number of rows
+     */
     public int getNumRow() {
         return this.board.length;
     }
 
+    /**
+     * Returns the number of columns of the board.
+     *
+     * @return number of columns
+     */
     public int getNumColumn() {
         return this.board[0].length;
     }

@@ -1,5 +1,8 @@
-public class LightningSpell extends Spell {
+/**
+ * LightningSpell class maintains information and actions for a lightning spell.
+ */
 
+public class LightningSpell extends Spell {
     /**
      * No-arg constructor
      */

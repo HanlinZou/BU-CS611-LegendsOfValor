@@ -1,5 +1,9 @@
 import java.util.Scanner;
 
+/**
+ * HeroCreation adopts builder pattern to create a list of hero objects easily.
+ * In this way, we don't need to deal with the complex creating steps outside it.
+ */
 public class HeroCreation {
     CharacterLibrary chl = new CharacterLibrary();
     private int numHeroes;
@@ -11,6 +15,11 @@ public class HeroCreation {
         numHeroes = num;
     }
 
+    /**
+     * Interacts with player and creates a list of heros.
+     *
+     * @param palyer A LMHPlayer object.
+     */
     public void prep(LMHPlayer player) {
         Scanner sc = new Scanner(System.in);
 
