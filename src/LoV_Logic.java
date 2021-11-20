@@ -23,8 +23,7 @@ public class LoV_Logic {
         // create heroes
         HeroCreation hc = new HeroCreation(3);
         hc.prep(player);
-        spawnMonsters();
-        //set heroes' and monsters' initial location
+        //set heroes' initial location
         board.getTile(7, 0).setHeroOn(true);
         player.heroArrayList.get(0).setPos(7, 0);
         board.getTile(7, 3).setHeroOn(true);
@@ -40,11 +39,17 @@ public class LoV_Logic {
     public void start() {
         Scanner sc = new Scanner(System.in);
         String playerChoice = "Q";
+        int numRound = 0;
 
         do {
             //avoid each hero heal for many times
             for(int i = 0; i < player.heroArrayList.size(); i++) {
                 player.heroArrayList.get(i).heal();
+            }
+
+            if(numRound % 8 == 0) {
+                numRound = 0;
+                spawnMonsters();
             }
 
             for(int i = 0; i < player.heroArrayList.size(); i++) {
@@ -101,6 +106,7 @@ public class LoV_Logic {
                     break;
             }
             monsterTime();
+            numRound++;
         } while(!playerChoice.equalsIgnoreCase("Q"));
         System.out.println(Color.RESET + "Goodbye. " + player.getPlayerName());
     }
@@ -150,11 +156,11 @@ public class LoV_Logic {
         }
 
         board.getTile(0, 1).setMonsterOn(true);
-        monsterArrayList.get(0).setPos(0, 1);
+        monsterArrayList.get(monsterArrayList.size() - 3).setPos(0, 1);
         board.getTile(0, 4).setMonsterOn(true);
-        monsterArrayList.get(1).setPos(0, 4);
+        monsterArrayList.get(monsterArrayList.size() - 2).setPos(0, 4);
         board.getTile(0, 7).setMonsterOn(true);
-        monsterArrayList.get(2).setPos(0, 7);
+        monsterArrayList.get(monsterArrayList.size() - 1).setPos(0, 7);
     }
 
     public void nexusOp(int heroIndex){
@@ -396,8 +402,9 @@ public class LoV_Logic {
 
                 // check whether the monster is dead
                 if (monster.getCurrentHP() <= 0) {
-                    //if yes, remove the dead monster from list
+                    //if yes, award the hero and remove the dead monster from list
                     System.out.println(Color.GREEN + hero.getName() + " just killed " + monster.getName());
+                    hero.win();
                     board.getTile(monster.getX(), monster.getY()).setMonsterOn(false);
                     monsterArrayList.remove(monsterIndex);
                 }
@@ -413,8 +420,9 @@ public class LoV_Logic {
 
                 // check whether the monster is dead
                 if (monster.getCurrentHP() <= 0) {
-                    //if yes, remove the dead monster from list
+                    //if yes, award the hero and remove the dead monster from list
                     System.out.println(Color.GREEN + hero.getName() + " just killed " + monster.getName());
+                    hero.win();
                     board.getTile(monster.getX(), monster.getY()).setMonsterOn(false);
                     monsterArrayList.remove(monsterIndex);
                 }
@@ -437,7 +445,7 @@ public class LoV_Logic {
                 }
             }
             //if there's a hero at front tile, attack
-            else if (board.getTile(x + 1, y).get_monster_on()) {
+            else if (board.getTile(x + 1, y).getHeroOn()) {
                 for (int j = 0; j < player.heroArrayList.size(); j++) {
                     if (player.heroArrayList.get(j).getX() == x + 1 && player.heroArrayList.get(j).getY() == y)
                         monster.regularAttack(player.heroArrayList.get(j));
@@ -464,7 +472,7 @@ public class LoV_Logic {
                 board.getTile(x + 1, y).setMonsterOn(true);
             }
         }
-        System.out.println(monsterArrayList.size());
+
         //check if any hero died
         for (int k = 0; k < player.heroArrayList.size(); k++) {
             if (player.heroArrayList.get(k).getCurrentHP() <= 0) {
