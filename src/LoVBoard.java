@@ -4,6 +4,10 @@ import java.util.Random;
 /**
  * LMHBoard class maintains information about the contents of a Board class in LMH games.
  * LMHBoard class has a more specified schema extended from Board object.
+ *
+ * Please note:
+ *	size equals to num of players, the shape of game board
+ *	is determined by num of players
  */
 
 public class LoVBoard extends Board {
@@ -21,25 +25,19 @@ public class LoVBoard extends Board {
      *
      * @param size size of the board
      */
-    /*********************************************************
-     *Please note:
-     *	size equals to num of players, the shape of gameboard
-     *	is determined by num of players
-     *********************************************************/
     LoVBoard(int size) {
         this.size = size;
         int column = (size * 2) + (size - 1);
-        int row = column;
-        board = new Tile[row][column];
+        board = new Tile[column][column];
     }
 
     /**
      * Prints the meaning of icons on the board.
      */
     private void displayBoardInfo() {
-        String bannerBorder = Color.PURPLE + "-";
-        for (int i = 0; i < Math.max(10, this.size); i++) bannerBorder += "---";
-        bannerBorder += Color.RESET;
+        StringBuilder bannerBorder = new StringBuilder(Color.PURPLE + "-");
+        bannerBorder.append("---".repeat(Math.max(10, this.size)));
+        bannerBorder.append(Color.RESET);
 
         System.out.println(bannerBorder);
         System.out.println(Color.BLUE   + " [H] " + Color.RESET + "You");
@@ -56,7 +54,7 @@ public class LoVBoard extends Board {
     /**
      * Prints instructions on movement operations.
      */
-    private void displayOpetations() {
+    private void displayOperations() {
         System.out.println(Color.PURPLE + "--------------------------------" + Color.RESET);
         System.out.println(               "           Operations           ");
         System.out.println(Color.PURPLE + "--------------------------------" + Color.RESET);
@@ -79,29 +77,29 @@ public class LoVBoard extends Board {
     @Override
     public void displayBoard() {
         displayBoardInfo();
-        String result = "";
-        for(int i = 0; i < this.board.length; i++) {
+        StringBuilder result = new StringBuilder();
+        for (Tile[] tiles : this.board) {
             ArrayList<String[]> this_line = new ArrayList<>();
-            for(int j = 0; j < this.board[i].length; j++) {
-                String[] this_draw = this.board[i][j].specialDraw().split("\\r?\\n");
+            for (int j = 0; j < tiles.length; j++) {
+                String[] this_draw = tiles[j].specialDraw().split("\\r?\\n");
                 this_line.add(this_draw);
             }
-            result += this.line_assembler(this_line) + "\n";
+            result.append(this.line_assembler(this_line)).append("\n");
         }
         System.out.println(result);
-        displayOpetations();
+        displayOperations();
     }
 
     public String line_assembler(ArrayList<String[]> target) {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         int num_of_loop = target.get(0).length;
         for(int i = 0; i < num_of_loop; i++) {
             for(String[] s:target) {
-                result += s[i] + " ";
+                result.append(s[i]).append(" ");
             }
-            result += "\n";
+            result.append("\n");
         }
-        return result;
+        return result.toString();
     }
 
     public int getNumRow() {

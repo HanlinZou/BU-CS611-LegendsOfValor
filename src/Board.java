@@ -2,12 +2,8 @@
  * Board class maintains information about the contents of a Board.
  * Board class has a specified schema specified by a Board object and
  * groups of Cell objects.
- */
-/*********************************************************
-*Please note:
-*	size equals to num of players, the shape of gameboard
-*	is determined by num of players
-*********************************************************/
+*/
+
 public class Board {
     protected Cell[][] board;
     protected int size;

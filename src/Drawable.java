@@ -1,7 +1,7 @@
 
 public interface Drawable
 {
-	//a nacked block
+	//a naked block
 	String plainDraw();
 	//block occupied
 	String specialDraw();

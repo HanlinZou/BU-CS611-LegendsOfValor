@@ -2,19 +2,19 @@ import java.util.Scanner;
 
 public class HeroCreation {
     CharacterLibrary chl = new CharacterLibrary();
-    private int numHeros;
+    private int numHeroes;
 
     HeroCreation() {
     }
 
     HeroCreation(int num){
-        numHeros = num;
+        numHeroes = num;
     }
 
     public void prep(LMHPlayer player) {
         Scanner sc = new Scanner(System.in);
 
-        for (int i = 1; i <= numHeros; i++) {
+        for (int i = 1; i <= numHeroes; i++) {
             // prompt user the position and specific hero to generate
             System.out.println("Select your No." + Color.RED + i + Color.RESET + " hero:");
             System.out.println(Color.GREEN + "1. Warriors  2. Sorcerers  3. Paladins" + Color.RESET);

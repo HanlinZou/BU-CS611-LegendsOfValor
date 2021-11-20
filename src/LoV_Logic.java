@@ -206,13 +206,13 @@ public class LoV_Logic {
             //hero at left tile and there's a monster at right tile or at same tile
             if(fromY % 3 == 0 &&
                 (board.getTile(fromX, fromY).get_monster_on() || board.getTile(fromX, fromY + 1).get_monster_on())) {
-                System.out.println(Color.RED + "Inaccessible, please re-enter your move: " + Color.RESET);
+                System.out.println(Color.RED + "Kill the monster first, please re-enter your move: " + Color.RESET);
                 return false;
             }
             //hero at right tile and there's a monster at left tile or at same tile
             else if(fromY % 3 != 0 &&
                 (board.getTile(fromX, fromY).get_monster_on() || board.getTile(fromX, fromY - 1).get_monster_on())) {
-                System.out.println(Color.RED + "Inaccessible, please re-enter your move: " + Color.RESET);
+                System.out.println(Color.RED + "Kill the monster first, please re-enter your move: " + Color.RESET);
                 return false;
             }
             // avoid two heroes at same tile
@@ -257,19 +257,19 @@ public class LoV_Logic {
         if(board.getTile(hero.x, hero.y) instanceof Bush){
             hero.setBuffed(true);
             hero.setBuffType("dex");
-            hero.setBuffAmt(hero.getDexterity() / 10);
+            hero.setBuffAmt((int) (hero.getDexterity() * ((Bush) board.getTile(hero.x, hero.y)).get_buff()));
             hero.setDexterity(hero.getDexterity() + hero.getBuffAmt());
         }
         else if(board.getTile(hero.x, hero.y) instanceof Cave){
             hero.setBuffed(true);
             hero.setBuffType("agi");
-            hero.setBuffAmt(hero.getAgility() / 10);
+            hero.setBuffAmt((int) (hero.getAgility() * ((Cave) board.getTile(hero.x, hero.y)).get_buff()));
             hero.setAgility(hero.getAgility() + hero.getBuffAmt());
         }
         else if(board.getTile(hero.x, hero.y) instanceof Koulou){
             hero.setBuffed(true);
             hero.setBuffType("str");
-            hero.setBuffAmt(hero.getStrength() / 10);
+            hero.setBuffAmt((int) (hero.getStrength() * ((Koulou) board.getTile(hero.x, hero.y)).get_buff()));
             hero.setStrength(hero.getStrength() + hero.getBuffAmt());
         }
 
@@ -420,9 +420,8 @@ public class LoV_Logic {
                 }
                 break;
         }
-        for (Monster value : monsterArrayList) {
-            value.displayInfo();
-        }
+        monsterArrayList.get(monsterIndex).displayInfo();
+
         return true;
     }
 

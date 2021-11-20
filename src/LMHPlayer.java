@@ -86,7 +86,7 @@ public class LMHPlayer extends Player {
     public void displayInfoNotInFight() {
         if (heroArrayList.isEmpty()) return;
 
-        System.out.println(Color.ORANGE +"Heros: " + Color.RESET);
+        System.out.println(Color.ORANGE +"Heroes: " + Color.RESET);
 
         String border =
             Color.ORANGE +

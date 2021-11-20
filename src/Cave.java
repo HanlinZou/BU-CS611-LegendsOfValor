@@ -8,14 +8,14 @@ public class Cave extends Tile {
         super.setMonsterOn(false);
         super.setCellType(CellType.CAVE);
         super.setAccessible(true);
-        this.buff = .1;
+        set_buff(0.1);
     }
 
     public double get_buff() {
         return this.buff;
     }
 
-    public void set_buff(int v) {
+    public void set_buff(double v) {
         this.buff = v;
     }
 

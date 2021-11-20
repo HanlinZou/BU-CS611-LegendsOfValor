@@ -22,7 +22,7 @@ public class Potion extends Item {
      * @param cost         how much money to purchase the potion
      * @param minLV        minimum level to purchase the potion
      * @param statInc      amount to be added to hero's stats
-     * @param statCategory category of hero's stats to be inproved
+     * @param statCategory category of hero's stats to be improved
      */
     Potion(String name, int cost, int minLV, int statInc, String statCategory) {
         setName(name);
