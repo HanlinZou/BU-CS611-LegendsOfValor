@@ -3,7 +3,7 @@
  * Item class has a specified schema specified by an Item object and
  * groups of variables of an item.
  */
-public class Item {
+public class Item implements Equipable, ItemTrade{
     protected String name;
     protected int cost;
     protected int minLv;
@@ -29,7 +29,7 @@ public class Item {
     /**
      * Set price for this item.
      *
-     * @param price Item price.
+     * @param cost Item price.
      */
     public void setCost(int cost) {
         this.cost = cost;
@@ -70,4 +70,20 @@ public class Item {
     public int getMinLv() {
         return minLv;
     }
+
+	@Override
+	public boolean equipable(int hero_level)
+	{
+        return this.minLv == hero_level;
+    }
+
+	@Override
+	public int buy() {
+		return this.cost;
+	}
+
+	@Override
+	public int sell() {
+		return this.cost/2;
+	}
 }

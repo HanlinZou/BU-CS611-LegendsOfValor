@@ -3,7 +3,7 @@
  * Character class has a specified schema specified by a Character object and
  * groups of variables of a character.
  */
-public abstract class Character {
+public abstract class Character implements Fight {
     protected String type;
     protected String name;
     protected int level;
@@ -158,32 +158,12 @@ public abstract class Character {
         if (isHit) {
             String color = (opponent instanceof Hero) ? Color.RED : Color.BLUE;
             System.out.println(color + getName() + " attacked and dealt " + damageRes
-                        + " points of damage to " + opponent.getName() + Color.RESET);
+                + " points of damage to " + opponent.getName() + Color.RESET);
             opponent.setCurrentHP(opponent.getCurrentHP() - damageRes);
         } else {
             System.out.println(Color.GREY + "Unfortunately " + getName() + " missed." + Color.RESET);
         }
     }
 
-    /**
-     * Calculate this character's regular attack damage.
-     *
-     * @return Regular damage
-     */
-    public abstract int attackDamage();
 
-    /**
-     * Calculate how much damage this character can block when get attacked.
-     *
-     * @return Defense value
-     */
-    public abstract int calDefense();
-
-    /**
-     * Calculate the probability for this character to dodge a regular attack
-     * successfully.
-     *
-     * @return Probability to dodge a regular attack
-     */
-    public abstract double probDodge();
 }

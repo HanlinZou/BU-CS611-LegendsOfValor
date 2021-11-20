@@ -93,13 +93,13 @@ public class LoV_Logic {
                 }
                 // or wants to see information and inventory
                 else if (playerChoice.equalsIgnoreCase("I")) {
-                    i--;
                     player.displayInfoNotInFight();
                     System.out.print(Color.YELLOW + "Do you want to switch your weapon/armor, " +
                         "use potions, or learn a spell? Input \"Y\" to operate: ");
                     String ans = sc.next();
                     if (ans.equalsIgnoreCase("Y"))
                         player.heroArrayList.get(i).itemOp(false);
+                    i--;
                 }
                 else if (playerChoice.equalsIgnoreCase("T")) {
                     if (!teleport(i)) i--; //If tp fail due to no available target

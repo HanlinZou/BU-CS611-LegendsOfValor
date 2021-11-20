@@ -27,7 +27,6 @@ public class Inaccessible extends Tile {
 
     @Override
     public String specialDraw() {
-        // TODO Auto-generated method stub
         return this.plainDraw();
     }
 }

@@ -3,7 +3,7 @@
  * Potion class has a more specified schema extended from Item object.
  * Potion examples can be found in Potions.txt
  */
-public class Potion extends Item {
+public class Potion extends Item implements Consumable {
     private int statInc;
     private String statCategory;
 
@@ -72,5 +72,10 @@ public class Potion extends Item {
     public String toString() {
         return "Name: " + name + " Cost: " + cost + " Min LV: " +
                 minLv + " Attr Inc: " + statInc + " Attr aff: " + statCategory;
+    }
+
+	@Override
+	public boolean isConsumable(int hero_level) {
+        return super.minLv <= hero_level;
     }
 }
