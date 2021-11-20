@@ -283,7 +283,7 @@ public class LMH_Logic {
                                 player.heroArrayList.get(i).regularAttack(monsterArrayList.get(targetNo));
 
                                 // check whether the monster is dead
-                                if (monsterArrayList.get(targetNo).getCurrentHP() < 0) {
+                                if (monsterArrayList.get(targetNo).getCurrentHP() <= 0) {
                                     //if yes, decrease monster number and remove the dead monster from list
                                     System.out.println(Color.GREEN + player.heroArrayList.get(i).getName() +
                                         " just killed " + monsterArrayList.get(targetNo).getName());
@@ -306,7 +306,7 @@ public class LMH_Logic {
                                 }
 
                                 // check whether the monster is dead
-                                if (monsterArrayList.get(targetNo).getCurrentHP() < 0) {
+                                if (monsterArrayList.get(targetNo).getCurrentHP() <= 0) {
                                     //if yes, decrease monster number and remove the dead monster from list
                                     System.out.println(Color.GREEN + player.heroArrayList.get(i).getName() +
                                         " just killed " + monsterArrayList.get(targetNo).getName());
@@ -328,7 +328,7 @@ public class LMH_Logic {
                 for (int i = 0; i < monsterArrayList.size(); i++) {
                     targetNo = i;
                     // handle cases when any hero died
-                    if (player.heroArrayList.get(targetNo).getCurrentHP() < 0) {
+                    if (player.heroArrayList.get(targetNo).getCurrentHP() <= 0) {
                         //find first alive hero to attack
                         for (int j = 0; j < player.heroArrayList.size(); j++) {
                             if (player.heroArrayList.get(j).getCurrentHP() > 0) {
@@ -338,7 +338,7 @@ public class LMH_Logic {
                         }
                     }
                     monsterArrayList.get(i).regularAttack(player.heroArrayList.get(targetNo));
-                    if(player.heroArrayList.get(targetNo).getCurrentHP() < 0)
+                    if(player.heroArrayList.get(targetNo).getCurrentHP() <= 0)
                         aliveHero--;
                 }
             }

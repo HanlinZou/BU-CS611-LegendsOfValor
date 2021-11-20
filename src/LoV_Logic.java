@@ -42,10 +42,15 @@ public class LoV_Logic {
         String playerChoice = "Q";
 
         do {
+            //avoid each hero heal for many times
+            for(int i = 0; i < player.heroArrayList.size(); i++) {
+                player.heroArrayList.get(i).heal();
+            }
+
             for(int i = 0; i < player.heroArrayList.size(); i++) {
                 Hero hero = player.heroArrayList.get(i);
-                hero.heal();
 
+                // player would be provided an option to purchase if available at beginning of each round
                 if (board.getTile(hero.x, hero.y) instanceof Nexus) {
                     board.displayBoard();
                     nexusOp(i);
@@ -61,6 +66,7 @@ public class LoV_Logic {
                     playerChoice.equalsIgnoreCase("A") || playerChoice.equalsIgnoreCase("D")) {
                     if (!playerMove(hero, playerChoice)) i--;  // failed to move
                     if (hero.x == 0){
+                        board.displayBoard();
                         System.out.println(Color.ORANGE + "Heroes won!" + Color.RESET);
                         playerChoice = "Q";
                         break;
@@ -72,14 +78,13 @@ public class LoV_Logic {
                 }
                 // or wants to see information and inventory
                 else if (playerChoice.equalsIgnoreCase("I")) {
+                    i--;
                     player.displayInfoNotInFight();
                     System.out.print(Color.YELLOW + "Do you want to switch your weapon/armor, " +
                         "use potions, or learn a spell? Input \"Y\" to operate: ");
                     String ans = sc.next();
-                    if (ans.equalsIgnoreCase("Y")) {
+                    if (ans.equalsIgnoreCase("Y"))
                         player.heroArrayList.get(i).itemOp(false);
-                        i--;
-                    }
                 }
                 else if (playerChoice.equalsIgnoreCase("T")) {
                     if (!teleport(i)) i--; //If tp fail due to no available target
@@ -95,6 +100,7 @@ public class LoV_Logic {
                 else
                     break;
             }
+            monsterTime();
         } while(!playerChoice.equalsIgnoreCase("Q"));
         System.out.println(Color.RESET + "Goodbye. " + player.getPlayerName());
     }
@@ -146,9 +152,9 @@ public class LoV_Logic {
         board.getTile(0, 1).setMonsterOn(true);
         monsterArrayList.get(0).setPos(0, 1);
         board.getTile(0, 4).setMonsterOn(true);
-        monsterArrayList.get(1).setPos(0, 1);
+        monsterArrayList.get(1).setPos(0, 4);
         board.getTile(0, 7).setMonsterOn(true);
-        monsterArrayList.get(2).setPos(0, 1);
+        monsterArrayList.get(2).setPos(0, 7);
     }
 
     public void nexusOp(int heroIndex){
@@ -332,19 +338,26 @@ public class LoV_Logic {
         Monster monster = null;
         int monsterIndex = -1;
 
-        // Check whether a monster at same tile or in front of a hero
-        if(!board.getTile(x, y).get_monster_on()){
-            if(board.getTile(x - 1, y).get_monster_on()){
-                for (int i = 0; i < monsterArrayList.size(); i++) {
-                    if (monsterArrayList.get(i).getX() == x && monsterArrayList.get(i).getY() == y)
-                        monster = monsterArrayList.get(i);
-                        monsterIndex = i;
-                }
-            }
-        }
-        else if (board.getTile(x, y).get_monster_on()){
+        //check whether a monster at same tile
+        if (board.getTile(x, y).get_monster_on()){
             for (int i = 0; i < monsterArrayList.size(); i++) {
                 if (monsterArrayList.get(i).getX() == x && monsterArrayList.get(i).getY() == y)
+                    monster = monsterArrayList.get(i);
+                monsterIndex = i;
+            }
+        }
+        // Check whether a monster at front tile
+        else if(board.getTile(x - 1, y).get_monster_on()){
+            for (int i = 0; i < monsterArrayList.size(); i++) {
+                if (monsterArrayList.get(i).getX() == x - 1 && monsterArrayList.get(i).getY() == y)
+                    monster = monsterArrayList.get(i);
+                monsterIndex = i;
+            }
+        }
+        // Check whether a monster at right tile
+        else if(y != board.getNumColumn() && board.getTile(x, y + 1).get_monster_on()){
+            for (int i = 0; i < monsterArrayList.size(); i++) {
+                if (monsterArrayList.get(i).getX() == x && monsterArrayList.get(i).getY() == y + 1)
                     monster = monsterArrayList.get(i);
                 monsterIndex = i;
             }
@@ -352,14 +365,11 @@ public class LoV_Logic {
         //Check if there's a monster at diagonal or right tile if hero on left tile
         //No need to check if there's a monster at diagonal or left tile if hero on right tile
         //because monsters only move forward or fight, and they are spawned on right tile
-        else{
-            // avoid index out of bound error
-            if(y != board.getNumColumn() && board.getTile(x - 1, y + 1).get_monster_on()){
-                for (int i = 0; i < monsterArrayList.size(); i++) {
-                    if (monsterArrayList.get(i).getX() == x && monsterArrayList.get(i).getY() == y)
-                        monster = monsterArrayList.get(i);
-                    monsterIndex = i;
-                }
+        else if(y != board.getNumColumn() && board.getTile(x - 1, y + 1).get_monster_on()){
+            for (int i = 0; i < monsterArrayList.size(); i++) {
+                if (monsterArrayList.get(i).getX() == x - 1 && monsterArrayList.get(i).getY() == y + 1)
+                    monster = monsterArrayList.get(i);
+                monsterIndex = i;
             }
         }
 
@@ -381,11 +391,13 @@ public class LoV_Logic {
                 hero.regularAttack(monster);
 
                 // check whether the monster is dead
-                if (monster.getCurrentHP() < 0) {
+                if (monster.getCurrentHP() <= 0) {
                     //if yes, remove the dead monster from list
                     System.out.println(Color.GREEN + hero.getName() + " just killed " + monster.getName());
+                    board.getTile(monster.getX(), monster.getY()).setMonsterOn(false);
                     monsterArrayList.remove(monsterIndex);
                 }
+                break;
             case "2":
                 // let hero cast a spell if learned any
                 if (hero.getLearnedSpell().size() > 0)
@@ -396,12 +408,68 @@ public class LoV_Logic {
                 }
 
                 // check whether the monster is dead
-                if (monster.getCurrentHP() < 0) {
+                if (monster.getCurrentHP() <= 0) {
                     //if yes, remove the dead monster from list
                     System.out.println(Color.GREEN + hero.getName() + " just killed " + monster.getName());
+                    board.getTile(monster.getX(), monster.getY()).setMonsterOn(false);
                     monsterArrayList.remove(monsterIndex);
                 }
+                break;
         }
         return true;
+    }
+
+    public void monsterTime(){
+        for (Monster monster : monsterArrayList) {
+            int x = monster.getX();
+            int y = monster.getY();
+            //if there's a hero at same tile, attack
+            if (board.getTile(x, y).getHeroOn()) {
+                for (int j = 0; j < player.heroArrayList.size(); j++) {
+                    if (player.heroArrayList.get(j).getX() == x && player.heroArrayList.get(j).getY() == y)
+                        monster.regularAttack(player.heroArrayList.get(j));
+                }
+            }
+            //if there's a hero at front tile, attack
+            else if (board.getTile(x + 1, y).get_monster_on()) {
+                for (int j = 0; j < player.heroArrayList.size(); j++) {
+                    if (player.heroArrayList.get(j).getX() == x + 1 && player.heroArrayList.get(j).getY() == y)
+                        monster.regularAttack(player.heroArrayList.get(j));
+                }
+            }
+            //if there's a hero at left tile, attack
+            else if (board.getTile(x, y - 1).getHeroOn()) {
+                for (int j = 0; j < player.heroArrayList.size(); j++) {
+                    if (player.heroArrayList.get(j).getX() == x && player.heroArrayList.get(j).getY() == y - 1)
+                        monster.regularAttack(player.heroArrayList.get(j));
+                }
+            }
+            //if there's a hero at diagonal tile, attack
+            else if (board.getTile(x + 1, y - 1).getHeroOn()) {
+                for (int j = 0; j < player.heroArrayList.size(); j++) {
+                    if (player.heroArrayList.get(j).getX() == x + 1 && player.heroArrayList.get(j).getY() == y - 1)
+                        monster.regularAttack(player.heroArrayList.get(j));
+                }
+            }
+            //if no monster at front tile, move forward
+            else if (!board.getTile(x + 1, y).get_monster_on() && !board.getTile(x, y).getHeroOn() && !board.getTile(x, y - 1).getHeroOn()) {
+                board.getTile(x, y).setMonsterOn(false);
+                monster.setPos(x + 1, y);
+                board.getTile(x + 1, y).setMonsterOn(true);
+            }
+        }
+        //check if any hero died
+        for (int k = 0; k < player.heroArrayList.size(); k++) {
+            if (player.heroArrayList.get(k).getCurrentHP() <= 0) {
+                System.out.println(Color.RED + player.heroArrayList.get(k).getName() + " died during the fight.");
+                //revive and punish
+                player.heroArrayList.get(k).lose();
+                //remove old position
+                board.getTile(player.heroArrayList.get(k).getX(), player.heroArrayList.get(k).getY()).setHeroOn(false);
+                //update new position
+                player.heroArrayList.get(k).setPos(7, player.heroArrayList.get(k).getY());
+                board.getTile(7, player.heroArrayList.get(k).getY()).setHeroOn(true);
+            }
+        }
     }
 }
