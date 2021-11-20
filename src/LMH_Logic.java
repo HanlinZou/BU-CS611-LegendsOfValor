@@ -28,42 +28,10 @@ public class LMH_Logic {
     LMH_Logic(){}
 
     /**
-     * Prints welcome messages.
-     */
-    private void printWelcomeMsg() {
-        String banner =
-            Color.BLUE +
-                ".__                                           .___       " + "\n" +
-                "|  |   ____   ____    ____   ____   ____    __| _/       " + "\n" +
-                "|  | _/ __ \\ /    \\  / ___\\_/ __ \\ /    \\  / __ |   " + "\n" +
-                "|  |_\\  ___/|   |  / /_/  >  ___/|   |  \\/ /_/ |       " + "\n" +
-                "|____/\\___  >___|  /\\___  / \\___  >___|  /\\____ |    " + "\n" +
-                "          \\/     \\//_____/      \\/     \\/      \\/ z " + Color.RESET + "\n";
-
-        System.out.println(banner);
-
-        String swordArt =
-            Color.RED +
-                "            (O)                                            " + "\n" +
-                "            <M                                             " + "\n" +
-                "o          <M  Welcome to Legends: Monsters and Heroes     " + "\n" +
-                "/| ......  /:M\\---------------------------------,,,,,,    " + "\n" +
-                "(O)[]XXXXXX[]I:K+}=====<{H}>===================-------->   " + "\n" +
-                "\\| ^^^^^^  \\:W/---------------------------------''''''   " + "\n" +
-                "o          <W  Have fun!                                   " + "\n" +
-                "            <W                                             " + "\n" +
-                "            (O)                                            " + Color.RESET + "\n";
-
-        System.out.println(swordArt);
-    }
-
-    /**
      * Initialize and generate necessary components of the game.
      */
     public void prep() {
         Scanner sc = new Scanner(System.in);
-
-        printWelcomeMsg();
 
         System.out.print(Color.YELLOW + "I need your name first: " + Color.RESET);
         String pName = sc.next();
