@@ -1,6 +1,6 @@
 /**
- * Koulou class maintains information about the contents of an koulou tile for LoV.
- * Inheirts from Tile class and implements necessary interfaces.
+ * Koulou class maintains information about the contents of a koulou tile for LoV.
+ * Inherits from Tile class and implements necessary interfaces.
 */
 
 public class Koulou extends BuffTile {

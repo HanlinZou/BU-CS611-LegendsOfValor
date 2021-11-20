@@ -1,6 +1,6 @@
 /**
  * Cave class maintains information about the contents of a cave tile.
- * Inheirts from Tile class and implements necessary interfaces.
+ * Inherits from Tile class and implements necessary interfaces.
 */
 
 public class Cave extends BuffTile {

@@ -1,5 +1,5 @@
 /**
- * FireSpell class maintains information and actions for an fire spell.
+ * FireSpell class maintains information and actions for a fire spell.
  */
 
 public class FireSpell extends Spell {

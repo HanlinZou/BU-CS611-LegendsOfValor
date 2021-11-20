@@ -1,5 +1,5 @@
 /**
- * CellType maintains a list of avaliable LoV tile types.
+ * CellType maintains a list of available LoV tile types.
  */
 
 public enum CellType {

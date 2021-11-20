@@ -1,6 +1,6 @@
 /**
  * Bush class maintains information about the contents of a bush tile for LoV.
- * Inheirts from Tile class and implements necessary interfaces.
+ * Inherits from Tile class and implements necessary interfaces.
 */
 
 public class Bush extends BuffTile {

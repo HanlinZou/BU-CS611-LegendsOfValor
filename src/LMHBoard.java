@@ -25,9 +25,9 @@ public class LMHBoard extends Board {
      * Prints the meaning of icons on the board.
      */
     private void displayBoardInfo() {
-        String bannerBorder = Color.PURPLE + "-";
-        for (int i = 0; i < Math.max(10, this.size); i++) bannerBorder += "---";
-        bannerBorder += Color.RESET;
+        StringBuilder bannerBorder = new StringBuilder(Color.PURPLE + "-");
+        bannerBorder.append("---".repeat(Math.max(10, this.size)));
+        bannerBorder.append(Color.RESET);
 
         System.out.println(bannerBorder);
         System.out.println(Color.BLUE   + " [H] " + Color.RESET + "You");

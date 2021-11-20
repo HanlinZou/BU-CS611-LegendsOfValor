@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class CharacterLibrary {
     final String filePath = System.getProperty("user.dir") + "/src/ConfigFiles/";
 
-    // Heros
+    // Heroes
     ArrayList<Hero> warriorArrayList = new ArrayList<>();
     ArrayList<Hero> sorcererArrayList = new ArrayList<>();
     ArrayList<Hero> paladinArrayList = new ArrayList<>();
@@ -161,9 +161,9 @@ public class CharacterLibrary {
     }
 
     /**
-     * display heros in the given list.
+     * display heroes in the given list.
      *
-     * @param list A list of heros.
+     * @param list A list of heroes.
      */
     private void displayHero(ArrayList<Hero> list) {
         String border =

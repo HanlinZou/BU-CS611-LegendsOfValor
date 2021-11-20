@@ -45,7 +45,7 @@ public abstract class Spell extends Item implements Castable {
     }
 
     /**
-     * Sets base demage of this spell.
+     * Sets base damage from this spell.
      *
      * @param damage Spell base damage.
      */
@@ -72,7 +72,7 @@ public abstract class Spell extends Item implements Castable {
     }
 
     /**
-     * Returns the base demage of this spell.
+     * Returns the base damage from this spell.
      *
      * @return Spell base damage.
      */

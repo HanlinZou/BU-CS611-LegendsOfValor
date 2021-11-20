@@ -221,7 +221,7 @@ public abstract class Hero extends Character {
     /**
      * Equips a weapon.
      *
-     * @param Weapon A weapon object to be equipped.
+     * @param weapon A weapon object to be equipped.
      */
     public void setEquippedWeapon(Weapon weapon) {
         equippedWeapon = weapon;
@@ -230,7 +230,7 @@ public abstract class Hero extends Character {
     /**
      * Equips an armor.
      *
-     * @param Armor An armor object to be equipped.
+     * @param armor An armor object to be equipped.
      */
     public void setEquippedArmor(Armor armor) {
         equippedArmor = armor;
@@ -700,7 +700,7 @@ public abstract class Hero extends Character {
     /**
      * Display hero's info when not in fight
      *
-     * @param displayTitle Display tatble title or not?
+     * @param displayTitle Display table title or not?
      * @param index Index of the hero, -1 for no index.
      */
     @Override

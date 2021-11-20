@@ -1,6 +1,6 @@
 /**
- * Defines interfaces for all fightable characters.
- * Heros and Monsters classes should inherit implement this.
+ * Defines interfaces for all hittable characters.
+ * Heroes and Monsters classes should inherit implement this.
  */
 
 public interface Fight {

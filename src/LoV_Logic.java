@@ -10,8 +10,8 @@ public class LoV_Logic {
     LoVBoard board;
 
     /**
-     * Necessary preparation at the begining of the LoV game.
-     * Initialize player, game board, market and creates heros, etc.
+     * Necessary preparation at the beginning of the LoV game.
+     * Initialize player, game board, market and creates heroes, etc.
     */
     public void prep() {
         Scanner sc = new Scanner(System.in);
@@ -56,7 +56,7 @@ public class LoV_Logic {
                 player.heroArrayList.get(i).heal();
             }
 
-            // Genetate new monsters every 8 rounds
+            // Generate new monsters every 8 rounds
             if(numRound % 8 == 0) {
                 numRound = 0;
                 spawnMonsters();
@@ -122,8 +122,8 @@ public class LoV_Logic {
     }
 
     /**
-     * Hanldes monster generation.
-     * Genetates monsters with the same level as heros.
+     * Handles monster generation.
+     * Generates monsters with the same level as heroes.
     */
     public void spawnMonsters(){
         // btw, each monster has same level as heroes
@@ -178,8 +178,8 @@ public class LoV_Logic {
     }
 
     /**
-     * Hanldes events on nexus cells.
-     * Heros can choose to buy or sell items on nexus cells.
+     * Handles events on nexus cells.
+     * Heroes can choose to buy or sell items on nexus cells.
     */
     public void nexusOp(int heroIndex){
         Scanner sc = new Scanner(System.in);
@@ -359,7 +359,7 @@ public class LoV_Logic {
     }
 
     /**
-     * Moves the given player back to heros' nexus.
+     * Moves the given player back to heroes' nexus.
      *
      * @param heroIndex Index the hero to be moved back.
     */
@@ -380,7 +380,7 @@ public class LoV_Logic {
     }
 
     /**
-     * Handles heros' fight events.
+     * Handles heroes' fight events.
      *
      * Priority of target pick: Hero first fight the monster at same tile,
      * then the one in front of him, then diagonal one.
@@ -492,7 +492,7 @@ public class LoV_Logic {
             int x = monster.getX();
             int y = monster.getY();
 
-            /**
+            /*
              * 1. same tile
              * 2. front tile
              * 3. left tile

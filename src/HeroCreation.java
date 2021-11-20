@@ -16,9 +16,9 @@ public class HeroCreation {
     }
 
     /**
-     * Interacts with player and creates a list of heros.
+     * Interacts with player and creates a list of heroes.
      *
-     * @param palyer A LMHPlayer object.
+     * @param player A LMHPlayer object.
      */
     public void prep(LMHPlayer player) {
         Scanner sc = new Scanner(System.in);

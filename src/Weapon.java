@@ -33,9 +33,9 @@ public class Weapon extends Item {
     }
 
     /**
-     * Sets the base demage of this weapon.
+     * Sets the base damage from this weapon.
      *
-     * @param demage Base damage.
+     * @param damage Base damage.
      */
     public void setDamage(int damage) {
         this.damage = damage;
@@ -51,7 +51,7 @@ public class Weapon extends Item {
     }
 
     /**
-     * Returns the base demage of this weapon.
+     * Returns the base damage from this weapon.
      *
      * @return Base damage.
      */

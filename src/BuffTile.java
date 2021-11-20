@@ -6,7 +6,7 @@
  */
 
 public abstract class BuffTile extends Tile {
-    private double buff;  // Increate attribute
+    private double buff;  // Increased attribute
 
     public BuffTile(double buff) {
         setBuff(buff);

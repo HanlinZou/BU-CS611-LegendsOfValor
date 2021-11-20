@@ -1,6 +1,6 @@
 /**
  * Nexus class maintains information about the contents of a Nexus tile for LoV.
- * Inheirts from Tile class and implements necessary interfaces.
+ * Inherits from Tile class and implements necessary interfaces.
 */
 
 public class Nexus extends Tile {
