@@ -3,7 +3,7 @@
  * Item class has a specified schema specified by an Item object and
  * groups of variables of an item.
  */
-public class Item {
+public class Item implements Equipable, ItemTrade{
     protected String name;
     protected int cost;
     protected int minLv;
@@ -40,4 +40,25 @@ public class Item {
     public int getMinLv() {
         return minLv;
     }
+
+	@Override
+	public boolean equipable(int hero_level) 
+	{
+		if(this.minLv == hero_level)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public int buy() {
+		return this.cost;
+	}
+
+	@Override
+	public int sell() {
+		// TODO Auto-generated method stub
+		return this.cost/2;
+	}
 }

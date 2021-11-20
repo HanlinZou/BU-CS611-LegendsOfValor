@@ -3,9 +3,10 @@
  * Potion class has a more specified schema extended from Item object.
  * Potion examples can be found in Potions.txt
  */
-public class Potion extends Item {
+public class Potion extends Item implements Consumable {
     private int statInc;
     private String statCategory;
+    private boolean consumed;
 
     /**
      * No-arg constructor
@@ -13,6 +14,7 @@ public class Potion extends Item {
     Potion() {
         statInc = 0;
         statCategory = "";
+        this.consumed = false;
     }
 
     /**
@@ -53,4 +55,13 @@ public class Potion extends Item {
         return "Name: " + name + " Cost: " + cost + " Min LV: " +
                 minLv + " Attr Inc: " + statInc + " Attr aff: " + statCategory;
     }
+
+	@Override
+	public boolean Consumable() {
+		if(this.consumed == false)
+		{
+			return true;
+		}
+		return false;
+	}
 }

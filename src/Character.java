@@ -3,7 +3,7 @@
  * Character class has a specified schema specified by a Character object and
  * groups of variables of a character.
  */
-public abstract class Character {
+public abstract class Character implements Fight {
     protected String type;
     protected String name;
     protected int level;
@@ -165,9 +165,5 @@ public abstract class Character {
         }
     }
 
-    public abstract int attackDamage();
-
-    public abstract int calDefense();
-
-    public abstract double probDodge();
+    
 }

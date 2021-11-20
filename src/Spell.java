@@ -3,7 +3,7 @@
  * Spell class has a more specified schema extended from Item object.
  * Spell examples can be found in FireSpells.txt, IceSpells.txt and LightningSpells.txt
  */
-public abstract class Spell extends Item {
+public abstract class Spell extends Item implements Castable {
     private int damage;
     private int manaCost;
     private String type;
@@ -67,5 +67,15 @@ public abstract class Spell extends Item {
     public String toString() {
         return "Name: " + name + " Cost: " + cost + " Min LV: " + minLv + " Damage: " +
                 getDamage() + " Mana cost: " + getManaCost() + " Spell cate: " + getType();
+    }
+    
+    @Override
+    public boolean castable(int heroMana)
+    {
+    	if(heroMana - this.manaCost >= 0)
+    	{
+    		return true;
+    	}
+		return false;
     }
 }
