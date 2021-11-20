@@ -60,11 +60,11 @@ public class Monster extends Character {
      * Display all monsters' info when in fight
      */
     public void displayInfo() {
-        System.out.println(Color.PURPLE + "Name: " + name);
-        System.out.println("Level: " + level);
-        System.out.println("HP: " + currentHP + "/" + HP);
-        System.out.println("Defense: " + defense);
-        System.out.println("Damage: " + damage + Color.RESET);
+        System.out.print(Color.PURPLE + "Name: " + name);
+        System.out.print(" Level: " + level);
+        System.out.print(" HP: " + currentHP + "/" + HP);
+        System.out.print(" Defense: " + defense);
+        System.out.println(" Damage: " + damage + Color.RESET);
     }
 
     @Override
