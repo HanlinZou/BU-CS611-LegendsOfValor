@@ -8,5 +8,5 @@ public enum CellType {
 	PLAIN,
 	BUSH,
 	CAVE,
-	KOULOU;
+	KOULOU
 }

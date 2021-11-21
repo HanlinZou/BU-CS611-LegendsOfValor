@@ -80,8 +80,8 @@ public class LoVBoard extends Board {
         StringBuilder result = new StringBuilder();
         for (Tile[] tiles : this.board) {
             ArrayList<String[]> this_line = new ArrayList<>();
-            for (int j = 0; j < tiles.length; j++) {
-                String[] this_draw = tiles[j].specialDraw().split("\\r?\\n");
+            for (Tile tile : tiles) {
+                String[] this_draw = tile.specialDraw().split("\\r?\\n");
                 this_line.add(this_draw);
             }
             result.append(this.line_assembler(this_line)).append("\n");

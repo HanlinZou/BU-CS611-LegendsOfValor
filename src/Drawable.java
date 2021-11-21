@@ -1,5 +1,5 @@
 /**
- * Drawable defines interfaces that each board tile should implements to
+ * Drawable defines interfaces that each board tile should
  * print them in terminal easily.
  */
 

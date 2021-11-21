@@ -55,12 +55,12 @@ Game Map
 15. Koulou.java: Implements a koulou tile for LoV game, inherits from class BuffTile.
 16. Plain.java: Implements a plain tile for LoV game, inherits from class Tile.
 17. Nexus.java: Implements a nexus tile for LoV game, inherits from class Tile.
-18. Inaccessible.java: Implements of an inaccessable tile for LoV, inherits from class Tile.
+18. Inaccessible.java: Implements of an inaccessible tile for LoV, inherits from class Tile.
 19. Board.java: A basic world map class for an RPG game, composed by Cell objects and also some variables of its own.
 20. LMHBoard: A more detailed Board object designed for LMH game, which contains some unique elements.
 21. LoVBoard: A more detailed Board object designed for LoV game, which contains some unique elements.
 22. CellFactory.java: Using factory method to create board cell for LoV game easily.
-23. Drawable.java: Defines interfaces that each board tile should implements to print them in terminal easily.
+23. Drawable.java: Defines interfaces that each board tile should print them in terminal easily.
 24. Market.java: Maintains information of all available items and implements methods for items trading.
 
 
@@ -107,7 +107,7 @@ Design Patterns
 
 1. Template Pattern
 ---------------------------------
-We defined sketelons for Characters, Items and Map Cells, and implements the details in subclasses.
+We defined skeletons for Characters, Items and Map Cells, and implements the details in subclasses.
 
 2. Factory Pattern
 ---------------------------------
@@ -115,7 +115,7 @@ We used factory methods for creating LoV map cells easily, see CellFactory.java.
 
 3. Builder Pattern
 ---------------------------------
-Class HeroCreation serves as a builder, so that the construction of Hero objects is seperated from their representation and we can get a created Hero object method easily.
+Class HeroCreation serves as a builder, so that the construction of Hero objects is separated from their representation, and we can get a created Hero object method easily.
 
 4. Facade Pattern
 ---------------------------------
@@ -131,5 +131,5 @@ Bonus
 1. We designed and implemented a colorful and fancy terminal UI.
 2. We provided a natural and smooth user experience.
 3. We used meaningful and suitable design patterns in this project to improve the OOD.
-4. The input is getting parsed from the input files and is not harcoded.
+4. The input is getting parsed from the input files and is not hard coded.
 5. We wrote detailed comments following the practice of Javadoc.

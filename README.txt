@@ -2,6 +2,10 @@ Name: Hanlin Zou
 Email: hzou7@bu.edu
 BU ID: U96634471
 
+************************************************************
+INSTRUCTIONS FOR LEGENDS OF VALOR, PLEASE SEE README-LOV.TXT
+************************************************************
+
 Compilation instructions:
 Windows Intelli J/macOS terminal Recommended.
 This program runs perfectly on Intelli J and terminal of Mac.

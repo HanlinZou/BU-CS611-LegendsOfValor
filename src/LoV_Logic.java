@@ -115,7 +115,13 @@ public class LoV_Logic {
                 else
                     break;
             }
-            monsterTime();
+            boolean result = monsterTime();
+            if (result){
+                board.displayBoard();
+                System.out.println(Color.getColor().RED + "Monsters won!" + Color.getColor().RESET);
+                playerChoice = "Q";
+                break;
+            }
             numRound++;
         } while(!playerChoice.equalsIgnoreCase("Q"));
         System.out.println(Color.getColor().RESET + "Goodbye. " + player.getPlayerName());
@@ -487,7 +493,7 @@ public class LoV_Logic {
     /**
      * Handles monsters' fight events.
      */
-    public void monsterTime() {
+    public boolean monsterTime() {
         for (Monster monster : monsterArrayList) {
             int x = monster.getX();
             int y = monster.getY();
@@ -526,8 +532,12 @@ public class LoV_Logic {
                 board.getTile(x, y).setMonsterOn(false);
                 monster.setPos(x + 1, y);
                 board.getTile(x + 1, y).setMonsterOn(true);
+                if(board.getTile(x + 1, y) instanceof Nexus)
+                    return true;
             }
         }
+
+
 
         // check if any hero died
         for (int k = 0; k < player.heroArrayList.size(); k++) {
@@ -542,5 +552,7 @@ public class LoV_Logic {
                 board.getTile(7, player.heroArrayList.get(k).getY()).setHeroOn(true);
             }
         }
+
+        return false;
     }
 }
