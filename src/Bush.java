@@ -12,11 +12,11 @@ public class Bush extends BuffTile {
     }
 
     public String getRowBound() {
-        return (Color.GREEN + "B---B---B" + Color.RESET);
+        return (Color.getColor().GREEN + "B---B---B" + Color.getColor().RESET);
     }
 
     public String getColBound() {
-        return (Color.GREEN + "|" + Color.RESET);
+        return (Color.getColor().GREEN + "|" + Color.getColor().RESET);
     }
 
     /**
@@ -31,8 +31,8 @@ public class Bush extends BuffTile {
         hero.setBuffAmt((int) (hero.getDexterity() * getBuff()));
         hero.setDexterity(hero.getDexterity() + hero.getBuffAmt());
         System.out.println(
-            Color.RED + "Bush Buff: hero " + hero.getName() + "'s dexterity increase " + getBuff() + ", " +
-            "now is " + hero.getDexterity() + "." + Color.RESET
+            Color.getColor().RED + "Bush Buff: hero " + hero.getName() + "'s dexterity increase " + getBuff() + ", " +
+            "now is " + hero.getDexterity() + "." + Color.getColor().RESET
         );
     }
 
@@ -49,7 +49,7 @@ public class Bush extends BuffTile {
         hero.setBuffType("");
         hero.setBuffAmt(0);
         System.out.println(
-            Color.RED + "Bush Buff removed: hero " + hero.getName() + "'s dexterity return to " + hero.getDexterity() + "." + Color.RESET
+            Color.getColor().RED + "Bush Buff removed: hero " + hero.getName() + "'s dexterity return to " + hero.getDexterity() + "." + Color.getColor().RESET
         );
     }
 }

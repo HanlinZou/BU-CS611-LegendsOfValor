@@ -63,7 +63,7 @@ public class CharacterLibrary {
             }
             br.close();
         } catch (IOException e) {
-            System.out.println(Color.RED + "Please enter the correct filepath");
+            System.out.println(Color.getColor().RED + "Please enter the correct filepath");
             e.printStackTrace();
         }
     }
@@ -87,7 +87,7 @@ public class CharacterLibrary {
             }
             br.close();
         } catch (IOException e) {
-            System.out.println(Color.RED + "Please enter the correct filepath");
+            System.out.println(Color.getColor().RED + "Please enter the correct filepath");
             e.printStackTrace();
         }
     }
@@ -111,7 +111,7 @@ public class CharacterLibrary {
             }
             br.close();
         } catch (IOException e) {
-            System.out.println(Color.RED + "Please enter the correct filepath");
+            System.out.println(Color.getColor().RED + "Please enter the correct filepath");
             e.printStackTrace();
         }
     }
@@ -155,7 +155,7 @@ public class CharacterLibrary {
             br2.close();
             br3.close();
         } catch (IOException e) {
-            System.out.println(Color.RED + "Please enter the correct filepath");
+            System.out.println(Color.getColor().RED + "Please enter the correct filepath");
             e.printStackTrace();
         }
     }
@@ -167,9 +167,9 @@ public class CharacterLibrary {
      */
     private void displayHero(ArrayList<Hero> list) {
         String border =
-            Color.PURPLE +
+            Color.getColor().PURPLE +
             "-------------------------------------------------------------------------------------------" +
-            Color.RESET + "\n";
+            Color.getColor().RESET + "\n";
 
         String title =
             "Name                       HP    Level    Mana    Strength    Dexterity    Agility    Money";

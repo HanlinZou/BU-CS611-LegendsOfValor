@@ -60,13 +60,13 @@ public class Monster extends Character {
      * Display monster's info when in fight
      */
     public void displayInfoInFight(boolean displayTitle, int index) {
-        String border = Color.PURPLE +
+        String border = Color.getColor().PURPLE +
             "-------------------------------------------------------------------" +
-            Color.RESET;
+            Color.getColor().RESET;
 
 
         if (displayTitle) {
-            System.out.println(Color.PURPLE +"Monster " + getName() + ":" + Color.RESET);
+            System.out.println(Color.getColor().PURPLE +"Monster " + getName() + ":" + Color.getColor().RESET);
 
             System.out.println(border);
             System.out.println("Name                       Level    HP        Damage    Defense");

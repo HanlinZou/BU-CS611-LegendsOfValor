@@ -392,11 +392,11 @@ public abstract class Hero extends Character {
      * Display all items a hero equips and inside its package
      */
     public void displayEquips() {
-        System.out.println(Color.ORANGE + "Name: " + name);
+        System.out.println(Color.getColor().ORANGE + "Name: " + name);
         System.out.println("1. Equipped Weapon: " + equippedWeapon);
         System.out.println("2. Equipped Armor: " + equippedArmor);
         for (int i = 0; i < storage.size(); i++) {
-            System.out.println(Color.ORANGE + (i + 3) + ". " + storage.get(i) + Color.RESET);
+            System.out.println(Color.getColor().ORANGE + (i + 3) + ". " + storage.get(i) + Color.getColor().RESET);
         }
     }
 
@@ -483,13 +483,13 @@ public abstract class Hero extends Character {
 
         // prompt for player's decision
         for (int i = 0; i < getLearnedSpell().size(); i++) {
-            System.out.println(Color.GREEN + (i + 1) + ". " + getLearnedSpell().get(i));
+            System.out.println(Color.getColor().GREEN + (i + 1) + ". " + getLearnedSpell().get(i));
         }
-        System.out.print(Color.YELLOW + "Which spell you want to cast: ");
+        System.out.print(Color.getColor().YELLOW + "Which spell you want to cast: ");
         decision = sc.next();
         while (!decision.matches("[0-9]*") || Integer.parseInt(decision) < 1
                 || Integer.parseInt(decision) > getLearnedSpell().size()) {
-            System.out.print(Color.RED + "Your selection is invalid, try again: " + Color.RESET);
+            System.out.print(Color.getColor().RED + "Your selection is invalid, try again: " + Color.getColor().RESET);
             decision = sc.next();
         }
 
@@ -500,12 +500,12 @@ public abstract class Hero extends Character {
         // if player pick a spell that doesn't have enough mana to cast, automatically
         // switch a regular attack
         if (getCurrentMP() < getLearnedSpell().get(Integer.parseInt(decision) - 1).getCost()) {
-            System.out.println(Color.RED + "You don't have enough mana, now regular attack...");
+            System.out.println(Color.getColor().RED + "You don't have enough mana, now regular attack...");
             regularAttack(monster);
         } else {
             // decrease hero's current mana
             setCurrentMP(getCurrentMP() - getLearnedSpell().get(spellNo).getCost());
-            System.out.println(Color.BLUE + getName() + " casted " + getLearnedSpell().get(spellNo).getName()
+            System.out.println(Color.getColor().BLUE + getName() + " casted " + getLearnedSpell().get(spellNo).getName()
                     + " and dealt " + spellDamage + " points of damage to " + monster.getName());
 
             // spells can't be dodged, so we decrease monster's health and related skills data
@@ -529,19 +529,19 @@ public abstract class Hero extends Character {
             // move equipped weapon to inventory and set weapon in hand to empty
             getStorage().add(getEquippedWeapon());
             setEquippedWeapon(null);
-            System.out.println(Color.GREEN + "Equipped Weapon is taken off now.");
+            System.out.println(Color.getColor().GREEN + "Equipped Weapon is taken off now.");
             displayEquips();
         } else if (itemNo == 2 && getEquippedArmor() != null) {
             // move equipped armor to inventory and set armor on body to empty
             getStorage().add(getEquippedArmor());
             setEquippedArmor(null);
-            System.out.println(Color.GREEN + "Equipped Armor is taken off now.");
+            System.out.println(Color.getColor().GREEN + "Equipped Armor is taken off now.");
             displayEquips();
         } else {
             if (itemNo == 1)
-                System.out.println(Color.RED + "You failed to take off a weapon. Verify if you have one equipped");
+                System.out.println(Color.getColor().RED + "You failed to take off a weapon. Verify if you have one equipped");
             else
-                System.out.println(Color.RED + "You failed to take off an armor. Verify if you have one equipped");
+                System.out.println(Color.getColor().RED + "You failed to take off an armor. Verify if you have one equipped");
         }
     }
 
@@ -554,21 +554,21 @@ public abstract class Hero extends Character {
         if (getStorage().get(itemNo) instanceof Weapon) {
             // if hero already has a weapon on, switch them
             if (getEquippedWeapon() != null) {
-                System.out.println(Color.GREEN + "Switching Weapon...");
+                System.out.println(Color.getColor().GREEN + "Switching Weapon...");
                 takeOff(1);
             }
             setEquippedWeapon((Weapon) getStorage().remove(itemNo));
-            System.out.println(Color.GREEN + "You successfully equipped a weapon.");
+            System.out.println(Color.getColor().GREEN + "You successfully equipped a weapon.");
         } else if (getStorage().get(itemNo) instanceof Armor) {
             // if hero already has an armor on, switch them
             if (getEquippedArmor() != null) {
-                System.out.println(Color.GREEN + "Switching Armor...");
+                System.out.println(Color.getColor().GREEN + "Switching Armor...");
                 takeOff(2);
             }
             setEquippedArmor((Armor) getStorage().remove(itemNo));
             System.out.println("You successfully equipped an armor.");
         } else {
-            System.out.println(Color.RED + "You failed to equip a weapon/armor.");
+            System.out.println(Color.getColor().RED + "You failed to equip a weapon/armor.");
         }
         displayEquips();
     }
@@ -586,7 +586,7 @@ public abstract class Hero extends Character {
         // and check whether the hero has learned it already
         for (int i = 0; i < getLearnedSpell().size(); i++) {
             if (getLearnedSpell().get(i).getName().equals(spellName)) {
-                System.out.println(Color.RED + "This hero already learned this spell.");
+                System.out.println(Color.getColor().RED + "This hero already learned this spell.");
                 learned = true;
                 break;
             }
@@ -594,7 +594,7 @@ public abstract class Hero extends Character {
 
         if (!learned) {
             getLearnedSpell().add((Spell) getStorage().remove(itemNo));
-            System.out.println(Color.GREEN + "You successfully learned a new spell.");
+            System.out.println(Color.getColor().GREEN + "You successfully learned a new spell.");
         }
     }
 
@@ -608,7 +608,7 @@ public abstract class Hero extends Character {
         String attrEff = potion.getStatCategory();
         int incAmt = potion.getStatInc();
         String[] attr = attrEff.split("/");
-        System.out.println(Color.GREEN + "Woo, you drank so you feeling good~");
+        System.out.println(Color.getColor().GREEN + "Woo, you drank so you feeling good~");
         // after acquiring all data, improve hero's skills or stats
         for (String s : attr) {
             switch (s) {
@@ -651,12 +651,12 @@ public abstract class Hero extends Character {
         while (!done) {
             // display equipped items and inventory
             displayEquips();
-            System.out.print(Color.YELLOW + getName() + ", which item you want to operate: ");
+            System.out.print(Color.getColor().YELLOW + getName() + ", which item you want to operate: ");
             decision = sc.next();
             // validate input
             while (!decision.matches("[0-9]*") || Integer.parseInt(decision) < 1
                     || Integer.parseInt(decision) > getStorage().size() + 2) {
-                System.out.print(Color.RED + "Your selection is invalid, try again: " + Color.RESET);
+                System.out.print(Color.getColor().RED + "Your selection is invalid, try again: " + Color.getColor().RESET);
                 decision = sc.next();
             }
             int itemNo = Integer.parseInt(decision);
@@ -680,7 +680,7 @@ public abstract class Hero extends Character {
                     if (!inFight)
                         learnSpell(itemNo);
                     else {
-                        System.out.println(Color.RED + "You can't learn a spell during a fight!");
+                        System.out.println(Color.getColor().RED + "You can't learn a spell during a fight!");
                         itemOp(true);
                     }
                 }
@@ -688,7 +688,7 @@ public abstract class Hero extends Character {
 
             // ask if player wants another operation if not during a fight
             if (!inFight) {
-                System.out.print(Color.YELLOW + "Are you done? Input \"N\" to do another operation: ");
+                System.out.print(Color.getColor().YELLOW + "Are you done? Input \"N\" to do another operation: ");
                 isDone = sc.next();
                 if (!isDone.equalsIgnoreCase("N"))
                     done = true;
@@ -706,12 +706,12 @@ public abstract class Hero extends Character {
     @Override
     public void displayInfoInFight(boolean displayTitle, int index) {
         String border =
-            Color.ORANGE +
+            Color.getColor().ORANGE +
             "-----------------------------------------------------------------------------------------------------" +
-            Color.RESET;
+            Color.getColor().RESET;
 
         if (displayTitle) {
-            System.out.println(Color.ORANGE +"Hero " + getName() + ":" + Color.RESET);
+            System.out.println(Color.getColor().ORANGE +"Hero " + getName() + ":" + Color.getColor().RESET);
 
             String title =
                 "Name                       Type        Level    HP        MP        Equipped Weapon    Equipped Armor";
@@ -747,12 +747,12 @@ public abstract class Hero extends Character {
      */
     public void displayInfoNotInFight(boolean displayTitle, int index) {
         String border =
-            Color.ORANGE +
+            Color.getColor().ORANGE +
             "----------------------------------------------------------------------------------------------------------------" +
-            Color.RESET;
+            Color.getColor().RESET;
 
         if (displayTitle) {
-            System.out.println(Color.ORANGE +"Hero " + getName() + ":" + Color.RESET);
+            System.out.println(Color.getColor().ORANGE +"Hero " + getName() + ":" + Color.getColor().RESET);
 
             String title =
                 "Name                       Type      Level        HP      MP    Strength    Dexterity    Agility   Money     Exp";
@@ -790,12 +790,12 @@ public abstract class Hero extends Character {
      */
     public void displayInfoInMarket(boolean displayTitle, int index) {
         String border =
-            Color.ORANGE +
+            Color.getColor().ORANGE +
             "-----------------------------------------------------" +
-            Color.RESET;
+            Color.getColor().RESET;
 
         if (displayTitle) {
-            System.out.println(Color.ORANGE +"Hero " + getName() + ":" + Color.RESET);
+            System.out.println(Color.getColor().ORANGE +"Hero " + getName() + ":" + Color.getColor().RESET);
 
             String title =
                 "Name                       Type        Level    Money";

@@ -12,10 +12,10 @@ public class Plain extends Tile {
     }
 
     public String getRowBound() {
-        return (Color.RESET + "P---P---P");
+        return (Color.getColor().RESET + "P---P---P");
     }
 
     public String getColBound() {
-        return (Color.RESET + "|");
+        return (Color.getColor().RESET + "|");
     }
 }

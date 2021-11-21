@@ -90,8 +90,8 @@ public abstract class Tile extends Cell implements Drawable {
         if (!getHeroOn() && !getMonsterOn()) return plainDraw();
 
         String body = "";
-        String hero = Color.BLUE + "H" + Color.RESET;
-        String monster = Color.WHITE + "M" + Color.RESET;
+        String hero = Color.getColor().BLUE + "H" + Color.getColor().RESET;
+        String monster = Color.getColor().WHITE + "M" + Color.getColor().RESET;
 
         if (getHeroOn() && getMonsterOn()) {
             body = getColBound() + " " + hero + "   " + monster + " " + getColBound();

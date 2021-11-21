@@ -25,15 +25,15 @@ public class LMHBoard extends Board {
      * Prints the meaning of icons on the board.
      */
     private void displayBoardInfo() {
-        StringBuilder bannerBorder = new StringBuilder(Color.PURPLE + "-");
+        StringBuilder bannerBorder = new StringBuilder(Color.getColor().PURPLE + "-");
         bannerBorder.append("---".repeat(Math.max(10, this.size)));
-        bannerBorder.append(Color.RESET);
+        bannerBorder.append(Color.getColor().RESET);
 
         System.out.println(bannerBorder);
-        System.out.println(Color.BLUE   + " [H] " + Color.RESET + "You");
-        System.out.println(Color.GREEN  + " [.] " + Color.RESET + "Accessible (might be dangerous)");
-        System.out.println(Color.ORANGE + " [M] " + Color.RESET + "Market");
-        System.out.println(Color.RED    + " [X] " + Color.RESET + "Inaccessible");
+        System.out.println(Color.getColor().BLUE   + " [H] " + Color.getColor().RESET + "You");
+        System.out.println(Color.getColor().GREEN  + " [.] " + Color.getColor().RESET + "Accessible (might be dangerous)");
+        System.out.println(Color.getColor().ORANGE + " [M] " + Color.getColor().RESET + "Market");
+        System.out.println(Color.getColor().RED    + " [X] " + Color.getColor().RESET + "Inaccessible");
         System.out.println(bannerBorder);
     }
 
@@ -41,20 +41,20 @@ public class LMHBoard extends Board {
      * Prints instructions on movement operations.
      */
     private void displayOperations() {
-        System.out.println(Color.PURPLE + "--------------------------------" + Color.RESET);
+        System.out.println(Color.getColor().PURPLE + "--------------------------------" + Color.getColor().RESET);
         System.out.println(               "           Operations           ");
-        System.out.println(Color.PURPLE + "--------------------------------" + Color.RESET);
+        System.out.println(Color.getColor().PURPLE + "--------------------------------" + Color.getColor().RESET);
 
-        System.out.println(Color.RED + "W/w" + Color.RESET + ": Up");
-        System.out.println(Color.RED + "A/a" + Color.RESET + ": Left");
+        System.out.println(Color.getColor().RED + "W/w" + Color.getColor().RESET + ": Up");
+        System.out.println(Color.getColor().RED + "A/a" + Color.getColor().RESET + ": Left");
 
-        System.out.println(Color.RED + "S/s" + Color.RESET + ": Down");
-        System.out.println(Color.RED + "D/d" + Color.RESET + ": Right");
+        System.out.println(Color.getColor().RED + "S/s" + Color.getColor().RESET + ": Down");
+        System.out.println(Color.getColor().RED + "D/d" + Color.getColor().RESET + ": Right");
 
-        System.out.println(Color.RED + "I/i" + Color.RESET + ": Show hero(es) info & Check inventory");
-        System.out.println(Color.RED + "Q/q" + Color.RESET + ": Quit");
+        System.out.println(Color.getColor().RED + "I/i" + Color.getColor().RESET + ": Show hero(es) info & Check inventory");
+        System.out.println(Color.getColor().RED + "Q/q" + Color.getColor().RESET + ": Quit");
 
-        System.out.println(Color.PURPLE + "--------------------------------" + Color.RESET);
+        System.out.println(Color.getColor().PURPLE + "--------------------------------" + Color.getColor().RESET);
     }
 
     /**
@@ -68,16 +68,16 @@ public class LMHBoard extends Board {
             for (int j = 0; j < size; j++) {
                 switch (board[i][j].toString()) {
                     case "H":
-                        System.out.printf(Color.BLUE + "[%s]" + Color.RESET, board[i][j]);
+                        System.out.printf(Color.getColor().BLUE + "[%s]" + Color.getColor().RESET, board[i][j]);
                         break;
                     case "X":
-                        System.out.printf(Color.RED + "[%s]" + Color.RESET, board[i][j]);
+                        System.out.printf(Color.getColor().RED + "[%s]" + Color.getColor().RESET, board[i][j]);
                         break;
                     case "M":
-                        System.out.printf(Color.ORANGE + "[%s]" + Color.RESET, board[i][j]);
+                        System.out.printf(Color.getColor().ORANGE + "[%s]" + Color.getColor().RESET, board[i][j]);
                         break;
                     case ".":
-                        System.out.printf(Color.GREEN + "[%s]" + Color.RESET, board[i][j]);
+                        System.out.printf(Color.getColor().GREEN + "[%s]" + Color.getColor().RESET, board[i][j]);
                         break;
                 }
             }

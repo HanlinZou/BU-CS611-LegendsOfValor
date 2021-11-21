@@ -47,7 +47,7 @@ public class Market {
             }
             br.close();
         } catch (IOException e) {
-            System.out.println(Color.RED + "Please enter the correct filepath");
+            System.out.println(Color.getColor().RED + "Please enter the correct filepath");
             e.printStackTrace();
         }
     }
@@ -69,7 +69,7 @@ public class Market {
             }
             br.close();
         } catch (IOException e) {
-            System.out.println(Color.RED + "Please enter the correct filepath");
+            System.out.println(Color.getColor().RED + "Please enter the correct filepath");
             e.printStackTrace();
         }
     }
@@ -91,7 +91,7 @@ public class Market {
             }
             br.close();
         } catch (IOException e) {
-            System.out.println(Color.RED + "Please enter the correct filepath");
+            System.out.println(Color.getColor().RED + "Please enter the correct filepath");
             e.printStackTrace();
         }
     }
@@ -135,7 +135,7 @@ public class Market {
             br2.close();
             br3.close();
         } catch (IOException e) {
-            System.out.println(Color.RED + "Please enter the correct filepath");
+            System.out.println(Color.getColor().RED + "Please enter the correct filepath");
             e.printStackTrace();
         }
     }
@@ -148,7 +148,7 @@ public class Market {
 
         String title = "Name                    Price    Required Level    Damage Reduction";
 
-        System.out.println(Color.CYAN + "Armors:" + Color.RESET);
+        System.out.println(Color.getColor().CYAN + "Armors:" + Color.getColor().RESET);
 
         System.out.print(border);
         System.out.println(title);
@@ -176,7 +176,7 @@ public class Market {
         String title =
             "Name                  Price    Required Level    Base Damage    Required Hands";
 
-        System.out.println(Color.CYAN + "Weapons:" + Color.RESET);
+        System.out.println(Color.getColor().CYAN + "Weapons:" + Color.getColor().RESET);
 
         System.out.print(border);
         System.out.println(title);
@@ -207,7 +207,7 @@ public class Market {
         String title =
             "Name                    Price    Required Level    Increased Amount    Affected Attr";
 
-        System.out.println(Color.CYAN + "Potions:" + Color.RESET);
+        System.out.println(Color.getColor().CYAN + "Potions:" + Color.getColor().RESET);
 
         System.out.print(border);
         System.out.println(title);
@@ -237,7 +237,7 @@ public class Market {
         String title =
             "Name                    Price    Required Level    Base Damage    Mana Cost    Spell Type";
 
-        System.out.println(Color.CYAN + "Spells:" + Color.RESET);
+        System.out.println(Color.getColor().CYAN + "Spells:" + Color.getColor().RESET);
 
         System.out.print(border);
         System.out.println(title);
@@ -260,9 +260,9 @@ public class Market {
     }
 
     private String getBorder() {
-        return Color.CYAN +
+        return Color.getColor().CYAN +
         "------------------------------------------------------------------------------------------" +
-        Color.RESET + "\n";
+        Color.getColor().RESET + "\n";
     }
 
     /**
@@ -273,8 +273,8 @@ public class Market {
         boolean leave = false;
 
         while (!leave) {
-            System.out.println(Color.YELLOW + "Welcome to PROFITEER's Store. ");
-            System.out.print(Color.YELLOW + "Do you want to buy or sell? 'B' to buy, 'S' to sell: ");
+            System.out.println(Color.getColor().YELLOW + "Welcome to PROFITEER's Store. ");
+            System.out.print(Color.getColor().YELLOW + "Do you want to buy or sell? 'B' to buy, 'S' to sell: ");
             String decision = sc.next();
 
             // if input is invalid, leave the store
@@ -284,7 +284,7 @@ public class Market {
                 sell(hero);
 
             // make sure player wants to leave
-            System.out.print(Color.YELLOW + "Are you done for this hero? 'N' = stay, any other keys = leave ");
+            System.out.print(Color.getColor().YELLOW + "Are you done for this hero? 'N' = stay, any other keys = leave ");
             decision = sc.next();
             if (!decision.equalsIgnoreCase("N"))
                 leave = true;
@@ -299,7 +299,7 @@ public class Market {
     public void purchase(Hero hero) {
         Scanner sc = new Scanner(System.in);
 
-        System.out.print(Color.GREEN + "1. Weapon\n2. Armor\n3. Potion\n4. Spell\n" +
+        System.out.print(Color.getColor().GREEN + "1. Weapon\n2. Armor\n3. Potion\n4. Spell\n" +
                 "Any other keys: I want to leave\nWhat do you want: ");
         String decision = sc.next();
         int itemNo;
@@ -308,13 +308,13 @@ public class Market {
             case "1":
                 displayWeapon();
 
-                System.out.print(Color.YELLOW + "Which one you want to buy: ");
+                System.out.print(Color.getColor().YELLOW + "Which one you want to buy: ");
                 decision = sc.next();
                 // validate input is valid
 
                 while(!decision.matches("[0-9]*") || Integer.parseInt(decision) < 1 ||
                         Integer.parseInt(decision) > weaponArrayList.size()) {
-                    System.out.print(Color.RED + "Your selection is invalid, try again: " + Color.RESET);
+                    System.out.print(Color.getColor().RED + "Your selection is invalid, try again: " + Color.getColor().RESET);
                     decision = sc.next();
                 }
                 itemNo = Integer.parseInt(decision) - 1;
@@ -324,20 +324,20 @@ public class Market {
                         hero.getMoney() >= weaponArrayList.get(itemNo).getCost()) {
                     hero.getStorage().add(weaponArrayList.get(itemNo));
                     hero.setMoney(hero.getMoney() - weaponArrayList.get(itemNo).getCost());
-                    System.out.println(Color.GREEN + "You successfully bought a weapon.");
+                    System.out.println(Color.getColor().GREEN + "You successfully bought a weapon.");
                 } else
-                    System.out.println(Color.RED + "You failed buying a weapon.");
+                    System.out.println(Color.getColor().RED + "You failed buying a weapon.");
                 break;
             case "2":
                 displayArmor();
 
-                System.out.print(Color.YELLOW + "Which one you want to buy: ");
+                System.out.print(Color.getColor().YELLOW + "Which one you want to buy: ");
                 decision = sc.next();
 
                 // validate input is valid
                 while(!decision.matches("[0-9]*") || Integer.parseInt(decision) < 1 ||
                         Integer.parseInt(decision) > armorArrayList.size()) {
-                    System.out.print(Color.RED + "Your selection is invalid, try again: " + Color.RESET);
+                    System.out.print(Color.getColor().RED + "Your selection is invalid, try again: " + Color.getColor().RESET);
                     decision = sc.next();
                 }
                 itemNo = Integer.parseInt(decision) - 1;
@@ -347,21 +347,21 @@ public class Market {
                         && hero.getMoney() >= armorArrayList.get(itemNo).getCost()) {
                     hero.getStorage().add(armorArrayList.get(itemNo));
                     hero.setMoney(hero.getMoney() - armorArrayList.get(itemNo).getCost());
-                    System.out.println(Color.GREEN + "You successfully bought an armor.");
+                    System.out.println(Color.getColor().GREEN + "You successfully bought an armor.");
                 } else
-                    System.out.println(Color.RED + "You failed buying an armor.");
+                    System.out.println(Color.getColor().RED + "You failed buying an armor.");
 
                 break;
             case "3":
                 displayPotion();
 
-                System.out.print(Color.YELLOW + "Which one you want to buy: ");
+                System.out.print(Color.getColor().YELLOW + "Which one you want to buy: ");
                 decision = sc.next();
 
                 // validate input is valid
                 while(!decision.matches("[0-9]*") || Integer.parseInt(decision) < 1 ||
                         Integer.parseInt(decision) > potionArrayList.size()) {
-                    System.out.print(Color.RED + "Your selection is invalid, try again: " + Color.RESET);
+                    System.out.print(Color.getColor().RED + "Your selection is invalid, try again: " + Color.getColor().RESET);
                     decision = sc.next();
                 }
                 itemNo = Integer.parseInt(decision) - 1;
@@ -371,20 +371,20 @@ public class Market {
                         && hero.getMoney() >= potionArrayList.get(itemNo).getCost()) {
                     hero.getStorage().add(potionArrayList.get(itemNo));
                     hero.setMoney(hero.getMoney() - potionArrayList.get(itemNo).getCost());
-                    System.out.println(Color.GREEN + "You successfully bought a potion.");
+                    System.out.println(Color.getColor().GREEN + "You successfully bought a potion.");
                 } else
-                    System.out.println(Color.RED + "You failed buying a potion.");
+                    System.out.println(Color.getColor().RED + "You failed buying a potion.");
                 break;
             case "4":
                 displaySpell();
 
-                System.out.print(Color.YELLOW + "Which one you want to buy: ");
+                System.out.print(Color.getColor().YELLOW + "Which one you want to buy: ");
                 decision = sc.next();
 
                 // validate input is valid
                 while(!decision.matches("[0-9]*") || Integer.parseInt(decision) < 1 ||
                         Integer.parseInt(decision) > spellArrayList.size()) {
-                    System.out.print(Color.RED + "Your selection is invalid, try again: " + Color.RESET);
+                    System.out.print(Color.getColor().RED + "Your selection is invalid, try again: " + Color.getColor().RESET);
                     decision = sc.next();
                 }
                 itemNo = Integer.parseInt(decision) - 1;
@@ -394,12 +394,12 @@ public class Market {
                         && hero.getMoney() >= spellArrayList.get(itemNo).getCost()) {
                     hero.getStorage().add(spellArrayList.get(itemNo));
                     hero.setMoney(hero.getMoney() - spellArrayList.get(itemNo).getCost());
-                    System.out.println(Color.GREEN + "You successfully bought a spell.");
+                    System.out.println(Color.getColor().GREEN + "You successfully bought a spell.");
                 } else
-                    System.out.println(Color.RED + "You failed buying a spell.");
+                    System.out.println(Color.getColor().RED + "You failed buying a spell.");
                 break;
             default:
-                System.out.println(Color.YELLOW + "Hmm, liar! You don't want to buy anything, do ya?");
+                System.out.println(Color.getColor().YELLOW + "Hmm, liar! You don't want to buy anything, do ya?");
             }
     }
 
@@ -413,15 +413,15 @@ public class Market {
 
         // display everything in this hero's inventory
         for (int i = 0; i < hero.getStorage().size(); i++)
-            System.out.println(Color.GREEN + (i + 1) + ". " + hero.getStorage().get(i));
+            System.out.println(Color.getColor().GREEN + (i + 1) + ". " + hero.getStorage().get(i));
 
         // if there's anything can sell
         if (hero.getStorage().size() != 0) {
-            System.out.print(Color.YELLOW + "Which item you want to sell?");
+            System.out.print(Color.getColor().YELLOW + "Which item you want to sell?");
             String decision = sc.next();
 
             while (!decision.matches("[0-9]*")) {
-                System.out.print(Color.RED + "Your selection is invalid, try again: " + Color.RESET);
+                System.out.print(Color.getColor().RED + "Your selection is invalid, try again: " + Color.getColor().RESET);
                 decision = sc.next();
             }
             int itemNo = Integer.parseInt(decision) - 1;
@@ -430,10 +430,10 @@ public class Market {
             if (itemNo >= 0 && itemNo < hero.getStorage().size()) {
                 hero.setMoney(hero.getMoney() + hero.getStorage().get(itemNo).getCost() / 2);
                 hero.getStorage().remove(itemNo);
-                System.out.println(Color.GREEN + "You successfully sold an item.");
+                System.out.println(Color.getColor().GREEN + "You successfully sold an item.");
             } else
-                System.out.println(Color.RED + "You failed to sell an item. Verify your item No.");
+                System.out.println(Color.getColor().RED + "You failed to sell an item. Verify your item No.");
         } else
-            System.out.println(Color.YELLOW + "Dude you have nothing to sell!");
+            System.out.println(Color.getColor().YELLOW + "Dude you have nothing to sell!");
     }
 }

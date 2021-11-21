@@ -16,7 +16,7 @@ public class LoV_Logic {
     public void prep() {
         Scanner sc = new Scanner(System.in);
 
-        System.out.print(Color.YELLOW + "I need your name first: " + Color.RESET);
+        System.out.print(Color.getColor().YELLOW + "I need your name first: " + Color.getColor().RESET);
         String pName = sc.next();
 
         this.player = new LMHPlayer(pName);
@@ -72,7 +72,7 @@ public class LoV_Logic {
                 }
 
                 board.displayBoard();
-                System.out.print(Color.YELLOW + "Hero No." + (i + 1) + ", " +
+                System.out.print(Color.getColor().YELLOW + "Hero No." + (i + 1) + ", " +
                     player.heroArrayList.get(i).getName() + ". Pick a move: ");
                 playerChoice = sc.next();
 
@@ -82,7 +82,7 @@ public class LoV_Logic {
                     if (!playerMove(hero, playerChoice)) i--;  // failed to move
                     if (hero.x == 0){
                         board.displayBoard();
-                        System.out.println(Color.ORANGE + "Heroes won!" + Color.RESET);
+                        System.out.println(Color.getColor().ORANGE + "Heroes won!" + Color.getColor().RESET);
                         playerChoice = "Q";
                         break;
                     }
@@ -94,7 +94,7 @@ public class LoV_Logic {
                 // or wants to see information and inventory
                 else if (playerChoice.equalsIgnoreCase("I")) {
                     player.displayInfoNotInFight();
-                    System.out.print(Color.YELLOW + "Do you want to switch your weapon/armor, " +
+                    System.out.print(Color.getColor().YELLOW + "Do you want to switch your weapon/armor, " +
                         "use potions, or learn a spell? Input \"Y\" to operate: ");
                     String ans = sc.next();
                     if (ans.equalsIgnoreCase("Y"))
@@ -109,7 +109,7 @@ public class LoV_Logic {
                 }
                 else if (!playerChoice.equalsIgnoreCase("Q")){
                     // Invalid action
-                    System.out.println(Color.RED + "Invalid action, please re-enter it." + Color.RESET);
+                    System.out.println(Color.getColor().RED + "Invalid action, please re-enter it." + Color.getColor().RESET);
                     i--;
                 }
                 else
@@ -118,7 +118,7 @@ public class LoV_Logic {
             monsterTime();
             numRound++;
         } while(!playerChoice.equalsIgnoreCase("Q"));
-        System.out.println(Color.RESET + "Goodbye. " + player.getPlayerName());
+        System.out.println(Color.getColor().RESET + "Goodbye. " + player.getPlayerName());
     }
 
     /**
@@ -184,7 +184,7 @@ public class LoV_Logic {
     public void nexusOp(int heroIndex){
         Scanner sc = new Scanner(System.in);
         String decision;
-        System.out.print(Color.YELLOW + "Hero No." + (heroIndex+1) + ", " +
+        System.out.print(Color.getColor().YELLOW + "Hero No." + (heroIndex+1) + ", " +
             player.heroArrayList.get(heroIndex).getName() + ". You're at Nexus, input \"Y\" to buy/sell: ");
         decision = sc.next();
 
@@ -195,7 +195,7 @@ public class LoV_Logic {
                 player.displayInfoInMarket();
                 market.shopping(player.heroArrayList.get(heroIndex));
                 // make sure player wants to leave
-                System.out.print(Color.YELLOW + "Are you done shopping? 'N' = stay, any other keys = leave ");
+                System.out.print(Color.getColor().YELLOW + "Are you done shopping? 'N' = stay, any other keys = leave ");
                 decision = sc.next();
                 if (!decision.equalsIgnoreCase("N"))
                     leave = true;
@@ -217,7 +217,7 @@ public class LoV_Logic {
             (direction.equalsIgnoreCase("S") && (hero.x + 1 >= board.getNumColumn()))
         ) {
             // Go outside the map
-            System.out.println(Color.RED + "Your can't go outside the map, please re-enter your move: " + Color.RESET);
+            System.out.println(Color.getColor().RED + "Your can't go outside the map, please re-enter your move: " + Color.getColor().RESET);
             return false;
         } else if (
             (direction.equalsIgnoreCase("A") && (board.getTile(hero.x, hero.y - 1) instanceof Inaccessible)) ||
@@ -226,7 +226,7 @@ public class LoV_Logic {
             (direction.equalsIgnoreCase("S") && (board.getTile(hero.x + 1, hero.y) instanceof Inaccessible))
         ) {
             // Move to Inaccessible Cell
-            System.out.println(Color.RED + "Inaccessible, please re-enter your move: " + Color.RESET);
+            System.out.println(Color.getColor().RED + "Inaccessible, please re-enter your move: " + Color.getColor().RESET);
             return false;
         }
 
@@ -237,31 +237,31 @@ public class LoV_Logic {
             //hero at left tile and there's a monster at right tile or at same tile
             if(fromY % 3 == 0 &&
                 (board.getTile(fromX, fromY).getMonsterOn() || board.getTile(fromX, fromY + 1).getMonsterOn())) {
-                System.out.println(Color.RED + "Kill the monster first, please re-enter your move: " + Color.RESET);
+                System.out.println(Color.getColor().RED + "Kill the monster first, please re-enter your move: " + Color.getColor().RESET);
                 return false;
             }
             //hero at right tile and there's a monster at left tile or at same tile
             else if(fromY % 3 != 0 &&
                 (board.getTile(fromX, fromY).getMonsterOn() || board.getTile(fromX, fromY - 1).getMonsterOn())) {
-                System.out.println(Color.RED + "Kill the monster first, please re-enter your move: " + Color.RESET);
+                System.out.println(Color.getColor().RED + "Kill the monster first, please re-enter your move: " + Color.getColor().RESET);
                 return false;
             }
             // avoid two heroes at same tile
             if(board.getTile(fromX - 1, fromY).getHeroOn()){
-                System.out.println(Color.RED + "A hero in front of you, please re-enter your move: " + Color.RESET);
+                System.out.println(Color.getColor().RED + "A hero in front of you, please re-enter your move: " + Color.getColor().RESET);
                 return false;
             }
         }
         else if (direction.equalsIgnoreCase("S") && board.getTile(fromX + 1, fromY).getHeroOn()) {
-            System.out.println(Color.RED + "A hero is behind you, please re-enter your move: " + Color.RESET);
+            System.out.println(Color.getColor().RED + "A hero is behind you, please re-enter your move: " + Color.getColor().RESET);
             return false;
         }
         else if (direction.equalsIgnoreCase("A") && board.getTile(fromX, fromY - 1).getHeroOn()) {
-            System.out.println(Color.RED + "A hero is on your left, please re-enter your move: " + Color.RESET);
+            System.out.println(Color.getColor().RED + "A hero is on your left, please re-enter your move: " + Color.getColor().RESET);
             return false;
         }
         else if (direction.equalsIgnoreCase("D") && board.getTile(fromX, fromY + 1).getHeroOn()) {
-            System.out.println(Color.RED + "A hero is on your right, please re-enter your move: " + Color.RESET);
+            System.out.println(Color.getColor().RED + "A hero is on your right, please re-enter your move: " + Color.getColor().RESET);
             return false;
         }
 
@@ -312,15 +312,15 @@ public class LoV_Logic {
             (laneIndex.equals("2") && board.getTile(7, 3).getHeroOn() && board.getTile(7, 4).getHeroOn()) ||
             (laneIndex.equals("3") && board.getTile(7, 6).getHeroOn() && board.getTile(7, 7).getHeroOn())) {
             if (!laneIndex.matches("^[1-4]$"))
-                System.out.print(Color.RED + "Your selection is invalid, try again: " + Color.RESET);
+                System.out.print(Color.getColor().RED + "Your selection is invalid, try again: " + Color.getColor().RESET);
             else if(laneIndex.equals("1") && board.getTile(7, 0).getHeroOn() && board.getTile(7, 1).getHeroOn()){
-                System.out.print(Color.RED + "Top lane's Nexus if full, try again: " + Color.RESET);
+                System.out.print(Color.getColor().RED + "Top lane's Nexus if full, try again: " + Color.getColor().RESET);
             }
             else if(laneIndex.equals("2") && board.getTile(7, 3).getHeroOn() && board.getTile(7, 4).getHeroOn()){
-                System.out.print(Color.RED + "Mid lane's Nexus if full, try again: " + Color.RESET);
+                System.out.print(Color.getColor().RED + "Mid lane's Nexus if full, try again: " + Color.getColor().RESET);
             }
             else if(laneIndex.equals("3") && board.getTile(7, 6).getHeroOn() && board.getTile(7, 7).getHeroOn()){
-                System.out.print(Color.RED + "Bot lane's Nexus if full, try again: " + Color.RESET);
+                System.out.print(Color.getColor().RED + "Bot lane's Nexus if full, try again: " + Color.getColor().RESET);
             }
             laneIndex = sc.next();
         }
@@ -435,15 +435,15 @@ public class LoV_Logic {
         }
 
         if (monster == null) {
-            System.out.println(Color.RED + "You have no target to initiate a fight. ");
+            System.out.println(Color.getColor().RED + "You have no target to initiate a fight. ");
             return false;
         }
 
         Scanner sc = new Scanner(System.in);
-        System.out.print(Color.YELLOW + "Do you want to regular attack or cast a spell? 1. regular 2. spell ");
+        System.out.print(Color.getColor().YELLOW + "Do you want to regular attack or cast a spell? 1. regular 2. spell ");
         String decision = sc.next();
         while (!decision.matches("^[1-2]$")) {
-            System.out.print(Color.RED + "Your selection is invalid, try again: " + Color.RESET);
+            System.out.print(Color.getColor().RED + "Your selection is invalid, try again: " + Color.getColor().RESET);
             decision = sc.next();
         }
         switch (decision){
@@ -454,7 +454,7 @@ public class LoV_Logic {
                 // check whether the monster is dead
                 if (monster.getCurrentHP() <= 0) {
                     //if yes, award the hero and remove the dead monster from list
-                    System.out.println(Color.GREEN + hero.getName() + " just killed " + monster.getName());
+                    System.out.println(Color.getColor().GREEN + hero.getName() + " just killed " + monster.getName());
                     hero.win();
                     board.getTile(monster.getX(), monster.getY()).setMonsterOn(false);
                     monsterArrayList.remove(monsterIndex);
@@ -465,14 +465,14 @@ public class LoV_Logic {
                 if (hero.getLearnedSpell().size() > 0)
                     hero.castSpell(monster);
                 else {
-                    System.out.println(Color.RED + "There is a monster but you haven't learned any spell, retry.");
+                    System.out.println(Color.getColor().RED + "There is a monster but you haven't learned any spell, retry.");
                     return false;
                 }
 
                 // check whether the monster is dead
                 if (monster.getCurrentHP() <= 0) {
                     //if yes, award the hero and remove the dead monster from list
-                    System.out.println(Color.GREEN + hero.getName() + " just killed " + monster.getName());
+                    System.out.println(Color.getColor().GREEN + hero.getName() + " just killed " + monster.getName());
                     hero.win();
                     board.getTile(monster.getX(), monster.getY()).setMonsterOn(false);
                     monsterArrayList.remove(monsterIndex);
@@ -532,7 +532,7 @@ public class LoV_Logic {
         // check if any hero died
         for (int k = 0; k < player.heroArrayList.size(); k++) {
             if (player.heroArrayList.get(k).getCurrentHP() <= 0) {
-                System.out.println(Color.RED + player.heroArrayList.get(k).getName() + " died during the fight.");
+                System.out.println(Color.getColor().RED + player.heroArrayList.get(k).getName() + " died during the fight.");
                 //revive and punish
                 player.heroArrayList.get(k).lose();
                 //remove old position

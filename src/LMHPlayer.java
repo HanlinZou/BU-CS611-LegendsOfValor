@@ -41,12 +41,12 @@ public class LMHPlayer extends Player {
     public void displayInfoInFight() {
         if (heroArrayList.isEmpty()) return;
 
-        System.out.println(Color.ORANGE +"Heroes: " + Color.RESET);
+        System.out.println(Color.getColor().ORANGE +"Heroes: " + Color.getColor().RESET);
 
         String border =
-            Color.ORANGE +
+            Color.getColor().ORANGE +
             "-----------------------------------------------------------------------------------------------------" +
-            Color.RESET;
+            Color.getColor().RESET;
 
         String title =
             "Name                       Type        Level    HP        MP        Equipped Weapon    Equipped Armor";
@@ -68,12 +68,12 @@ public class LMHPlayer extends Player {
     public void displayInfoNotInFight() {
         if (heroArrayList.isEmpty()) return;
 
-        System.out.println(Color.ORANGE +"Heroes: " + Color.RESET);
+        System.out.println(Color.getColor().ORANGE +"Heroes: " + Color.getColor().RESET);
 
         String border =
-            Color.ORANGE +
+            Color.getColor().ORANGE +
             "----------------------------------------------------------------------------------------------------------------" +
-            Color.RESET;
+            Color.getColor().RESET;
 
         String title =
             "Name                       Type      Level        HP      MP    Strength    Dexterity    Agility   Money     Exp";
@@ -97,9 +97,9 @@ public class LMHPlayer extends Player {
         if (heroArrayList.isEmpty()) return;
 
         String border =
-            Color.ORANGE +
+            Color.getColor().ORANGE +
             "-----------------------------------------------------" +
-            Color.RESET;
+            Color.getColor().RESET;
 
         String title =
             "Name                       Type        Level    Money";

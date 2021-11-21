@@ -12,11 +12,11 @@ public class Koulou extends BuffTile {
     }
 
     public String getRowBound() {
-        return (Color.PURPLE + "K---K---K" + Color.RESET);
+        return (Color.getColor().PURPLE + "K---K---K" + Color.getColor().RESET);
     }
 
     public String getColBound() {
-        return (Color.PURPLE + "|" + Color.RESET);
+        return (Color.getColor().PURPLE + "|" + Color.getColor().RESET);
     }
 
     /**
@@ -31,8 +31,8 @@ public class Koulou extends BuffTile {
         hero.setBuffAmt((int) (hero.getStrength() * getBuff()));
         hero.setStrength(hero.getStrength() + hero.getBuffAmt());
         System.out.println(
-            Color.RED + "Koulou Buff: hero " + hero.getName() + "'s strength increase " + getBuff() + ", " +
-            "now is " + hero.getStrength() + "." + Color.RESET
+            Color.getColor().RED + "Koulou Buff: hero " + hero.getName() + "'s strength increase " + getBuff() + ", " +
+            "now is " + hero.getStrength() + "." + Color.getColor().RESET
         );
     }
 
@@ -49,7 +49,7 @@ public class Koulou extends BuffTile {
         hero.setBuffType("");
         hero.setBuffAmt(0);
         System.out.println(
-            Color.RED + "Koulou Buff removed: hero " + hero.getName() + "'s strength return to " + hero.getStrength() + "." + Color.RESET
+            Color.getColor().RED + "Koulou Buff removed: hero " + hero.getName() + "'s strength return to " + hero.getStrength() + "." + Color.getColor().RESET
         );
     }
 }

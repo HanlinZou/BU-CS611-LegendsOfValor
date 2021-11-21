@@ -121,6 +121,9 @@ Class HeroCreation serves as a builder, so that the construction of Hero objects
 ---------------------------------
 Class Bush, Cave and Koulou uses facade pattern to provide a simple interface for adding/removing buff to/from Heroes, masking complex adding/removing steps.
 
+5. Singleton Pattern
+---------------------------------
+Ensures that Color class has only one instance, and provides a global point of access to it
 
 
 Bonus

@@ -156,12 +156,12 @@ public abstract class Character implements Fight {
         // check whether the attack is dodged
         boolean isHit = Math.random() > opponent.probDodge();
         if (isHit) {
-            String color = (opponent instanceof Hero) ? Color.RED : Color.BLUE;
+            String color = (opponent instanceof Hero) ? Color.getColor().RED : Color.getColor().BLUE;
             System.out.println(color + getName() + " attacked and dealt " + damageRes
-                + " points of damage to " + opponent.getName() + Color.RESET);
+                + " points of damage to " + opponent.getName() + Color.getColor().RESET);
             opponent.setCurrentHP(opponent.getCurrentHP() - damageRes);
         } else {
-            System.out.println(Color.GREY + "Unfortunately " + getName() + " missed." + Color.RESET);
+            System.out.println(Color.getColor().GREY + "Unfortunately " + getName() + " missed." + Color.getColor().RESET);
         }
     }
 

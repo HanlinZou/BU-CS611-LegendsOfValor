@@ -10,10 +10,10 @@ public class Nexus extends Tile {
     }
 
     public String getRowBound() {
-        return (Color.CYAN + "N---N---N" + Color.RESET);
+        return (Color.getColor().CYAN + "N---N---N" + Color.getColor().RESET);
     }
 
     public String getColBound() {
-        return (Color.CYAN + "|" + Color.RESET);
+        return (Color.getColor().CYAN + "|" + Color.getColor().RESET);
     }
 }

@@ -16,7 +16,7 @@ public class Game {
                 "What kind of game you want to play? (Pick 1 now that's all we got!) ");
         String gameChoice = sc.next();
         while (!gameChoice.matches("^[1-3]$")) {
-            System.out.print(Color.RED + "Your selection is invalid, try again: " + Color.RESET);
+            System.out.print(Color.getColor().RED + "Your selection is invalid, try again: " + Color.getColor().RESET);
             gameChoice = sc.next();
         }
 

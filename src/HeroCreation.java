@@ -25,13 +25,13 @@ public class HeroCreation {
 
         for (int i = 1; i <= numHeroes; i++) {
             // prompt user the position and specific hero to generate
-            System.out.println("Select your No." + Color.RED + i + Color.RESET + " hero:");
-            System.out.println(Color.GREEN + "1. Warriors  2. Sorcerers  3. Paladins" + Color.RESET);
-            System.out.print(Color.YELLOW + "What position will your No." + i + " hero to be: " + Color.RESET);
+            System.out.println("Select your No." + Color.getColor().RED + i + Color.getColor().RESET + " hero:");
+            System.out.println(Color.getColor().GREEN + "1. Warriors  2. Sorcerers  3. Paladins" + Color.getColor().RESET);
+            System.out.print(Color.getColor().YELLOW + "What position will your No." + i + " hero to be: " + Color.getColor().RESET);
             String posChoice = sc.next();
 
             while (!posChoice.matches("^[1-3]$")) {
-                System.out.print(Color.RED + "Your selection is invalid, try again: " + Color.RESET);
+                System.out.print(Color.getColor().RED + "Your selection is invalid, try again: " + Color.getColor().RESET);
                 posChoice = sc.next();
             }
 
@@ -70,22 +70,22 @@ public class HeroCreation {
         else
             chl.displayPaladin();
 
-        System.out.print(Color.YELLOW + "Pick your favorite one: " + Color.RESET);
+        System.out.print(Color.getColor().YELLOW + "Pick your favorite one: " + Color.getColor().RESET);
         String heroChoice = sc.next();
 
         // after get the result, we verify if it's valid
         while(posChoice.equals("1") && !checkIntInput(heroChoice, 1, chl.warriorArrayList.size())) {
-            System.out.print(Color.RED + "Your selection is invalid, try again: " + Color.RESET);
+            System.out.print(Color.getColor().RED + "Your selection is invalid, try again: " + Color.getColor().RESET);
             heroChoice = sc.next();
         }
 
         while(posChoice.equals("2") && !checkIntInput(heroChoice, 1, chl.sorcererArrayList.size())) {
-            System.out.print(Color.RED + "Your selection is invalid, try again: " + Color.RESET);
+            System.out.print(Color.getColor().RED + "Your selection is invalid, try again: " + Color.getColor().RESET);
             heroChoice = sc.next();
         }
 
         while(posChoice.equals("3") && !checkIntInput(heroChoice, 1, chl.paladinArrayList.size())) {
-            System.out.print(Color.RED + "Your selection is invalid, try again: " + Color.RESET);
+            System.out.print(Color.getColor().RED + "Your selection is invalid, try again: " + Color.getColor().RESET);
             heroChoice = sc.next();
         }
 

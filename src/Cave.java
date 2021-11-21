@@ -12,11 +12,11 @@ public class Cave extends BuffTile {
     }
 
     public String getRowBound() {
-        return (Color.ORANGE + "C---C---C" + Color.RESET);
+        return (Color.getColor().ORANGE + "C---C---C" + Color.getColor().RESET);
     }
 
     public String getColBound() {
-        return (Color.ORANGE + "|" + Color.RESET);
+        return (Color.getColor().ORANGE + "|" + Color.getColor().RESET);
     }
 
     /**
@@ -31,8 +31,8 @@ public class Cave extends BuffTile {
         hero.setBuffAmt((int) (hero.getAgility() * getBuff()));
         hero.setAgility(hero.getAgility() + hero.getBuffAmt());
         System.out.println(
-            Color.RED + "Cave Buff: hero " + hero.getName() + "'s agility increase " + getBuff() + ", " +
-            "now is " + hero.getAgility() + "." + Color.RESET
+            Color.getColor().RED + "Cave Buff: hero " + hero.getName() + "'s agility increase " + getBuff() + ", " +
+            "now is " + hero.getAgility() + "." + Color.getColor().RESET
         );
     }
 
@@ -49,7 +49,7 @@ public class Cave extends BuffTile {
         hero.setBuffType("");
         hero.setBuffAmt(0);
         System.out.println(
-            Color.RED + "Cave Buff removed: hero " + hero.getName() + "'s agility return to " + hero.getAgility() + "." + Color.RESET
+            Color.getColor().RED + "Cave Buff removed: hero " + hero.getName() + "'s agility return to " + hero.getAgility() + "." + Color.getColor().RESET
         );
     }
 }

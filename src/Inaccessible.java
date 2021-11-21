@@ -10,18 +10,18 @@ public class Inaccessible extends Tile {
     }
 
     public String getRowBound() {
-        return (Color.RED + "IxxxIxxxI" + Color.RESET);
+        return (Color.getColor().RED + "IxxxIxxxI" + Color.getColor().RESET);
     }
 
     public String getColBound() {
-        return (Color.RED + "|" + Color.RESET);
+        return (Color.getColor().RED + "|" + Color.getColor().RESET);
     }
 
     @Override
     public String plainDraw() {
         return
             getRowBound() + "\n" +
-            Color.RED + "| X X X |" + Color.RESET + "\n" +
+            Color.getColor().RED + "| X X X |" + Color.getColor().RESET + "\n" +
             getRowBound();
     }
 

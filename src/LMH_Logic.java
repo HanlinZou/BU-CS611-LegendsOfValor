@@ -33,7 +33,7 @@ public class LMH_Logic {
     public void prep() {
         Scanner sc = new Scanner(System.in);
 
-        System.out.print(Color.YELLOW + "I need your name first: " + Color.RESET);
+        System.out.print(Color.getColor().YELLOW + "I need your name first: " + Color.getColor().RESET);
         String pName = sc.next();
 
         this.player = new LMHPlayer(pName);
@@ -42,10 +42,10 @@ public class LMH_Logic {
         this.board = new LMHBoard(8);
         this.board.setBoard();
 
-        System.out.print(Color.YELLOW + "How many heroes would you like? (1-3) " + Color.RESET);
+        System.out.print(Color.getColor().YELLOW + "How many heroes would you like? (1-3) " + Color.getColor().RESET);
         String heroNum = sc.next();
         while(!heroNum.matches("^[1-3]$")){
-            System.out.print(Color.RED + "Your selection is invalid, try again: " + Color.RESET);
+            System.out.print(Color.getColor().RED + "Your selection is invalid, try again: " + Color.getColor().RESET);
             heroNum = sc.next();
         }
         // create heroes
@@ -77,7 +77,7 @@ public class LMH_Logic {
                 // or wants to see information and inventory
             else if (playerChoice.equalsIgnoreCase("I")) {
                 player.displayInfoNotInFight();
-                System.out.print(Color.YELLOW + "Do you want to switch your weapon/armor, " +
+                System.out.print(Color.getColor().YELLOW + "Do you want to switch your weapon/armor, " +
                     "use potions, or learn a spell? Input \"Y\" to operate: ");
                 String ans = sc.next();
                 if (ans.equalsIgnoreCase("Y")) {
@@ -86,7 +86,7 @@ public class LMH_Logic {
                 }
             }
         } while(!playerChoice.equalsIgnoreCase("Q"));
-        System.out.println(Color.RESET + "Goodbye. " + player.getPlayerName());
+        System.out.println(Color.getColor().RESET + "Goodbye. " + player.getPlayerName());
     }
 
     /**
@@ -138,13 +138,13 @@ public class LMH_Logic {
         else {
             Scanner sc = new Scanner(System.in);
             String decision;
-            System.out.print(Color.YELLOW + "You've arrived a market, input \"Y\" to buy/sell: ");
+            System.out.print(Color.getColor().YELLOW + "You've arrived a market, input \"Y\" to buy/sell: ");
             decision = sc.next();
 
             if(decision.equalsIgnoreCase("Y")) {
                 boolean leave = false;
                 while (!leave){
-                    System.out.println(Color.YELLOW + "Which hero you want to operate, any other keys to leave:");
+                    System.out.println(Color.getColor().YELLOW + "Which hero you want to operate, any other keys to leave:");
 
                     // display all heroes' names, levels, and money
                     player.displayInfoInMarket();
@@ -157,7 +157,7 @@ public class LMH_Logic {
                         break;
                     market.shopping(player.heroArrayList.get(Integer.parseInt(heroNo) - 1));
                     // make sure player wants to leave
-                    System.out.print(Color.YELLOW + "Are you done shopping? 'N' = stay, any other keys = leave ");
+                    System.out.print(Color.getColor().YELLOW + "Are you done shopping? 'N' = stay, any other keys = leave ");
                     decision = sc.next();
                     if(!decision.equalsIgnoreCase("N"))
                         leave = true;
@@ -172,11 +172,11 @@ public class LMH_Logic {
     private void displayMonsters() {
         if (monsterArrayList.isEmpty()) return;
 
-        System.out.println(Color.PURPLE + "Monsters: " + Color.RESET);
+        System.out.println(Color.getColor().PURPLE + "Monsters: " + Color.getColor().RESET);
 
-        String border = Color.PURPLE +
+        String border = Color.getColor().PURPLE +
             "-------------------------------------------------------------------" +
-            Color.RESET;
+            Color.getColor().RESET;
 
         System.out.println(border);
         System.out.println("Name                       Level    HP        Damage    Defense");
@@ -195,7 +195,7 @@ public class LMH_Logic {
      */
     public void fight() {
         Scanner sc = new Scanner(System.in);
-        System.out.println(Color.BLACK + "You encountered (a) monster(s), kill them.");
+        System.out.println(Color.getColor().BLACK + "You encountered (a) monster(s), kill them.");
 
         // generate exact number of monsters as heroes
         int monsterNum = player.heroArrayList.size();
@@ -258,11 +258,11 @@ public class LMH_Logic {
                 for (int i = 0; i < player.heroArrayList.size(); ++i) {
                     if (player.heroArrayList.get(i).getCurrentHP() > 0) {
                         // if current hero hasn't died, ask player to pick an action
-                        System.out.println(Color.GREEN + player.heroArrayList.get(i).getName() +
+                        System.out.println(Color.getColor().GREEN + player.heroArrayList.get(i).getName() +
                             ", your turn:\n1. Regular Attack\n2. Cast a spell\n3. Take a potion/Switch equipments");
                         String decision = sc.next();
                         while (!decision.matches("^[1-3]$")) {
-                            System.out.print(Color.RED + "Your selection is invalid, try again: " + Color.RESET);
+                            System.out.print(Color.getColor().RED + "Your selection is invalid, try again: " + Color.getColor().RESET);
                             decision = sc.next();
                         }
                         switch (decision) {
@@ -278,7 +278,7 @@ public class LMH_Logic {
                                 // check whether the monster is dead
                                 if (monsterArrayList.get(targetNo).getCurrentHP() <= 0) {
                                     //if yes, decrease monster number and remove the dead monster from list
-                                    System.out.println(Color.GREEN + player.heroArrayList.get(i).getName() +
+                                    System.out.println(Color.getColor().GREEN + player.heroArrayList.get(i).getName() +
                                         " just killed " + monsterArrayList.get(targetNo).getName());
                                     monsterNum--;
                                     monsterArrayList.remove(targetNo);
@@ -294,14 +294,14 @@ public class LMH_Logic {
                                 if (player.heroArrayList.get(i).getLearnedSpell().size() > 0)
                                     player.heroArrayList.get(i).castSpell(monsterArrayList.get(targetNo));
                                 else {
-                                    System.out.println(Color.RED + "You haven't learned a spell, retry.");
+                                    System.out.println(Color.getColor().RED + "You haven't learned a spell, retry.");
                                     i--;
                                 }
 
                                 // check whether the monster is dead
                                 if (monsterArrayList.get(targetNo).getCurrentHP() <= 0) {
                                     //if yes, decrease monster number and remove the dead monster from list
-                                    System.out.println(Color.GREEN + player.heroArrayList.get(i).getName() +
+                                    System.out.println(Color.getColor().GREEN + player.heroArrayList.get(i).getName() +
                                         " just killed " + monsterArrayList.get(targetNo).getName());
                                     monsterNum--;
                                     monsterArrayList.remove(targetNo);
@@ -345,7 +345,7 @@ public class LMH_Logic {
 
         // all heroes died
         if(aliveHero == 0){
-            System.out.println(Color.RED + "You lost the fight, all heroes lost half their money.");
+            System.out.println(Color.getColor().RED + "You lost the fight, all heroes lost half their money.");
             for(int i = 0; i < player.heroArrayList.size(); i++)
                 player.heroArrayList.get(i).lose();
         }
@@ -354,7 +354,7 @@ public class LMH_Logic {
             for(int i = 0; i < player.heroArrayList.size(); i++){
                 //reward each hero based on if it's alive
                 if(player.heroArrayList.get(i).currentHP > 0){
-                    System.out.println(Color.GREEN + player.heroArrayList.get(i).getName() +
+                    System.out.println(Color.getColor().GREEN + player.heroArrayList.get(i).getName() +
                         ", your survival will be rewarded!");
                     player.heroArrayList.get(i).win();
 
@@ -363,7 +363,7 @@ public class LMH_Logic {
                         player.heroArrayList.get(i).LVUP();
                 }
                 else{
-                    System.out.println(Color.GREEN + player.heroArrayList.get(i).getName() +
+                    System.out.println(Color.getColor().GREEN + player.heroArrayList.get(i).getName() +
                         ", you're revived by your friends");
                     player.heroArrayList.get(i).revive();
                 }
