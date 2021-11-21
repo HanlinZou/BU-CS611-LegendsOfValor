@@ -68,3 +68,34 @@ Items
 Utils
 ---------------------------------
 49. Color.java: A static utility class providing ASCI color code.
+
+
+
+Design Patterns
+================================
+
+1. Template Pattern
+---------------------------------
+We defined sketelons for Characters, Items and Map Cells, and implements the details in subclasses.
+
+2. Factory Pattern
+---------------------------------
+We used factory methods for creating LoV map cells easily, see CellFactory.java.
+
+3. Builder Pattern
+---------------------------------
+Class HeroCreation serves as a builder, so that the construction of Hero objects is seperated from their representation and we can get a created Hero object method easily.
+
+4. Facade Pattern
+---------------------------------
+Class Bush, Cave and Koulou uses facade pattern to provide a simple interface for adding/removing buff to/from Heroes, masking complex adding/removing steps.
+
+
+
+Design Patterns
+================================
+1. We designed and implemented a colorful and fancy terminal UI.
+2. We provided a natural and smooth user experience.
+3. We used meaningful and suitable design patterns in this project to improve the OOD.
+4. The input is getting parsed from the input files and is not harcoded.
+5. We wrote detailed comments following the practice of Javadoc.
