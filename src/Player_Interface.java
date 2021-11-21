@@ -16,5 +16,4 @@ public interface Player_Interface {
     int getTeamId();
 
     String toString();
-
 }

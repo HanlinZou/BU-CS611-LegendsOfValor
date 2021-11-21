@@ -1,5 +1,5 @@
 /**
- * Exoskeleton class maintains information and actions for a Paladin hero.
+ * Paladin class maintains information and actions for a Paladin hero.
  */
 
 public class Paladin extends Hero {

@@ -1,5 +1,7 @@
+/**
+ * Defines interfaces for all equipable items.
+ */
 
-public interface Equipable 
-{
+public interface Equipable {
 	boolean equipable(int hero_level);
 }
