@@ -1,3 +1,34 @@
+Authors
+================================
+
+- Name: Hanlin Zou
+  Email: hzou7@bu.edu
+  BU ID: U96634471
+
+- Name: Xiansong Li
+  Email: xiansong@bu.edu
+  BU ID: ??????????
+
+- Name: Xiaohan Zou
+  Email: zxh@bu.edu
+  BU ID: U18269004
+
+
+Environments
+================================
+
+Tested on Windows and macOS Big Sur.
+
+
+
+Compilation Instructions
+================================
+
+> javac *.java
+> java Main
+
+
+
 Class Description
 ================================
 
@@ -92,7 +123,7 @@ Class Bush, Cave and Koulou uses facade pattern to provide a simple interface fo
 
 
 
-Design Patterns
+Bonus
 ================================
 1. We designed and implemented a colorful and fancy terminal UI.
 2. We provided a natural and smooth user experience.
